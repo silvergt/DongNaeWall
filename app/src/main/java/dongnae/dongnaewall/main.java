@@ -156,6 +156,8 @@ public class main extends AppCompatActivity {
     static int displayWidth;
     LayoutInflater MainInflater;
 
+    //silvergt04
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

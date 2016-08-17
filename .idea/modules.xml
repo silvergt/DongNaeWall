@@ -3,8 +3,12 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DongNaeWall.iml" filepath="$PROJECT_DIR$/DongNaeWall.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DongNaeWall_2.iml" filepath="$PROJECT_DIR$/DongNaeWall_2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/picasso-2.5.2/picasso-2.5.2.iml" filepath="$PROJECT_DIR$/picasso-2.5.2/picasso-2.5.2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/picasso-2.5.2/picasso-2.5.2.iml" filepath="$PROJECT_DIR$/picasso-2.5.2/picasso-2.5.2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/prep/prep.iml" filepath="$PROJECT_DIR$/prep/prep.iml" />
       <module fileurl="file://$PROJECT_DIR$/prep/prep.iml" filepath="$PROJECT_DIR$/prep/prep.iml" />
     </modules>
   </component>
