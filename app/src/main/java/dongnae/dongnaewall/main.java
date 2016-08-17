@@ -98,7 +98,6 @@ class contentAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        //dong wook poop
         return count;
         //return posterList.size();
     }
