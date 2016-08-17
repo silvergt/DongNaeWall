@@ -68,6 +68,7 @@ class contentAdapter extends BaseAdapter {
                 if(posters==null){
                     Log.e("Log","NO SERVER RECEIVED POSTERS!");
                 }else if(posters.size()!=0) {
+                    Log.v("Log","received");
                     posterList.addAll(posters);
                     TempData.changeStartNum(TempData.startNum + posters.size());
                     count=posterList.size();
