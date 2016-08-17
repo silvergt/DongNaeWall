@@ -87,9 +87,7 @@ class contentAdapter extends BaseAdapter {
             protected void onProgressUpdate(Object[] values) {
                 super.onProgressUpdate(values);
                 Log.v("Log","UPDATED3");
-                if(values[0]==0) {
-                    notifyDataSetChanged();
-                }
+                notifyDataSetChanged();
             }
         };
         async.execute(0);
@@ -100,8 +98,8 @@ class contentAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        //return count;
-        return posterList.size();
+        return count;
+        //return posterList.size();
     }
 
     @Override
