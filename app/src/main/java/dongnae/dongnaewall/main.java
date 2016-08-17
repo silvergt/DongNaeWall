@@ -163,20 +163,15 @@ public class main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-        Log.e("Log", "SSSSSSSSS");
 
         DisplayMetrics metrics=new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         displayWidth=metrics.widthPixels;
         displayHeight=metrics.heightPixels;
 
-        Log.e("Log", "QQQQQQQQQ");
         MainInflater=(LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
-        Log.e("Log", "GGGGGGGGGG");
         Poster.context=this;
-        Log.e("Log", "MMMMMMMMMMM");
         createMainView();
-        Log.e("Log", "RRRRRRRWRRR");
 
 
     }
@@ -184,10 +179,8 @@ public class main extends AppCompatActivity {
 
 
     public void createMainView(){
-        Log.e("Log", "IIIIIIIIIII");
         setContentView(R.layout.content_main);
 
-        Log.e("Log", "BBBBBBBB");
 
         final ListView list=(ListView)findViewById(R.id.main_listview);
         final contentAdapter adapter=new contentAdapter(this);

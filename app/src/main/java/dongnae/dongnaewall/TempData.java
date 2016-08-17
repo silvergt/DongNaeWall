@@ -5,10 +5,11 @@ public class TempData {
 
     ********* themeIsChecked
                         0           1           2           3           4           5
-    1   학교행사 :		    교내행사		학회,동아리
-    2   전시, 공연:	    전시,미술		뮤지컬		연극		    아동,가족		콘서트,공연	축제
-    3   설명회, 공모전:	    기업설명회		공모전		기업행사	    학생 설명회
-    4   구인구직:		    아르바이트		공채, 특채
+    1   학교행사 :		    교내행사		학회행사      동아리
+    2
+    3   전시, 공연:	    전시,미술		뮤지컬		연극		    아동,가족		콘서트,공연	축제
+    4   설명회, 공모전:	    기업설명회		공모전		기업행사	    학생 설명회
+    5   구인구직:		    아르바이트		공채, 특채
 
     ********* regionIsChecked
 
@@ -23,46 +24,42 @@ public class TempData {
     final static int ORDER_LIKE=120;
     final static int ORDER_VISIT=130;
 
-    final static int CATEGORY_THEME_SCHOOL=1000;
-    final static int CATEGORY_THEME_EXHIBIT=1001;
-    final static int CATEGORY_THEME_CONTEST=1002;
-    final static int CATEGORY_THEME_HIRING=1003;
-    final static int CATEGORY_REGION=2000;
+    static boolean schoolIsChecked=false;
+    static boolean inschool_activitiesIsChecked=false;
+    static boolean inschool_forumsIsChecked=false;
+    static boolean inschool_circlesIsChecked=false;
 
-    static boolean[][] themeIsChecked=new boolean[4][6];
-    static boolean[] regionIsChecked=new boolean[17];
+    static boolean exhibitionIsChecked=false;
+    static boolean exhibition_artIsChecked=false;
+    static boolean exhibition_sculptureIsChecked=false;
+
+    static boolean performanceIsChecked=false;
+    static boolean performance_musicalIsChecked=false;
+    static boolean performance_playIsChecked=false;
+    static boolean performance_familyIsChecked=false;
+    static boolean performance_concertIsChecked=false;
+
+    static boolean presentationIsChecked=false;
+    static boolean presentation_companyIsChecked=false;
+    static boolean presentation_contestIsChecked=false;
+    static boolean presentation_corporateIsChecked=false;
+    static boolean presentation_studentIsChecked=false;
+
+    static boolean jobIsChecked=false;
+    static boolean job_part_timeIsChecked=false;
+    static boolean job_wantedIsChecked=false;
+
+    static int[] dateFrom;
+    static int[] dateTo;
+
+    static int costFrom;
+    static int costTo;
 
     static int order;
     static String search;
     static int startNum;
 
-    public static void initialization(){
-        for(int i=0;i<themeIsChecked.length;i++){
-            for(int j=0;j<themeIsChecked[0].length;j++){
-                themeIsChecked[i][j]=false;
-            }
-        }
-        for(int i=0;i<regionIsChecked.length;i++){
-            regionIsChecked[i]=false;
-        }
-        order=ORDER_DATE;
-        search="";
-        startNum=0;
-    }
 
-    public void changeFilterCheckedEntity(int category,int location,boolean isChecked){
-        try {
-            if (category == CATEGORY_THEME_SCHOOL) themeIsChecked[0][location]=isChecked;
-            else if (category == CATEGORY_THEME_EXHIBIT) themeIsChecked[1][location]=isChecked;
-            else if (category == CATEGORY_THEME_CONTEST) themeIsChecked[2][location]=isChecked;
-            else if (category == CATEGORY_THEME_HIRING) themeIsChecked[3][location]=isChecked;
-            else if (category == CATEGORY_REGION) regionIsChecked[location]=isChecked;
-
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 
     public void changeAllEntity(int order,String search,int startNum){
         TempData.order=order;
