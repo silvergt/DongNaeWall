@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:id="@+id/listview_first_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#505050"
+        >
+        <ImageView
+            android:id="@+id/listview_background_poster"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo"
+            android:layout_alignParentTop="true"
+            android:adjustViewBounds="true"
+            />
+        <!-- list view top -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="top"
+            >
+            <TextView
+                android:id="@+id/listview_top_bookmark"
+                android:layout_alignParentRight="true"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="#8879D3FB"
+                android:text="bookmark"
+                android:layout_margin="2dp"
+                />
+            <TextView
+                android:id="@+id/listview_top_like_logo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="#8879D3FB"
+                android:text="LIKE"
+                android:layout_toLeftOf="@id/listview_top_bookmark"
+                android:layout_margin="2dp"
+                />
+        </RelativeLayout>
+        <!-- list view bottom -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignBottom="@id/listview_background_poster"
+            >
+            <TextView
+                android:id="@+id/listview_bottom_view_number"
+                android:layout_alignParentRight="true"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="#8879D3FB"
+                android:text="view number"
+                android:layout_margin="2dp"
+                />
+            <TextView
+                android:id="@+id/listview_bottom_view_logo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="#8879D3FB"
+                android:text="view logo"
+                android:layout_toLeftOf="@id/listview_bottom_view_number"
+                android:layout_margin="2dp"
+                />
+            <TextView
+                android:id="@+id/listview_bottom_like_number"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="#8879D3FB"
+                android:text="LIKE number"
+                android:layout_toLeftOf="@id/listview_bottom_view_logo"
+                android:layout_margin="2dp"
+                />
+            <TextView
+                android:id="@+id/listview_bottom_like_logo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="#8879D3FB"
+                android:text="LIKE logo"
+                android:layout_toLeftOf="@id/listview_bottom_like_number"
+                android:layout_margin="2dp"
+                />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/listview_second_layout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@+id/listview_first_layout"
+        >
+        <TextView
+            android:id="@+id/listview_second_layout_name"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:text="NAME" />
+
+            <LinearLayout
+                android:layout_below="@id/listview_second_layout_name"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:layout_margin="2dp"
+                >
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    />
+                <TextView
+                    android:id="@+id/listview_second_layout_category"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:text="category"
+                    />
+                <TextView
+                    android:id="@+id/listview_second_layout_date"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:text="date"
+                    />
+                <TextView
+                    android:id="@+id/listview_second_layout_location"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:text="location"
+                    />
+                <TextView
+                    android:id="@+id/listview_second_layout_price"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:text="pirce"
+                    />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    />
+
+            </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
