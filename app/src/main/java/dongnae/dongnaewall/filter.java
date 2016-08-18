@@ -36,14 +36,13 @@ class filterContentView extends ViewGroup{
 }
 
 public class filter extends AppCompatActivity {
-    boolean tempChecked;
-
     final static int CATEGORY_school=1;
     final static int CATEGORY_exhibition=2;
     final static int CATEGORY_performance=3;
     final static int CATEGORY_presentation=4;
     final static int CATEGORY_job=5;
-    //filter layout
+
+
     static filterContentView school=null;
     static filterContentView inschool_activities;
     static filterContentView inschool_forums;

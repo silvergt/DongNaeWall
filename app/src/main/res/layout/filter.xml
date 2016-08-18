@@ -24,13 +24,11 @@
         <TextView
             android:id="@+id/filterview_top_apply"
             style="@style/filter_top_bottom_view"
-            android:onClick="filterContentClicked"
             android:text="필터적용"
             />
         <TextView
             android:id="@+id/filterview_top_initialize"
             style="@style/filter_top_bottom_view"
-            android:onClick="filterContentClicked"
             android:text="필터초기화"
             />
     </LinearLayout>
@@ -323,13 +321,11 @@
         <TextView
             android:id="@+id/filterview_bottom_apply"
             style="@style/filter_top_bottom_view"
-            android:onClick="filterContentClicked"
             android:text="필터적용"
             />
         <TextView
             android:id="@+id/filterview_bottom_initialize"
             style="@style/filter_top_bottom_view"
-            android:onClick="filterContentClicked"
             android:text="필터초기화"
             />
     </LinearLayout>
