@@ -42,12 +42,10 @@ class contentAdapter extends BaseAdapter {
     public contentAdapter(Context context){
         this.context=context;
         count=0;
-        Log.e("Log", "PPPPPPPPPP");
         SC=new ServerConnector();
         posterList=new ArrayList<>();
         getPosters();
         inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        Log.e("Log", "KKKKKKKKKK");
     }
 
     public void reloadPosterFromStart(){
@@ -64,29 +62,30 @@ class contentAdapter extends BaseAdapter {
             @Override
             protected Object doInBackground(Object[] params) {
                 posters=SC.getPosterFromServer(TempData.STATUS_ABBREVIATED);
-                Log.v("Log", "UPDATED1");
                 if(posters==null){
                     Log.e("Log","NO SERVER RECEIVED POSTERS!");
+                    return false;
                 }else if(posters.size()!=0) {
                     Log.v("Log","received");
                     posterList.addAll(posters);
                     TempData.changeStartNum(TempData.startNum + posters.size());
                     count=posterList.size();
                     publishProgress(0);
+                    return true;
                 }else if(posters.size()==0){
-                    Log.v("Log","UPDATED2");
+                    Log.v("Log","poster size is zero. client reached last poster!");
                     reachedLastPoster=true;
+                    return true;
                 }
 
-
-                return null;
+                return true;
             }
 
 
             @Override
             protected void onProgressUpdate(Object[] values) {
                 super.onProgressUpdate(values);
-                Log.v("Log","UPDATED3");
+                Log.v("Log","progress updating");
                 notifyDataSetChanged();
             }
         };
@@ -156,8 +155,6 @@ public class main extends AppCompatActivity {
     static int displayWidth;
     LayoutInflater MainInflater;
 
-    //silvergt04
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -201,7 +198,6 @@ public class main extends AppCompatActivity {
             }
         });
 
-        Log.e("Log", "CCCCCCCCCC");
         //********FOOTER LOADING IMAGE SHOULD BE ADAPTED
         TextView LoadingTextForFooter=new TextView(this);
         ListView.LayoutParams LTFFparams=new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,100);
@@ -215,10 +211,8 @@ public class main extends AppCompatActivity {
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("Log","DDDDDDDD");
                 Intent intent=new Intent(main.this, filter.class);
                 startActivity(intent);
-                Log.e("Log", "EEEEEEEEE");
             }
         });
 

@@ -2,7 +2,9 @@ package dongnae.dongnaewall;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class filter extends AppCompatActivity {
     //filter layout
@@ -40,4 +42,17 @@ public class filter extends AppCompatActivity {
         TextView dateTo=(TextView)findViewById(R.id.filterview_second_primary_category_maximum_date);
 
     }
+
+    public void filterContentClicked(View v){
+        switch (v.getId()){
+            case R.id.filterview_first_event_category_school:
+                Toast.makeText(this,"aa",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.filterview_first_event_category_school_inschool_activities:
+                Toast.makeText(this,"bb",Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+    }
+
 }

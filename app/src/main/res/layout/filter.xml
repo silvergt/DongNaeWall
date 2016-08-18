@@ -24,11 +24,13 @@
         <TextView
             android:id="@+id/filterview_top_apply"
             style="@style/filter_top_bottom_view"
+            android:onClick="filterContentClicked"
             android:text="필터적용"
             />
         <TextView
             android:id="@+id/filterview_top_initialize"
             style="@style/filter_top_bottom_view"
+            android:onClick="filterContentClicked"
             android:text="필터초기화"
             />
     </LinearLayout>
@@ -61,7 +63,9 @@
             <TextView
                 android:id="@+id/filterview_first_event_category_school"
                 style="@style/filter_view_main_category"
-                android:text="학교행사"/>
+                android:onClick="filterContentClicked"
+                android:text="학교행사"
+                />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -69,14 +73,17 @@
                 <TextView
                     android:id="@+id/filterview_first_event_category_school_inschool_activities"
                     style="@style/filter_view_sub_box_view"
+                    android:onClick="filterContentClicked"
                     android:text="교내행사"/>
                 <TextView
                     android:id="@+id/filterview_first_event_category_school_inschool_forums"
                     style="@style/filter_view_sub_box_view"
+                    android:onClick="filterContentClicked"
                     android:text="학회행사"/>
                 <TextView
                     android:id="@+id/filterview_first_event_category_school_inschool_circles"
                     style="@style/filter_view_sub_box_view"
+                    android:onClick="filterContentClicked"
                     android:text="동아리행사"/>
             </LinearLayout>
         </LinearLayout>
@@ -90,6 +97,7 @@
             <TextView
                 android:id="@+id/filterview_first_event_category_exhibition"
                 style="@style/filter_view_main_category"
+                android:onClick="filterContentClicked"
                 android:text="전시회"/>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -98,10 +106,12 @@
                 <TextView
                     android:id="@+id/filterview_first_event_category_exhibition_art"
                     style="@style/filter_view_sub_box_view"
+                    android:onClick="filterContentClicked"
                     android:text="미술"/>
                 <TextView
                     android:id="@+id/filterview_first_event_category_exhibition_sculpture"
                     style="@style/filter_view_sub_box_view"
+                    android:onClick="filterContentClicked"
                     android:text="조각"/>
             </LinearLayout>
         </LinearLayout>
@@ -114,6 +124,7 @@
             <TextView
                 android:id="@+id/filterview_first_event_category_performance"
                 style="@style/filter_view_main_category"
+                android:onClick="filterContentClicked"
                 android:text="공연"/>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -122,10 +133,12 @@
                 <TextView
                     android:id="@+id/filterview_first_event_category_performance_musical"
                     style="@style/filter_view_sub_box_view"
+                    android:onClick="filterContentClicked"
                     android:text="뮤지컬"/>
                 <TextView
                     android:id="@+id/filterview_first_event_category_performance_play"
                     style="@style/filter_view_sub_box_view"
+                    android:onClick="filterContentClicked"
                     android:text="연극"/>
             </LinearLayout>
             <LinearLayout
@@ -135,10 +148,12 @@
                 <TextView
                     android:id="@+id/filterview_first_event_category_performance_family"
                     style="@style/filter_view_sub_box_view"
+                    android:onClick="filterContentClicked"
                     android:text="아동, 가족"/>
                 <TextView
                     android:id="@+id/filterview_first_event_category_performance_concert"
                     style="@style/filter_view_sub_box_view"
+                    android:onClick="filterContentClicked"
                     android:text="콘서트"/>
             </LinearLayout>
         </LinearLayout>
@@ -151,6 +166,7 @@
             <TextView
                 android:id="@+id/filterview_first_event_category_presentation"
                 style="@style/filter_view_main_category"
+                android:onClick="filterContentClicked"
                 android:text="설명회, 공모전"/>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -159,10 +175,12 @@
                 <TextView
                     android:id="@+id/filterview_first_event_category_presentation_company"
                     style="@style/filter_view_sub_box_view"
+                    android:onClick="filterContentClicked"
                     android:text="기업설명회"/>
                 <TextView
                     android:id="@+id/filterview_first_event_category_presentation_contest"
                     style="@style/filter_view_sub_box_view"
+                    android:onClick="filterContentClicked"
                     android:text="공모전"/>
             </LinearLayout>
             <LinearLayout
@@ -172,10 +190,12 @@
                 <TextView
                     android:id="@+id/filterview_first_event_category_presentation_corporate"
                     style="@style/filter_view_sub_box_view"
+                    android:onClick="filterContentClicked"
                     android:text="기업행사"/>
                 <TextView
                     android:id="@+id/filterview_first_event_category_presentation_student"
                     style="@style/filter_view_sub_box_view"
+                    android:onClick="filterContentClicked"
                     android:text="학생 설명"/>
             </LinearLayout>
         </LinearLayout>
@@ -188,6 +208,7 @@
             <TextView
                 android:id="@+id/filterview_first_event_category_job"
                 style="@style/filter_view_main_category"
+                android:onClick="filterContentClicked"
                 android:text="구인/구직"/>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -196,10 +217,12 @@
                 <TextView
                     android:id="@+id/filterview_first_event_category_job_part_time"
                     style="@style/filter_view_sub_box_view"
+                    android:onClick="filterContentClicked"
                     android:text="알바"/>
                 <TextView
                     android:id="@+id/filterview_first_event_category_job_wanted"
                     style="@style/filter_view_sub_box_view"
+                    android:onClick="filterContentClicked"
                     android:text="공채, 특채"/>
             </LinearLayout>
         </LinearLayout>
@@ -220,6 +243,7 @@
             <TextView
                 android:id="@+id/filterview_second_primary_category"
                 style="@style/filter_view_primary_category"
+                android:onClick="filterContentClicked"
                 android:text="날짜선택"/>
         </LinearLayout>
         <LinearLayout
@@ -237,6 +261,7 @@
                 android:layout_weight="4"
                 android:layout_height="30dp"
                 style="@style/filterview_second_primary_category_dates"
+                android:onClick="filterContentClicked"
                 android:text="이때부터"/>
             <TextView
                 android:id="@+id/filterview_second_primary_category_maximum_date"
@@ -244,6 +269,7 @@
                 android:layout_weight="4"
                 android:layout_height="30dp"
                 style="@style/filterview_second_primary_category_dates"
+                android:onClick="filterContentClicked"
                 android:text="이때까지"/>
             <TextView
                 android:layout_width="0dp"
@@ -297,11 +323,13 @@
         <TextView
             android:id="@+id/filterview_bottom_apply"
             style="@style/filter_top_bottom_view"
+            android:onClick="filterContentClicked"
             android:text="필터적용"
             />
         <TextView
             android:id="@+id/filterview_bottom_initialize"
             style="@style/filter_top_bottom_view"
+            android:onClick="filterContentClicked"
             android:text="필터초기화"
             />
     </LinearLayout>
