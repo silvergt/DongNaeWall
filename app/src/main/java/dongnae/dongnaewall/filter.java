@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 class filterContentView extends ViewGroup{
     boolean isChecked=false;
     boolean isBigCategory=false;
@@ -36,12 +38,14 @@ class filterContentView extends ViewGroup{
 }
 
 public class filter extends AppCompatActivity {
+    final static int CATEGORY_NONE=0;
     final static int CATEGORY_school=1;
     final static int CATEGORY_exhibition=2;
     final static int CATEGORY_performance=3;
     final static int CATEGORY_presentation=4;
     final static int CATEGORY_job=5;
 
+    ArrayList<filterContentView> categoryList;
 
     static filterContentView school=null;
     static filterContentView inschool_activities;
@@ -78,83 +82,58 @@ public class filter extends AppCompatActivity {
         setContentView(R.layout.filter);
         initialize();
 
-
     }
 
-    private filterContentView findfilterContentViewById(int id,filterContentView v){
+    private filterContentView findfilterContentViewById(int id,filterContentView v,boolean isBigCategory,int category){
         boolean tempIsChecked=false;
-        boolean tempIsBigCategory=false;
         int[] tempdate=null;
         if(v!=null){
             tempIsChecked=v.isChecked;
-            tempIsBigCategory=v.isBigCategory;
-            if(id==R.id.filterview_second_primary_category_minimum_date||id==R.id.filterview_second_primary_category_maximum_date){
-                tempdate=v.date;
-            }
+            tempdate=v.date;
         }
         filterContentView FCV=(filterContentView)findViewById(id);
         FCV.isChecked=tempIsChecked;
-        FCV.isBigCategory=tempIsBigCategory;
+        FCV.isBigCategory=isBigCategory;
         FCV.date=tempdate;
+        FCV.category=category;
         changeCheckedState(FCV.isChecked, FCV);
+
+        categoryList.add(FCV);
         
         return FCV;
     }
 
     public void initialize(){
 
-        school=findfilterContentViewById(R.id.filterview_first_event_category_school,school);
-        school.isBigCategory=true;
-        school.category=CATEGORY_school;
-        inschool_activities=findfilterContentViewById(R.id.filterview_first_event_category_school_inschool_activities,inschool_activities);
-        inschool_activities.category=CATEGORY_school;
-        inschool_forums=findfilterContentViewById(R.id.filterview_first_event_category_school_inschool_forums,inschool_forums);
-        inschool_forums.category=CATEGORY_school;
-        inschool_circles=findfilterContentViewById(R.id.filterview_first_event_category_school_inschool_circles,inschool_circles);
-        inschool_circles.category=CATEGORY_school;
+        categoryList=new ArrayList<>();
 
-        exhibition=findfilterContentViewById(R.id.filterview_first_event_category_exhibition,exhibition);
-        exhibition.isBigCategory=true;
-        exhibition.category=CATEGORY_exhibition;
-        exhibition_art=findfilterContentViewById(R.id.filterview_first_event_category_exhibition_art,exhibition_art);
-        exhibition_art.category=CATEGORY_exhibition;
-        exhibition_sculpture=findfilterContentViewById(R.id.filterview_first_event_category_exhibition_sculpture,exhibition_sculpture);
-        exhibition_sculpture.category=CATEGORY_exhibition;
+        school=findfilterContentViewById(R.id.filterview_first_event_category_school,school,true,CATEGORY_school);
+        inschool_activities=findfilterContentViewById(R.id.filterview_first_event_category_school_inschool_activities,inschool_activities,false,CATEGORY_school);
+        inschool_forums=findfilterContentViewById(R.id.filterview_first_event_category_school_inschool_forums,inschool_forums,false,CATEGORY_school);
+        inschool_circles=findfilterContentViewById(R.id.filterview_first_event_category_school_inschool_circles,inschool_circles,false,CATEGORY_school);
 
-        performance=findfilterContentViewById(R.id.filterview_first_event_category_performance,performance);
-        performance.isBigCategory=true;
-        performance.category=CATEGORY_performance;
-        performance_musical=findfilterContentViewById(R.id.filterview_first_event_category_performance_musical,performance_musical);
-        performance_musical.category=CATEGORY_performance;
-        performance_play=findfilterContentViewById(R.id.filterview_first_event_category_performance_play,performance_play);
-        performance_play.category=CATEGORY_performance;
-        performance_family=findfilterContentViewById(R.id.filterview_first_event_category_performance_family,performance_family);
-        performance_family.category=CATEGORY_performance;
-        performance_concert=findfilterContentViewById(R.id.filterview_first_event_category_performance_concert,performance_concert);
-        performance_concert.category=CATEGORY_performance;
+        exhibition=findfilterContentViewById(R.id.filterview_first_event_category_exhibition,exhibition,true,CATEGORY_exhibition);
+        exhibition_art=findfilterContentViewById(R.id.filterview_first_event_category_exhibition_art,exhibition_art,false,CATEGORY_exhibition);
+        exhibition_sculpture=findfilterContentViewById(R.id.filterview_first_event_category_exhibition_sculpture,exhibition_sculpture,false,CATEGORY_exhibition);
 
-        presentation=findfilterContentViewById(R.id.filterview_first_event_category_presentation,presentation);
-        presentation.isBigCategory=true;
-        presentation.category=CATEGORY_presentation;
-        presentation_company=findfilterContentViewById(R.id.filterview_first_event_category_presentation_company,presentation_company);
-        presentation_company.category=CATEGORY_presentation;
-        presentation_contest=findfilterContentViewById(R.id.filterview_first_event_category_presentation_contest,presentation_contest);
-        presentation_contest.category=CATEGORY_presentation;
-        presentation_corporate=findfilterContentViewById(R.id.filterview_first_event_category_presentation_corporate,presentation_corporate);
-        presentation_corporate.category=CATEGORY_presentation;
-        presentation_student=findfilterContentViewById(R.id.filterview_first_event_category_presentation_student,presentation_student);
-        presentation_student.category=CATEGORY_presentation;
+        performance=findfilterContentViewById(R.id.filterview_first_event_category_performance,performance,true,CATEGORY_performance);
+        performance_musical=findfilterContentViewById(R.id.filterview_first_event_category_performance_musical,performance_musical,false,CATEGORY_performance);
+        performance_play=findfilterContentViewById(R.id.filterview_first_event_category_performance_play,performance_play,false,CATEGORY_performance);
+        performance_family=findfilterContentViewById(R.id.filterview_first_event_category_performance_family,performance_family,false,CATEGORY_performance);
+        performance_concert=findfilterContentViewById(R.id.filterview_first_event_category_performance_concert,performance_concert,false,CATEGORY_performance);
 
-        job=findfilterContentViewById(R.id.filterview_first_event_category_job,job);
-        job.isBigCategory=true;
-        job.category=CATEGORY_job;
-        job_part_time=findfilterContentViewById(R.id.filterview_first_event_category_job_part_time,job_part_time);
-        job_part_time.category=CATEGORY_job;
-        job_wanted=findfilterContentViewById(R.id.filterview_first_event_category_job_wanted,job_wanted);
-        job_wanted.category=CATEGORY_job;
+        presentation=findfilterContentViewById(R.id.filterview_first_event_category_presentation,presentation,true,CATEGORY_presentation);
+        presentation_company=findfilterContentViewById(R.id.filterview_first_event_category_presentation_company,presentation_company,false,CATEGORY_presentation);
+        presentation_contest=findfilterContentViewById(R.id.filterview_first_event_category_presentation_contest,presentation_contest,false,CATEGORY_presentation);
+        presentation_corporate=findfilterContentViewById(R.id.filterview_first_event_category_presentation_corporate,presentation_corporate,false,CATEGORY_presentation);
+        presentation_student=findfilterContentViewById(R.id.filterview_first_event_category_presentation_student,presentation_student,false,CATEGORY_presentation);
 
-        dateFrom=findfilterContentViewById(R.id.filterview_second_primary_category_minimum_date,dateFrom);
-        dateTo=findfilterContentViewById(R.id.filterview_second_primary_category_maximum_date,dateTo);
+        job=findfilterContentViewById(R.id.filterview_first_event_category_job,job,true,CATEGORY_job);
+        job_part_time=findfilterContentViewById(R.id.filterview_first_event_category_job_part_time,job_part_time,false,CATEGORY_job);
+        job_wanted=findfilterContentViewById(R.id.filterview_first_event_category_job_wanted,job_wanted,false,CATEGORY_job);
+
+        dateFrom=findfilterContentViewById(R.id.filterview_second_primary_category_minimum_date,dateFrom,false,CATEGORY_NONE);
+        dateTo=findfilterContentViewById(R.id.filterview_second_primary_category_maximum_date,dateTo,false,CATEGORY_NONE);
     }
     
     public void filterContentClicked(View view){

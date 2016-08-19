@@ -15,7 +15,7 @@
             android:layout_gravity="top"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:background="#8879D3FB">
+            android:background="@color/basicStatusBarColor">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
