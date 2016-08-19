@@ -100,8 +100,7 @@ public class filter extends AppCompatActivity {
         
         return FCV;
     }
-    
-    
+
     public void initialize(){
 
         school=findfilterContentViewById(R.id.filterview_first_event_category_school,school);
@@ -157,7 +156,6 @@ public class filter extends AppCompatActivity {
         dateFrom=findfilterContentViewById(R.id.filterview_second_primary_category_minimum_date,dateFrom);
         dateTo=findfilterContentViewById(R.id.filterview_second_primary_category_maximum_date,dateTo);
     }
-    
     
     public void filterContentClicked(View view){
         filterContentView v=(filterContentView)view;

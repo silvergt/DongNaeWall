@@ -66,9 +66,10 @@ class contentAdapter extends BaseAdapter {
                     Log.e("Log","NO SERVER RECEIVED POSTERS!");
                     return false;
                 }else if(posters.size()!=0) {
-                    Log.v("Log","received");
+                    Log.v("Log", "received");
                     posterList.addAll(posters);
                     TempData.changeStartNum(TempData.startNum + posters.size());
+                    Log.v("total Loaded poster :", Integer.toString(TempData.startNum));
                     count=posterList.size();
                     publishProgress(0);
                     return true;
@@ -165,6 +166,7 @@ public class main extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         displayWidth=metrics.widthPixels;
         displayHeight=metrics.heightPixels;
+        Log.v("Display size : ",Integer.toString(displayWidth)+","+Integer.toString(displayHeight));
 
         MainInflater=(LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
         Poster.context=this;

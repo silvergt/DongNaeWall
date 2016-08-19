@@ -30,7 +30,7 @@ import pre_Poster.Pre_Poster;
 public class ServerConnector {
 
 
-    final static String server_ip="203.170.122.31";
+    final static String server_ip="192.168.43.112";
     final static int server_port=9491;
 
     Socket socket;
@@ -58,7 +58,7 @@ public class ServerConnector {
             returningPosters=getPosterFromServer();
             if(returningPosters!=null) {
                 for (int i = 0; i < returningPosters.length; i++) {
-                    Log.v("Log","LOGGING");
+                    Log.v("Log","LOGGING "+Integer.toString(i)+"th poster");
                     convertedPosters.add(returningPosters[i]);
                 }
             }else{
