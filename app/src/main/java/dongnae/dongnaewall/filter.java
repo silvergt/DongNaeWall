@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -41,7 +42,7 @@ public class filter extends AppCompatActivity {
     final static int CATEGORY_presentation=4;
     final static int CATEGORY_job=5;
 
-    ArrayList<filterContentView> categoryList;
+    static ArrayList<filterContentView> categoryList;
 
     static filterContentView school=null;
     static filterContentView inschool_activities;
@@ -80,6 +81,20 @@ public class filter extends AppCompatActivity {
 
     }
 
+    public static boolean[] getFilterCheckedData(){
+        if(categoryList==null){
+            Log.v("Log","categoryList is null. sending boolean[]==null");
+            return null;
+        }
+        boolean[] returningArray=new boolean[categoryList.size()];
+        Log.v("Log","making array... size :"+Integer.toString(returningArray.length));
+        for(int i=0;i<returningArray.length;i++){
+            returningArray[i]=categoryList.get(i).isChecked;
+        }
+
+        return returningArray;
+    }
+
     private filterContentView findFilterContentViewById(int id,filterContentView v,boolean isBigCategory,int category){
         boolean tempIsChecked=false;
         int[] tempdate=null;
@@ -99,7 +114,7 @@ public class filter extends AppCompatActivity {
         return FCV;
     }
 
-    public void initialize(){
+    private void initialize(){
 
         categoryList=new ArrayList<>();
 

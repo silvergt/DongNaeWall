@@ -131,7 +131,6 @@ class contentAdapter extends BaseAdapter {
         location=(TextView)convertView.findViewById(R.id.listview_second_layout_location);
         date=(TextView)convertView.findViewById(R.id.listview_second_layout_date);
 
-        //posterImage.setLayoutParams(poster.params);
         poster.main_picture_loaded.into(posterImage);
         likeNumber.setText(Integer.toString(poster.like));
         viewNumber.setText(Integer.toString(poster.view));
@@ -148,6 +147,7 @@ class contentAdapter extends BaseAdapter {
 
         return convertView;
     }
+
 }
 
 

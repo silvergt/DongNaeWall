@@ -58,7 +58,7 @@ public class ServerConnector {
             returningPosters=getPosterFromServer();
             if(returningPosters!=null) {
                 for (int i = 0; i < returningPosters.length; i++) {
-                    Log.v("Log","LOGGING "+Integer.toString(TempData.startNum+i)+"th poster");
+                    Log.v("Log","logging "+Integer.toString(TempData.startNum+i)+"th poster");
                     convertedPosters.add(returningPosters[i]);
                 }
             }else{
@@ -76,15 +76,23 @@ public class ServerConnector {
     }
 
     private void sendCurrentStatus(){
-        Object[] pack=new Object[4];
-        pack[0]=status;
-        pack[1]= TempData.order;
+        /** pack
+         *  1. status                           -int
+         *  2. Tempdata.order                   -int
+         *  3. TempData.search                  -String
+         *  4. TempData.startNum                -int
+         *  5. filter.getFilterCheckedData()    -boolean[]
+         */
+        ArrayList<Object> pack=new ArrayList<>();
+        pack.add(status);
+        pack.add(TempData.order);
         if(TempData.search==null|| TempData.search.equals("")){
-            pack[2]="`!`";
+            pack.add("`!`");
         }else{
-            pack[2]= TempData.search;
+            pack.add(TempData.search);
         }
-        pack[3]= TempData.startNum;
+        pack.add(TempData.startNum);
+        pack.add(filter.getFilterCheckedData());
         try {
             OS = socket.getOutputStream();
             OOS=new ObjectOutputStream(OS);
