@@ -62,7 +62,7 @@ public class ServerConnector {
                     convertedPosters.add(returningPosters[i]);
                 }
             }else{
-                Log.v("Log","LOGGING2");
+                Log.e("Log","returning poster is null!");
             }
 
             socket.close();
