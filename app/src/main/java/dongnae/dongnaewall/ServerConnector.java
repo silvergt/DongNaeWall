@@ -154,11 +154,8 @@ public class ServerConnector {
     private void sendRequestOfAdditionalPosterInfo(){
         OutputStream OS=null;
         ObjectOutputStream OOS=null;
-        Object[] pack=new Object[4];
-        pack[0]=id;
-        pack[1]=null;
-        pack[2]=null;
-        pack[3]=null;
+        ArrayList<Object> pack=new ArrayList<>();
+        pack.add(id);
         try {
             OS = socket.getOutputStream();
             OOS=new ObjectOutputStream(OS);
