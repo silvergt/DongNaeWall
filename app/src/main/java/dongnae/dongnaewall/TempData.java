@@ -24,37 +24,6 @@ public class TempData {
     final static int ORDER_LIKE=120;
     final static int ORDER_VISIT=130;
 
-    static boolean schoolIsChecked=false;
-    static boolean inschool_activitiesIsChecked=false;
-    static boolean inschool_forumsIsChecked=false;
-    static boolean inschool_circlesIsChecked=false;
-
-    static boolean exhibitionIsChecked=false;
-    static boolean exhibition_artIsChecked=false;
-    static boolean exhibition_sculptureIsChecked=false;
-
-    static boolean performanceIsChecked=false;
-    static boolean performance_musicalIsChecked=false;
-    static boolean performance_playIsChecked=false;
-    static boolean performance_familyIsChecked=false;
-    static boolean performance_concertIsChecked=false;
-
-    static boolean presentationIsChecked=false;
-    static boolean presentation_companyIsChecked=false;
-    static boolean presentation_contestIsChecked=false;
-    static boolean presentation_corporateIsChecked=false;
-    static boolean presentation_studentIsChecked=false;
-
-    static boolean jobIsChecked=false;
-    static boolean job_part_timeIsChecked=false;
-    static boolean job_wantedIsChecked=false;
-
-    static int[] dateFrom;
-    static int[] dateTo;
-
-    static int costFrom;
-    static int costTo;
-
     static int order;
     static String search;
     static int startNum;

@@ -62,7 +62,7 @@
                 android:id="@+id/filterview_first_event_category_school"
                 style="@style/filter_view_main_category"
                 android:onClick="filterContentClicked"
-                android:text="학교행사"
+                android:text="@string/school"
                 />
             <LinearLayout
                 android:layout_width="match_parent"

@@ -6,11 +6,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
-class filterContentView extends ViewGroup{
+class filterContentView extends Button{
     boolean isChecked=false;
     boolean isBigCategory=false;
     int[] date=new int[3];
@@ -84,7 +84,7 @@ public class filter extends AppCompatActivity {
 
     }
 
-    private filterContentView findfilterContentViewById(int id,filterContentView v,boolean isBigCategory,int category){
+    private filterContentView findFilterContentViewById(int id,filterContentView v,boolean isBigCategory,int category){
         boolean tempIsChecked=false;
         int[] tempdate=null;
         if(v!=null){
@@ -107,33 +107,33 @@ public class filter extends AppCompatActivity {
 
         categoryList=new ArrayList<>();
 
-        school=findfilterContentViewById(R.id.filterview_first_event_category_school,school,true,CATEGORY_school);
-        inschool_activities=findfilterContentViewById(R.id.filterview_first_event_category_school_inschool_activities,inschool_activities,false,CATEGORY_school);
-        inschool_forums=findfilterContentViewById(R.id.filterview_first_event_category_school_inschool_forums,inschool_forums,false,CATEGORY_school);
-        inschool_circles=findfilterContentViewById(R.id.filterview_first_event_category_school_inschool_circles,inschool_circles,false,CATEGORY_school);
+        school=findFilterContentViewById(R.id.filterview_first_event_category_school, school, true, CATEGORY_school);
+        inschool_activities=findFilterContentViewById(R.id.filterview_first_event_category_school_inschool_activities, inschool_activities, false, CATEGORY_school);
+        inschool_forums=findFilterContentViewById(R.id.filterview_first_event_category_school_inschool_forums, inschool_forums, false, CATEGORY_school);
+        inschool_circles=findFilterContentViewById(R.id.filterview_first_event_category_school_inschool_circles, inschool_circles, false, CATEGORY_school);
 
-        exhibition=findfilterContentViewById(R.id.filterview_first_event_category_exhibition,exhibition,true,CATEGORY_exhibition);
-        exhibition_art=findfilterContentViewById(R.id.filterview_first_event_category_exhibition_art,exhibition_art,false,CATEGORY_exhibition);
-        exhibition_sculpture=findfilterContentViewById(R.id.filterview_first_event_category_exhibition_sculpture,exhibition_sculpture,false,CATEGORY_exhibition);
+        exhibition=findFilterContentViewById(R.id.filterview_first_event_category_exhibition, exhibition, true, CATEGORY_exhibition);
+        exhibition_art=findFilterContentViewById(R.id.filterview_first_event_category_exhibition_art, exhibition_art, false, CATEGORY_exhibition);
+        exhibition_sculpture=findFilterContentViewById(R.id.filterview_first_event_category_exhibition_sculpture, exhibition_sculpture, false, CATEGORY_exhibition);
 
-        performance=findfilterContentViewById(R.id.filterview_first_event_category_performance,performance,true,CATEGORY_performance);
-        performance_musical=findfilterContentViewById(R.id.filterview_first_event_category_performance_musical,performance_musical,false,CATEGORY_performance);
-        performance_play=findfilterContentViewById(R.id.filterview_first_event_category_performance_play,performance_play,false,CATEGORY_performance);
-        performance_family=findfilterContentViewById(R.id.filterview_first_event_category_performance_family,performance_family,false,CATEGORY_performance);
-        performance_concert=findfilterContentViewById(R.id.filterview_first_event_category_performance_concert,performance_concert,false,CATEGORY_performance);
+        performance=findFilterContentViewById(R.id.filterview_first_event_category_performance, performance, true, CATEGORY_performance);
+        performance_musical=findFilterContentViewById(R.id.filterview_first_event_category_performance_musical, performance_musical, false, CATEGORY_performance);
+        performance_play=findFilterContentViewById(R.id.filterview_first_event_category_performance_play, performance_play, false, CATEGORY_performance);
+        performance_family=findFilterContentViewById(R.id.filterview_first_event_category_performance_family, performance_family, false, CATEGORY_performance);
+        performance_concert=findFilterContentViewById(R.id.filterview_first_event_category_performance_concert, performance_concert, false, CATEGORY_performance);
 
-        presentation=findfilterContentViewById(R.id.filterview_first_event_category_presentation,presentation,true,CATEGORY_presentation);
-        presentation_company=findfilterContentViewById(R.id.filterview_first_event_category_presentation_company,presentation_company,false,CATEGORY_presentation);
-        presentation_contest=findfilterContentViewById(R.id.filterview_first_event_category_presentation_contest,presentation_contest,false,CATEGORY_presentation);
-        presentation_corporate=findfilterContentViewById(R.id.filterview_first_event_category_presentation_corporate,presentation_corporate,false,CATEGORY_presentation);
-        presentation_student=findfilterContentViewById(R.id.filterview_first_event_category_presentation_student,presentation_student,false,CATEGORY_presentation);
+        presentation=findFilterContentViewById(R.id.filterview_first_event_category_presentation, presentation, true, CATEGORY_presentation);
+        presentation_company=findFilterContentViewById(R.id.filterview_first_event_category_presentation_company, presentation_company, false, CATEGORY_presentation);
+        presentation_contest=findFilterContentViewById(R.id.filterview_first_event_category_presentation_contest, presentation_contest, false, CATEGORY_presentation);
+        presentation_corporate=findFilterContentViewById(R.id.filterview_first_event_category_presentation_corporate, presentation_corporate, false, CATEGORY_presentation);
+        presentation_student=findFilterContentViewById(R.id.filterview_first_event_category_presentation_student, presentation_student, false, CATEGORY_presentation);
 
-        job=findfilterContentViewById(R.id.filterview_first_event_category_job,job,true,CATEGORY_job);
-        job_part_time=findfilterContentViewById(R.id.filterview_first_event_category_job_part_time,job_part_time,false,CATEGORY_job);
-        job_wanted=findfilterContentViewById(R.id.filterview_first_event_category_job_wanted,job_wanted,false,CATEGORY_job);
+        job=findFilterContentViewById(R.id.filterview_first_event_category_job, job, true, CATEGORY_job);
+        job_part_time=findFilterContentViewById(R.id.filterview_first_event_category_job_part_time, job_part_time, false, CATEGORY_job);
+        job_wanted=findFilterContentViewById(R.id.filterview_first_event_category_job_wanted, job_wanted, false, CATEGORY_job);
 
-        dateFrom=findfilterContentViewById(R.id.filterview_second_primary_category_minimum_date,dateFrom,false,CATEGORY_NONE);
-        dateTo=findfilterContentViewById(R.id.filterview_second_primary_category_maximum_date,dateTo,false,CATEGORY_NONE);
+        dateFrom=findFilterContentViewById(R.id.filterview_second_primary_category_minimum_date, dateFrom, false, CATEGORY_NONE);
+        dateTo=findFilterContentViewById(R.id.filterview_second_primary_category_maximum_date, dateTo, false, CATEGORY_NONE);
     }
     
     public void filterContentClicked(View view){

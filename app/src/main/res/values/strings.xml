@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">동네벽보</string>
+
+    <string name="school">학교행사</string>
 </resources>
