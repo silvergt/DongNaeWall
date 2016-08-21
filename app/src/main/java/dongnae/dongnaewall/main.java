@@ -61,6 +61,7 @@ class contentAdapter extends BaseAdapter {
         TempData.changeStartNum(0);
         reachedLastPoster=false;
         getPosters();
+
     }
 
     public boolean getPosters(){
@@ -122,7 +123,7 @@ class contentAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(TempData.status==TempData.STATUS_POSTER_ABBREVIATED) {
-            if (convertView == null) {
+            if (convertView == null||convertView.getId()!=R.id.content_main_listview_main) {
                 convertView = inflater.inflate(R.layout.content_main_listview, null);
             }
             Poster poster = posterList.get(position);
@@ -150,7 +151,7 @@ class contentAdapter extends BaseAdapter {
             }
             main.scrollNumber = position;
         }else if(TempData.status==TempData.STATUS_RECOMMENDATION){
-            if (convertView == null) {
+            if (convertView == null ||convertView.getId()!=R.id.recommendation_main) {
                 convertView = inflater.inflate(R.layout.content_main_recommendation, null);
             }
             Poster poster = posterList.get(position);
@@ -227,12 +228,13 @@ public class main extends AppCompatActivity {
         ImageView logo=(ImageView)findViewById(R.id.main_logo);
         final TextView search=(TextView)findViewById(R.id.main_top_search);
         list=(ListView)findViewById(R.id.main_listview);
+        TextView alarm=(TextView)findViewById(R.id.main_top_alarm);
 
 
 
         final contentAdapter adapter=new contentAdapter(this);
         list.setAdapter(adapter);
-        addHeaderFooterViewToList();
+        setHeaderFooterViewToList();
 
         //******SEARCH METHOD
         search.setOnClickListener(new View.OnClickListener() {
@@ -251,6 +253,16 @@ public class main extends AppCompatActivity {
                 }
             }
         });
+        
+        alarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.reloadPosterFromStart(TempData.STATUS_POSTER_ABBREVIATED);
+                setHeaderFooterViewToList();
+                adapter.notifyDataSetChanged();
+            }
+        });
+        
 
 
         //******SEARCH METHOD
@@ -313,7 +325,7 @@ public class main extends AppCompatActivity {
 
     }
     
-    public void addHeaderFooterViewToList(){
+    public void setHeaderFooterViewToList(){
         try{
             mainProfileLayout.removeAllViews();
         }catch (Exception e){
