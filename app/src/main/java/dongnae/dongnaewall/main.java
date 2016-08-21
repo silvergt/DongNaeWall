@@ -272,6 +272,7 @@ public class main extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 adapter.reloadPosterFromStart(TempData.STATUS_RECOMMENDATION);
+                setHeaderFooterViewToList();
                 adapter.notifyDataSetChanged();
             }
         });
