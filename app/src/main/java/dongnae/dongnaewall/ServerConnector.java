@@ -153,6 +153,7 @@ public class ServerConnector {
 
     private void sendRequestOfAdditionalPosterInfo(){
         //동욱ㅎㅇ
+        //양게이 앗흥
         OutputStream OS=null;
         ObjectOutputStream OOS=null;
         ArrayList<Object> pack=new ArrayList<>();
