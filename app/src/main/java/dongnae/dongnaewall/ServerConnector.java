@@ -34,9 +34,7 @@ public class ServerConnector {
     final static int server_port=9491;
 
     Socket socket;
-    Poster[] returningPosters=null;
-    ArrayList<Poster> convertedPosters=null;
-    int status;
+    ArrayList<Poster> returningPosters=null;
 
     additionalPosterInfo additionalInfo=null;
     int id;
@@ -46,9 +44,7 @@ public class ServerConnector {
     InputStream IS=null;
     ObjectInputStream OIS=null;
 
-    public ArrayList<Poster> getPosterFromServer(int status){
-        this.status=status;
-        convertedPosters=new ArrayList<>();
+    public ArrayList<Poster> getPoster(){
 
         try{
             socket=new Socket(ServerConnector.server_ip,ServerConnector.server_port);
@@ -56,12 +52,7 @@ public class ServerConnector {
             sendCurrentStatus();
 
             returningPosters=getPosterFromServer();
-            if(returningPosters!=null) {
-                for (int i = 0; i < returningPosters.length; i++) {
-                    Log.v("Log","logging "+Integer.toString(TempData.startNum+i)+"th poster");
-                    convertedPosters.add(returningPosters[i]);
-                }
-            }else{
+            if(returningPosters==null) {
                 Log.e("Log","returning poster is null!");
             }
 
@@ -72,7 +63,7 @@ public class ServerConnector {
         }
 
 
-        return convertedPosters;
+        return returningPosters;
     }
 
     private void sendCurrentStatus(){
@@ -84,7 +75,7 @@ public class ServerConnector {
          *  5. filter.getFilterCheckedData()    -boolean[]
          */
         ArrayList<Object> pack=new ArrayList<>();
-        pack.add(status);
+        pack.add(TempData.status);
         pack.add(TempData.order);
         if(TempData.search==null|| TempData.search.equals("")){
             pack.add("`!`");
@@ -104,16 +95,16 @@ public class ServerConnector {
 
     }
 
-    private Poster[] getPosterFromServer(){
-        Pre_Poster[] posters=null;
-        Poster[] returningPosterArray=null;
+    private ArrayList<Poster> getPosterFromServer(){
+        ArrayList<Pre_Poster> posters=null;
+        ArrayList<Poster> returningPosterArray=null;
         try{
             IS=socket.getInputStream();
             OIS=new ObjectInputStream(IS);
-            posters=(Pre_Poster[])OIS.readObject();
-            returningPosterArray=new Poster[posters.length];
-            for(int i=0;i<returningPosterArray.length;i++){
-                returningPosterArray[i]=new Poster(posters[i]);
+            posters=(ArrayList<Pre_Poster>)OIS.readObject();
+            returningPosterArray=new ArrayList<>();
+            for(int i=0;i<returningPosterArray.size();i++){
+                returningPosterArray.add(new Poster(posters.get(i)));
             }
         }catch (Exception e){
             Log.v("Log","exception in getPrePosterFromServer");

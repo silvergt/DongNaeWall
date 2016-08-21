@@ -51,10 +51,12 @@ class contentAdapter extends BaseAdapter {
         posterList=new ArrayList<>();
         getPosters();
         inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        TempData.changeStatus(TempData.STATUS_RECOMMENDATION);
     }
 
-    public void reloadPosterFromStart(){
+    public void reloadPosterFromStart(int status){
         posterList=new ArrayList<>();
+        TempData.changeStatus(status);
         count=0;
         TempData.changeStartNum(0);
         reachedLastPoster=false;
@@ -66,7 +68,7 @@ class contentAdapter extends BaseAdapter {
         AsyncTask async=new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] params) {
-                posters=SC.getPosterFromServer(TempData.STATUS_ABBREVIATED);
+                posters=SC.getPoster();
                 if(posters==null){
                     Log.e("Log","NO SERVER RECEIVED POSTERS!");
                     return false;
@@ -119,33 +121,46 @@ class contentAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if(convertView==null){
-            convertView=inflater.inflate(R.layout.content_main_listview,null);
+        if(TempData.status==TempData.STATUS_POSTER_ABBREVIATED) {
+            if (convertView == null) {
+                convertView = inflater.inflate(R.layout.content_main_listview, null);
+            }
+            Poster poster = posterList.get(position);
+
+            posterImage = (ImageView) convertView.findViewById(R.id.listview_background_poster);
+            likeNumber = (TextView) convertView.findViewById(R.id.listview_bottom_like_number);
+            viewNumber = (TextView) convertView.findViewById(R.id.listview_bottom_view_number);
+            name = (TextView) convertView.findViewById(R.id.listview_second_layout_name);
+            category = (TextView) convertView.findViewById(R.id.listview_second_layout_category);
+            price = (TextView) convertView.findViewById(R.id.listview_second_layout_price);
+            location = (TextView) convertView.findViewById(R.id.listview_second_layout_location);
+            date = (TextView) convertView.findViewById(R.id.listview_second_layout_date);
+
+            poster.main_picture_loaded.into(posterImage);
+            likeNumber.setText(Integer.toString(poster.like));
+            viewNumber.setText(Integer.toString(poster.view));
+            date.setText(Integer.toString(poster.startDate[0]) + Integer.toString(poster.startDate[1]) + Integer.toString(poster.startDate[2]));
+            name.setText(poster.title);
+            category.setText(Integer.toString(poster.category[0]) + Integer.toString(poster.category[1]));
+            price.setText(Integer.toString(poster.price));
+            location.setText(Integer.toString(poster.place));
+
+            if (position == posterList.size() - 1 && !reachedLastPoster) {
+                getPosters();
+            }
+            main.scrollNumber = position;
+        }else if(TempData.status==TempData.STATUS_RECOMMENDATION){
+            if (convertView == null) {
+                convertView = inflater.inflate(R.layout.content_main_recommendation, null);
+            }
+            Poster poster = posterList.get(position);
+
+            ImageView image=(ImageView)convertView.findViewById(R.id.recommendation_image);
+            TextView description=(TextView)convertView.findViewById(R.id.recommendation_description);
+
+            poster.main_picture_loaded.into(image);
+            description.setText(poster.title);
         }
-        Poster poster=posterList.get(position);
-
-        posterImage=(ImageView)convertView.findViewById(R.id.listview_background_poster);
-        likeNumber=(TextView)convertView.findViewById(R.id.listview_bottom_like_number);
-        viewNumber=(TextView)convertView.findViewById(R.id.listview_bottom_view_number);
-        name=(TextView)convertView.findViewById(R.id.listview_second_layout_name);
-        category=(TextView)convertView.findViewById(R.id.listview_second_layout_category);
-        price=(TextView)convertView.findViewById(R.id.listview_second_layout_price);
-        location=(TextView)convertView.findViewById(R.id.listview_second_layout_location);
-        date=(TextView)convertView.findViewById(R.id.listview_second_layout_date);
-
-        poster.main_picture_loaded.into(posterImage);
-        likeNumber.setText(Integer.toString(poster.like));
-        viewNumber.setText(Integer.toString(poster.view));
-        date.setText(Integer.toString(poster.startDate[0])+Integer.toString(poster.startDate[1])+Integer.toString(poster.startDate[2]));
-        name.setText(poster.title);
-        category.setText(Integer.toString(poster.category[0])+Integer.toString(poster.category[1]));
-        price.setText(Integer.toString(poster.price));
-        location.setText(Integer.toString(poster.place));
-
-        if(position==posterList.size()-1&&!reachedLastPoster){
-            getPosters();
-        }
-        main.scrollNumber=position;
 
         return convertView;
     }
@@ -233,7 +248,7 @@ public class main extends AppCompatActivity {
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapter.reloadPosterFromStart();
+                adapter.reloadPosterFromStart(TempData.STATUS_RECOMMENDATION);
                 adapter.notifyDataSetChanged();
             }
         });
