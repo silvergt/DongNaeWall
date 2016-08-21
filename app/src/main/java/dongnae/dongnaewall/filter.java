@@ -219,4 +219,10 @@ public class filter extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Log.v("Log","filterView closed");
+        finish();
+    }
 }
