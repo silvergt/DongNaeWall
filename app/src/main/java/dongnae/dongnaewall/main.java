@@ -56,6 +56,7 @@ class contentAdapter extends BaseAdapter {
 
     public void reloadPosterFromStart(int status){
         posterList=new ArrayList<>();
+        main.scrollNumber=0;
         TempData.changeStatus(status);
         count=0;
         TempData.changeStartNum(0);
@@ -160,11 +161,12 @@ class contentAdapter extends BaseAdapter {
             TextView description=(TextView)convertView.findViewById(R.id.recommendation_description);
 
             poster.main_picture_loaded.into(image);
-            description.setText(poster.title);
+            //description.setText(poster.title);
+            description.setText(Integer.toString(position));
 
-            main.scrollNumber = position;
+            main.scrollNumber = position+1;
         }
-
+        Log.v("Log from getView",Integer.toString(main.scrollNumber));
         return convertView;
     }
 
@@ -291,8 +293,11 @@ public class main extends AppCompatActivity {
                 scrolledByTouch=false;
                 if(scrollIsDownward){
                     scrollNumber-=2;
-
+                    if(scrollNumber<0){
+                        scrollNumber=0;
+                    }
                 }
+                Log.v("Log scroll to",Integer.toString(scrollNumber));
                 list.smoothScrollToPosition(scrollNumber--);
                 scrollIsDownward=false;
 
@@ -305,12 +310,28 @@ public class main extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 scrolledByTouch = false;
-                if (!scrollIsDownward && scrollNumber != 0) {
-                    scrollNumber += 2;
+                if (!scrollIsDownward && scrollNumber>1) {//&& scrollNumber != 0
+                    scrollNumber += 2;/*
+                    if(scrollNumber==2){
+                        scrollNumber=1;
+                    }
+                    */
+                }else if(!scrollIsDownward && scrollNumber<=1){
+                    scrollNumber+=1;
                 }
+                /*
+                if(scrollIsDownward && scrollNumber==1){
+                    scrollNumber++;
+                }
+                */
+                Log.v("Log scroll to",Integer.toString(scrollNumber));
                 list.smoothScrollToPosition(scrollNumber++);
+                if(scrollNumber>adapter.getCount()+1){
+                    scrollNumber=adapter.getCount()+1;
+                }
                 scrollIsDownward = true;
             }
+
         });
     }
 
@@ -353,6 +374,7 @@ public class main extends AppCompatActivity {
 
             profileLayout=(RelativeLayout)MainInflater.inflate(R.layout.profile_layout,null);
             mainProfileLayout.addView(profileLayout);
+            main.scrollNumber=1;
 
         }else if(TempData.status==TempData.STATUS_POSTER_ABBREVIATED){
             //********FOOTER LOADING IMAGE SHOULD BE ADAPTED
