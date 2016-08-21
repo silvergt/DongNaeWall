@@ -54,6 +54,8 @@ public class ServerConnector {
             returningPosters=getPosterFromServer();
             if(returningPosters==null) {
                 Log.e("Log","returning poster is null!");
+            }else if(returningPosters.size()==0){
+                Log.v("Log","returning poster size is 0");
             }
 
             socket.close();
@@ -68,7 +70,7 @@ public class ServerConnector {
 
     private void sendCurrentStatus(){
         /** pack
-         *  1. status                           -int
+         *  1. Tempdata.status                  -int
          *  2. Tempdata.order                   -int
          *  3. TempData.search                  -String
          *  4. TempData.startNum                -int
@@ -78,7 +80,7 @@ public class ServerConnector {
         pack.add(TempData.status);
         pack.add(TempData.order);
         if(TempData.search==null|| TempData.search.equals("")){
-            pack.add("`!`");
+            pack.add("`!`null");
         }else{
             pack.add(TempData.search);
         }
@@ -103,7 +105,7 @@ public class ServerConnector {
             OIS=new ObjectInputStream(IS);
             posters=(ArrayList<Pre_Poster>)OIS.readObject();
             returningPosterArray=new ArrayList<>();
-            for(int i=0;i<returningPosterArray.size();i++){
+            for(int i=0;i<posters.size();i++){
                 returningPosterArray.add(new Poster(posters.get(i)));
             }
         }catch (Exception e){

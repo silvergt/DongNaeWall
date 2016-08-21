@@ -160,6 +160,8 @@ class contentAdapter extends BaseAdapter {
 
             poster.main_picture_loaded.into(image);
             description.setText(poster.title);
+
+            main.scrollNumber = position;
         }
 
         return convertView;
