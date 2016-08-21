@@ -16,7 +16,9 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -157,6 +159,11 @@ public class main extends AppCompatActivity {
     static boolean scrolledByTouch=false;
     static int displayHeight;
     static int displayWidth;
+
+    static boolean searchBarIsVisible=false;
+    LinearLayout searchBar;
+    RelativeLayout mainLayout;
+
     LayoutInflater MainInflater;
 
     @Override
@@ -193,11 +200,34 @@ public class main extends AppCompatActivity {
         final contentAdapter adapter=new contentAdapter(this);
         list.setAdapter(adapter);
 
-        //final LinearLayout bottomLayout=(LinearLayout)findViewById(R.id.main_bottom_layout);
+
+        mainLayout=(RelativeLayout)findViewById(R.id.main);
         TextView filter=(TextView)findViewById(R.id.main_bottom_filter);
         TextView down=(TextView)findViewById(R.id.main_bottom_down);
         TextView up=(TextView)findViewById(R.id.main_bottom_up);
         ImageView logo=(ImageView)findViewById(R.id.main_logo);
+        final TextView search=(TextView)findViewById(R.id.main_top_search);
+
+        //******SEARCH METHOD
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!searchBarIsVisible) {
+                    RelativeLayout.LayoutParams searchBarParams = new RelativeLayout.LayoutParams
+                            (ViewGroup.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.topbar_size));
+                    searchBarParams.addRule(RelativeLayout.BELOW, R.id.main_topbar);
+                    searchBar = (LinearLayout) MainInflater.inflate(R.layout.searchbar, null);
+                    mainLayout.addView(searchBar, searchBarParams);
+                    searchBarIsVisible = true;
+                }else{
+                    mainLayout.removeView(searchBar);
+                    searchBarIsVisible=false;
+                }
+            }
+        });
+
+
+        //******SEARCH METHOD
 
 
         logo.setOnClickListener(new View.OnClickListener() {
@@ -257,8 +287,14 @@ public class main extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+        if(searchBarIsVisible){
+            mainLayout.removeView(searchBar);
+            searchBarIsVisible=false;
+            return;
+        }
         super.onBackPressed();
+
+
     }
 
 }
