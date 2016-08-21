@@ -177,6 +177,12 @@ public class main extends AppCompatActivity {
     static int displayHeight;
     static int displayWidth;
 
+    ListView list;
+    TextView listFooter;
+    TextView listHeader;
+    RelativeLayout profileLayout;
+    RelativeLayout mainProfileLayout;
+
     static boolean searchBarIsVisible=false;
     LinearLayout searchBar;
     RelativeLayout mainLayout;
@@ -198,7 +204,7 @@ public class main extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         displayWidth=metrics.widthPixels;
         displayHeight=metrics.heightPixels;
-        Log.v("Display size : ",Integer.toString(displayWidth)+","+Integer.toString(displayHeight));
+        Log.v("Display size : ", Integer.toString(displayWidth) + "," + Integer.toString(displayHeight));
 
         MainInflater=(LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
         Poster.context=this;
@@ -213,17 +219,20 @@ public class main extends AppCompatActivity {
         setContentView(R.layout.content_main);
 
 
-        final ListView list=(ListView)findViewById(R.id.main_listview);
-        final contentAdapter adapter=new contentAdapter(this);
-        list.setAdapter(adapter);
-
-
         mainLayout=(RelativeLayout)findViewById(R.id.main);
+        mainProfileLayout=(RelativeLayout)findViewById(R.id.main_background_profilelayout);
         TextView filter=(TextView)findViewById(R.id.main_bottom_filter);
         TextView down=(TextView)findViewById(R.id.main_bottom_down);
         TextView up=(TextView)findViewById(R.id.main_bottom_up);
         ImageView logo=(ImageView)findViewById(R.id.main_logo);
         final TextView search=(TextView)findViewById(R.id.main_top_search);
+        list=(ListView)findViewById(R.id.main_listview);
+
+
+
+        final contentAdapter adapter=new contentAdapter(this);
+        list.setAdapter(adapter);
+        addHeaderFooterViewToList();
 
         //******SEARCH METHOD
         search.setOnClickListener(new View.OnClickListener() {
@@ -255,16 +264,6 @@ public class main extends AppCompatActivity {
             }
         });
 
-        //********FOOTER LOADING IMAGE SHOULD BE ADAPTED
-        TextView LoadingTextForFooter=new TextView(this);
-        ListView.LayoutParams LTFFparams=new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,100);
-        LoadingTextForFooter.setLayoutParams(LTFFparams);
-        LoadingTextForFooter.setText("LOADING...");
-        LoadingTextForFooter.setTextColor(Color.BLUE);
-        LoadingTextForFooter.setBackgroundColor(Color.WHITE);
-        list.addFooterView(LoadingTextForFooter);
-        //********
-
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -292,12 +291,12 @@ public class main extends AppCompatActivity {
         down.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                scrolledByTouch=false;
-                if(!scrollIsDownward&&scrollNumber!=0){
-                    scrollNumber+=2;
+                scrolledByTouch = false;
+                if (!scrollIsDownward && scrollNumber != 0) {
+                    scrollNumber += 2;
                 }
                 list.smoothScrollToPosition(scrollNumber++);
-                scrollIsDownward=true;
+                scrollIsDownward = true;
             }
         });
     }
@@ -313,5 +312,49 @@ public class main extends AppCompatActivity {
 
 
     }
+    
+    public void addHeaderFooterViewToList(){
+        try{
+            mainProfileLayout.removeAllViews();
+        }catch (Exception e){
+            Log.v("Log","profileLayout not detected");
+        }
+        try{
+            list.removeHeaderView(listHeader);
+        }catch (Exception e){
+            Log.v("Log","no HeaderView detected");
+        }
+        try{
+            list.removeFooterView(listFooter);
+        }catch (Exception e){
+            Log.v("Log","no FooterView detected");
+        }
+
+        if(TempData.status==TempData.STATUS_RECOMMENDATION){
+
+            listHeader=new TextView(this);
+            ListView.LayoutParams LTHHparams=new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,main.displayHeight-50);
+            listHeader.setBackgroundColor(Color.argb(0, 0, 0, 0));
+            listHeader.setLayoutParams(LTHHparams);
+            list.addHeaderView(listHeader);
+
+            profileLayout=(RelativeLayout)MainInflater.inflate(R.layout.profile_layout,null);
+            mainProfileLayout.addView(profileLayout);
+
+        }else if(TempData.status==TempData.STATUS_POSTER_ABBREVIATED){
+            //********FOOTER LOADING IMAGE SHOULD BE ADAPTED
+            listFooter=new TextView(this);
+            ListView.LayoutParams LTFFparams=new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,100);
+            listFooter.setLayoutParams(LTFFparams);
+            listFooter.setText("LOADING...");
+            listFooter.setTextColor(Color.BLUE);
+            listFooter.setBackgroundColor(Color.WHITE);
+            list.addFooterView(listFooter);
+            //********
+        }
+
+
+    }
+    
 
 }
