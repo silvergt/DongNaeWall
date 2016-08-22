@@ -53,6 +53,7 @@ public class Poster implements Serializable{
         this.like = like;
         this.view=view;
         main_picture_loaded= Picasso.with(context).load(main_picture);
+        setPlaceHolderForRecommendationPosters();
         //setHeightAndParams();
     }
 
@@ -67,8 +68,15 @@ public class Poster implements Serializable{
         this.category = pre_poster.getCategory();
         this.like = pre_poster.getLike();
         this.view=pre_poster.getView();
-        main_picture_loaded= Picasso.with(context).load(main_picture);
+        main_picture_loaded = Picasso.with(context).load(main_picture);
+        setPlaceHolderForRecommendationPosters();
         //setHeightAndParams();
+    }
+
+    private void setPlaceHolderForRecommendationPosters(){
+        if(TempData.status==TempData.STATUS_RECOMMENDATION){
+            //main_picture_loaded.placeholder(R.drawable.logo);
+        }
     }
 
     private void setHeightAndParams(){

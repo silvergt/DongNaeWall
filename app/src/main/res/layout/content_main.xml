@@ -108,9 +108,14 @@
         android:layout_marginBottom="10dp"
         android:layout_marginRight="10dp"
         >
+        <View
+            android:layout_weight="8"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            />
         <TextView
             android:id="@+id/main_bottom_filter"
-            android:layout_weight="10"
+            android:layout_weight="2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="#8879D3FB"

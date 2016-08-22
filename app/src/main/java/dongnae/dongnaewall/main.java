@@ -182,7 +182,7 @@ public class main extends AppCompatActivity {
 
     ListView list;
     TextView listFooter;
-    TextView listHeader;
+    LinearLayout listHeader;
     RelativeLayout profileLayout;
     RelativeLayout mainProfileLayout;
 
@@ -276,6 +276,10 @@ public class main extends AppCompatActivity {
                 adapter.reloadPosterFromStart(TempData.STATUS_RECOMMENDATION);
                 setHeaderFooterViewToList();
                 adapter.notifyDataSetChanged();
+                if(searchBarIsVisible) {
+                    mainLayout.removeView(searchBar);
+                    searchBarIsVisible = false;
+                }
             }
         });
 
@@ -304,32 +308,27 @@ public class main extends AppCompatActivity {
                 if(scrollNumber<0){
                     scrollNumber=0;
                 }
+
+
             }
         });
         down.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 scrolledByTouch = false;
-                if (!scrollIsDownward && scrollNumber>1) {//&& scrollNumber != 0
-                    scrollNumber += 2;/*
-                    if(scrollNumber==2){
-                        scrollNumber=1;
-                    }
-                    */
+                if (!scrollIsDownward && scrollNumber>1) {
+                    scrollNumber += 2;
                 }else if(!scrollIsDownward && scrollNumber<=1){
                     scrollNumber+=1;
                 }
-                /*
-                if(scrollIsDownward && scrollNumber==1){
-                    scrollNumber++;
-                }
-                */
+
                 Log.v("Log scroll to",Integer.toString(scrollNumber));
                 list.smoothScrollToPosition(scrollNumber++);
                 if(scrollNumber>adapter.getCount()+1){
                     scrollNumber=adapter.getCount()+1;
                 }
                 scrollIsDownward = true;
+
             }
 
         });
@@ -366,9 +365,10 @@ public class main extends AppCompatActivity {
 
         if(TempData.status==TempData.STATUS_RECOMMENDATION){
 
-            listHeader=new TextView(this);
-            ListView.LayoutParams LTHHparams=new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,main.displayHeight-50);
-            listHeader.setBackgroundColor(Color.argb(0, 0, 0, 0));
+            listHeader=(LinearLayout)MainInflater.inflate(R.layout.recommendation_headerview,null);
+            ListView.LayoutParams LTHHparams=new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,main.displayHeight-(int)getResources().getDimension(R.dimen.topbar_size));
+            TextView headerText=(TextView)listHeader.findViewById(R.id.recommendation_headerview_text);
+            headerText.setPadding(main.displayWidth/10,main.displayHeight/15,0,0);
             listHeader.setLayoutParams(LTHHparams);
             list.addHeaderView(listHeader);
 
