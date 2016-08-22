@@ -167,8 +167,6 @@ class contentAdapter extends BaseAdapter {
                 title.setText(context.getResources().getString(R.string.recommendation_position_1));
             }else if(position==2){
                 title.setText(context.getResources().getString(R.string.recommendation_position_2));
-            }else{
-                title.setHeight(0);
             }
             title.setPadding(main.displayWidth/10,main.displayWidth/25,main.displayWidth/25,0);
             poster.main_picture_loaded.into(image);
