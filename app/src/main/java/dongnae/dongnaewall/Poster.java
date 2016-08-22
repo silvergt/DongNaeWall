@@ -9,8 +9,7 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 
 import java.io.Serializable;
-
-import pre_Poster.Pre_Poster;
+import java.util.HashMap;
 
 public class Poster implements Serializable{
     static Context context;
@@ -57,20 +56,19 @@ public class Poster implements Serializable{
         //setHeightAndParams();
     }
 
-    public Poster(Pre_Poster pre_poster){
-        this.id=pre_poster.getId();
-        this.title = pre_poster.getTitle();
-        this.endDate = pre_poster.getEndDate();
-        this.startDate = pre_poster.getStartDate();
-        this.price =pre_poster.getPrice();
-        this.place = pre_poster.getPlace();
-        this.main_picture = pre_poster.getMain_picture();
-        this.category = pre_poster.getCategory();
-        this.like = pre_poster.getLike();
-        this.view=pre_poster.getView();
-        main_picture_loaded = Picasso.with(context).load(main_picture);
+    public Poster(HashMap<String,Object> map){
+        this.id=(int)map.get("id");
+        this.title = map.get("title").toString();
+        this.endDate = (int[])map.get("endDate");
+        this.startDate = (int[])map.get("startDate");
+        this.price = (int)map.get("price");
+        this.place =(int)map.get("place");
+        this.main_picture = map.get("main_picture").toString();
+        this.category = (int[])map.get("category");
+        this.like = (int)map.get("like");
+        this.view=(int)map.get("view");
+        main_picture_loaded= Picasso.with(context).load(main_picture);
         setPlaceHolderForRecommendationPosters();
-        //setHeightAndParams();
     }
 
     private void setPlaceHolderForRecommendationPosters(){
@@ -101,11 +99,11 @@ public class Poster implements Serializable{
     }
 
     //**FULL
-    public void mergeAdditionalInfo(additionalPosterInfo additional){
-        this.full_information = additional.full_information;
-        this.pictures = additional.pictures;
-        this.homepage = additional.homepage;
-        this.phone = additional.phone;
+    public void mergeAdditionalInfo(HashMap<String,Object> additional){
+        this.full_information = additional.get("full_information").toString();
+        this.pictures = (String[])additional.get("pictures");
+        this.homepage = additional.get("homepage").toString();
+        this.phone = (int)additional.get("phone");
     }
 
     public static Context getContext() {
@@ -170,20 +168,5 @@ public class Poster implements Serializable{
 
     public String getFull_information() {
         return full_information;
-    }
-}
-
-
-class additionalPosterInfo{
-    String[] pictures;
-    String homepage;
-    int phone;
-    String full_information;
-
-    public additionalPosterInfo(String[] pictures, String homepage, int phone, String full_information) {
-        this.pictures = pictures;
-        this.homepage = homepage;
-        this.phone = phone;
-        this.full_information = full_information;
     }
 }

@@ -56,5 +56,4 @@ public class TempData {
         TempData.startNum=startNum;
     }
 
-    
 }

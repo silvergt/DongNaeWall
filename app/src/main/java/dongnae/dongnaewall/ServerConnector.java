@@ -8,8 +8,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
-
-import pre_Poster.Pre_Poster;
+import java.util.HashMap;
 
 /**
  * sendCurrentStatus and sendRequestOfAdditionalPosterInfo both send array with length of 4.
@@ -36,7 +35,6 @@ public class ServerConnector {
     Socket socket;
     ArrayList<Poster> returningPosters=null;
 
-    additionalPosterInfo additionalInfo=null;
     int id;
 
     OutputStream OS=null;
@@ -98,12 +96,12 @@ public class ServerConnector {
     }
 
     private ArrayList<Poster> getPosterFromServer(){
-        ArrayList<Pre_Poster> posters=null;
+        ArrayList<HashMap<String,Object>> posters=null;
         ArrayList<Poster> returningPosterArray=null;
         try{
             IS=socket.getInputStream();
             OIS=new ObjectInputStream(IS);
-            posters=(ArrayList<Pre_Poster>)OIS.readObject();
+            posters=(ArrayList<HashMap<String,Object>>)OIS.readObject();
             returningPosterArray=new ArrayList<>();
             for(int i=0;i<posters.size();i++){
                 returningPosterArray.add(new Poster(posters.get(i)));
@@ -126,8 +124,9 @@ public class ServerConnector {
     }
 
 
-    public additionalPosterInfo getAdditionalPosterInfo(int id){
+    public ArrayList<HashMap<String,Object>> getAdditionalPosterInfo(int id){
         this.id=id;
+        ArrayList<HashMap<String,Object>> additionalInfo=null;
         try{
             socket=new Socket(ServerConnector.server_ip,ServerConnector.server_port);
 
@@ -167,15 +166,16 @@ public class ServerConnector {
         }
     }
 
-    private additionalPosterInfo getAdditionalPosterInfoFromServer(){
-        additionalPosterInfo additional=null;
+    private ArrayList<HashMap<String,Object>> getAdditionalPosterInfoFromServer(){
+        ArrayList<HashMap<String,Object>> additional=null;
         try{
             InputStream IS=socket.getInputStream();
             ObjectInputStream OIS=new ObjectInputStream(IS);
-            additional=(additionalPosterInfo)OIS.readObject();
+            additional=(ArrayList<HashMap<String,Object>>)OIS.readObject();
         }catch (Exception e){
             Log.e("Log","ERROR at getAdditionalPosterInfoFromServer");
         }
         return additional;
     }
+
 }

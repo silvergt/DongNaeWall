@@ -176,7 +176,7 @@ class contentAdapter extends BaseAdapter {
 
             main.scrollNumber = position+1;
         }
-        Log.v("Log from getView",Integer.toString(main.scrollNumber));
+        //Log.v("Log from getView",Integer.toString(main.scrollNumber));
         return convertView;
     }
 
@@ -311,7 +311,7 @@ public class main extends AppCompatActivity {
                         scrollNumber=0;
                     }
                 }
-                Log.v("Log scroll to",Integer.toString(scrollNumber));
+                //Log.v("Log scroll to",Integer.toString(scrollNumber));
                 list.smoothScrollToPosition(scrollNumber--);
                 scrollIsDownward=false;
 
@@ -332,7 +332,7 @@ public class main extends AppCompatActivity {
                     scrollNumber+=1;
                 }
 
-                Log.v("Log scroll to",Integer.toString(scrollNumber));
+                //Log.v("Log scroll to",Integer.toString(scrollNumber));
                 list.smoothScrollToPosition(scrollNumber++);
                 if(scrollNumber>adapter.getCount()+1){
                     scrollNumber=adapter.getCount()+1;
