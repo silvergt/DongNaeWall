@@ -75,14 +75,14 @@ public class ServerConnector {
          *  5. filter.getFilterCheckedData()    -boolean[]
          */
         ArrayList<Object> pack=new ArrayList<>();
-        pack.add(TempData.status);
-        pack.add(TempData.order);
-        if(TempData.search==null|| TempData.search.equals("")){
+        pack.add(TempData.getStatus());
+        pack.add(TempData.getOrder());
+        if(TempData.getSearch()==null|| TempData.getSearch().equals("")){
             pack.add("`!`null");
         }else{
-            pack.add(TempData.search);
+            pack.add(TempData.getSearch());
         }
-        pack.add(TempData.startNum);
+        pack.add(TempData.getStartNum());
         pack.add(filter.getFilterCheckedData());
         try {
             OS = socket.getOutputStream();

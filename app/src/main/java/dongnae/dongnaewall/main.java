@@ -77,8 +77,8 @@ class contentAdapter extends BaseAdapter {
                 }else if(posters.size()!=0) {
                     Log.v("Log", "received");
                     posterList.addAll(posters);
-                    TempData.changeStartNum(TempData.startNum + posters.size());
-                    Log.v("total Loaded poster :", Integer.toString(TempData.startNum));
+                    TempData.changeStartNum(TempData.getStartNum() + posters.size());
+                    Log.v("total Loaded poster :", Integer.toString(TempData.getStartNum()));
                     count=posterList.size();
                     publishProgress(0);
                     return true;
@@ -123,7 +123,7 @@ class contentAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if(TempData.status==TempData.STATUS_POSTER_ABBREVIATED) {
+        if(TempData.getStatus()==TempData.STATUS_POSTER_ABBREVIATED) {
             if (convertView == null||convertView.getId()!=R.id.content_main_listview_main) {
                 convertView = inflater.inflate(R.layout.content_main_listview, null);
             }
@@ -151,7 +151,7 @@ class contentAdapter extends BaseAdapter {
                 getPosters();
             }
             main.scrollNumber = position;
-        }else if(TempData.status==TempData.STATUS_RECOMMENDATION){
+        }else if(TempData.getStatus()==TempData.STATUS_RECOMMENDATION){
             if (convertView == null ||convertView.getId()!=R.id.recommendation_main) {
                 convertView = inflater.inflate(R.layout.content_main_recommendation, null);
             }
@@ -192,7 +192,8 @@ public class main extends AppCompatActivity {
 
     ListView list;
     TextView listFooter;
-    RelativeLayout listHeader;
+    LinearLayout listHeader;
+    View blankView;
     RelativeLayout profileLayout;
     RelativeLayout mainProfileLayout;
 
@@ -305,18 +306,18 @@ public class main extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 scrolledByTouch=false;
-                if(scrollIsDownward){
-                    scrollNumber-=2;
-                    if(scrollNumber<0){
-                        scrollNumber=0;
+                if (scrollIsDownward) {
+                    scrollNumber -= 2;
+                    if (scrollNumber < 0) {
+                        scrollNumber = 0;
                     }
                 }
                 //Log.v("Log scroll to",Integer.toString(scrollNumber));
                 list.smoothScrollToPosition(scrollNumber--);
-                scrollIsDownward=false;
+                scrollIsDownward = false;
 
-                if(scrollNumber<0){
-                    scrollNumber=0;
+                if (scrollNumber < 0) {
+                    scrollNumber = 0;
                 }
 
 
@@ -326,16 +327,16 @@ public class main extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 scrolledByTouch = false;
-                if (!scrollIsDownward && scrollNumber>1) {
+                if (!scrollIsDownward && scrollNumber > 1) {
                     scrollNumber += 2;
-                }else if(!scrollIsDownward && scrollNumber<=1){
-                    scrollNumber+=1;
+                } else if (!scrollIsDownward && scrollNumber <= 1) {
+                    scrollNumber += 1;
                 }
 
                 //Log.v("Log scroll to",Integer.toString(scrollNumber));
                 list.smoothScrollToPosition(scrollNumber++);
-                if(scrollNumber>adapter.getCount()+1){
-                    scrollNumber=adapter.getCount()+1;
+                if (scrollNumber > adapter.getCount() + 1) {
+                    scrollNumber = adapter.getCount() + 1;
                 }
                 scrollIsDownward = true;
 
@@ -368,27 +369,33 @@ public class main extends AppCompatActivity {
             Log.v("Log","no HeaderView detected");
         }
         try{
+            list.removeHeaderView(blankView);
+        }catch (Exception e){
+            Log.v("Log","no HeaderView2 detected");
+        }
+        try{
             list.removeFooterView(listFooter);
         }catch (Exception e){
             Log.v("Log","no FooterView detected");
         }
 
-        if(TempData.status==TempData.STATUS_RECOMMENDATION){
+        if(TempData.getStatus()==TempData.STATUS_RECOMMENDATION){
 
-            ListView.LayoutParams LTHHparams=new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,main.displayHeight-(int)getResources().getDimension(R.dimen.topbar_size));
-            listHeader=(RelativeLayout)MainInflater.inflate(R.layout.recommendation_headerview,null);
-            LinearLayout lowerlayout=(LinearLayout) listHeader.findViewById(R.id.recommendation_headerview_lower);
+            listHeader=(LinearLayout) MainInflater.inflate(R.layout.recommendation_headerview,null);
 
-            RelativeLayout.LayoutParams lowerlayoutParams=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,main.displayHeight/4);
-            lowerlayoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-            lowerlayout.setLayoutParams(lowerlayoutParams);
-
+            ListView.LayoutParams LTHHparams1=new ListView.LayoutParams(
+                    1,main.displayHeight*3/5);
+            ListView.LayoutParams LTHHparams2=new ListView.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,main.displayHeight*3/10);
+            blankView=new View(this);
+            blankView.setLayoutParams(LTHHparams1);
+            listHeader.setLayoutParams(LTHHparams2);
             TextView headerText1=(TextView)listHeader.findViewById(R.id.recommendation_headerview_text1);
             TextView headerText2=(TextView)listHeader.findViewById(R.id.recommendation_headerview_text2);
-            headerText1.setPadding(main.displayWidth/10,main.displayHeight/30,0,0);
+            headerText1.setPadding(main.displayWidth/10,main.displayHeight/20,0,0);
             headerText2.setPadding(main.displayWidth/10,5,0,0);
 
-            listHeader.setLayoutParams(LTHHparams);
+            list.addHeaderView(blankView);
             list.addHeaderView(listHeader);
 
             profileLayout=(RelativeLayout)MainInflater.inflate(R.layout.profile_layout,null);
@@ -396,7 +403,7 @@ public class main extends AppCompatActivity {
 
             main.scrollNumber=1;
 
-        }else if(TempData.status==TempData.STATUS_POSTER_ABBREVIATED){
+        }else if(TempData.getStatus()==TempData.STATUS_POSTER_ABBREVIATED){
             //********FOOTER LOADING IMAGE SHOULD BE ADAPTED
             listFooter=new TextView(this);
             ListView.LayoutParams LTFFparams=new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,100);

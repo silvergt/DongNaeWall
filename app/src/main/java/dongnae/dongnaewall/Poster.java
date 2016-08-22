@@ -72,7 +72,7 @@ public class Poster implements Serializable{
     }
 
     private void setPlaceHolderForRecommendationPosters(){
-        if(TempData.status==TempData.STATUS_RECOMMENDATION){
+        if(TempData.getStatus()==TempData.STATUS_RECOMMENDATION){
             //main_picture_loaded.placeholder(R.drawable.logo);
         }
     }

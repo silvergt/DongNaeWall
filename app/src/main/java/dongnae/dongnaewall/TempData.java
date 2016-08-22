@@ -26,10 +26,10 @@ public class TempData {
     final static int ORDER_LIKE=120;
     final static int ORDER_VISIT=130;
 
-    static int status;
-    static int order;
-    static String search;
-    static int startNum;
+    private static int status;
+    private static int order;
+    private static String search;
+    private static int startNum;
 
 
 
@@ -56,4 +56,19 @@ public class TempData {
         TempData.startNum=startNum;
     }
 
+    public static int getStatus() {
+        return status;
+    }
+
+    public static int getOrder() {
+        return order;
+    }
+
+    public static String getSearch() {
+        return search;
+    }
+
+    public static int getStartNum() {
+        return startNum;
+    }
 }

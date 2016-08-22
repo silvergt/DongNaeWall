@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
     <LinearLayout
         android:id="@+id/recommendation_headerview_lower"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:orientation="vertical"
         android:background="#FFFFFF"
-        android:layout_alignParentBottom="true"
         >
         <TextView
             android:id="@+id/recommendation_headerview_text1"
@@ -31,6 +27,3 @@
             />
 
     </LinearLayout>
-
-
-</RelativeLayout>
