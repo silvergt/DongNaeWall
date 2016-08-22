@@ -201,6 +201,12 @@ public class main extends AppCompatActivity {
     LinearLayout searchBar;
     RelativeLayout mainLayout;
 
+    TextView filter;
+    TextView down;
+    TextView up;
+    ImageView logo;
+    TextView search;
+
     LayoutInflater MainInflater;
 
     @Override
@@ -235,19 +241,20 @@ public class main extends AppCompatActivity {
 
         mainLayout=(RelativeLayout)findViewById(R.id.main);
         mainProfileLayout=(RelativeLayout)findViewById(R.id.main_background_profilelayout);
-        TextView filter=(TextView)findViewById(R.id.main_bottom_filter);
-        TextView down=(TextView)findViewById(R.id.main_bottom_down);
-        TextView up=(TextView)findViewById(R.id.main_bottom_up);
-        ImageView logo=(ImageView)findViewById(R.id.main_logo);
-        final TextView search=(TextView)findViewById(R.id.main_top_search);
+        filter=(TextView)findViewById(R.id.main_bottom_filter);
+        down=(TextView)findViewById(R.id.main_bottom_down);
+        up=(TextView)findViewById(R.id.main_bottom_up);
+        logo=(ImageView)findViewById(R.id.main_logo);
+        search=(TextView)findViewById(R.id.main_top_search);
         list=(ListView)findViewById(R.id.main_listview);
         TextView alarm=(TextView)findViewById(R.id.main_top_alarm);
-
 
 
         final contentAdapter adapter=new contentAdapter(this);
         list.setAdapter(adapter);
         setHeaderFooterViewToList();
+
+        changeToolBoxVisibility(false);
 
         //******SEARCH METHOD
         search.setOnClickListener(new View.OnClickListener() {
@@ -273,6 +280,7 @@ public class main extends AppCompatActivity {
                 adapter.reloadPosterFromStart(TempData.STATUS_POSTER_ABBREVIATED);
                 setHeaderFooterViewToList();
                 adapter.notifyDataSetChanged();
+                changeToolBoxVisibility(true);
             }
         });
 
@@ -291,6 +299,7 @@ public class main extends AppCompatActivity {
                     mainLayout.removeView(searchBar);
                     searchBarIsVisible = false;
                 }
+                changeToolBoxVisibility(false);
             }
         });
 
@@ -417,6 +426,18 @@ public class main extends AppCompatActivity {
 
 
     }
-    
+
+    public void changeToolBoxVisibility(boolean setVisible){
+        if(setVisible){
+            up.setVisibility(View.VISIBLE);
+            down.setVisibility(View.VISIBLE);
+            filter.setVisibility(View.VISIBLE);
+        }else{
+            up.setVisibility(View.INVISIBLE);
+            down.setVisibility(View.INVISIBLE);
+            filter.setVisibility(View.INVISIBLE);
+
+        }
+    }
 
 }
