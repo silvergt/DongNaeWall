@@ -192,7 +192,7 @@ public class main extends AppCompatActivity {
 
     ListView list;
     TextView listFooter;
-    LinearLayout listHeader;
+    RelativeLayout listHeader;
     RelativeLayout profileLayout;
     RelativeLayout mainProfileLayout;
 
@@ -375,10 +375,15 @@ public class main extends AppCompatActivity {
 
         if(TempData.status==TempData.STATUS_RECOMMENDATION){
 
-            listHeader=(LinearLayout)MainInflater.inflate(R.layout.recommendation_headerview,null);
+            listHeader=(RelativeLayout)MainInflater.inflate(R.layout.recommendation_headerview,null);
             ListView.LayoutParams LTHHparams=new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,main.displayHeight-(int)getResources().getDimension(R.dimen.topbar_size));
+            LinearLayout lowerlayout=(LinearLayout) listHeader.findViewById(R.id.recommendation_headerview_lower);
             TextView headerText1=(TextView)listHeader.findViewById(R.id.recommendation_headerview_text1);
             TextView headerText2=(TextView)listHeader.findViewById(R.id.recommendation_headerview_text2);
+
+            RelativeLayout.LayoutParams lowerlayoutParams=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,main.displayHeight/4);
+            lowerlayoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            lowerlayout.setLayoutParams(lowerlayoutParams);
             headerText1.setPadding(main.displayWidth/10,main.displayHeight/30,0,0);
             headerText2.setPadding(main.displayWidth/10,5,0,0);
             listHeader.setLayoutParams(LTHHparams);

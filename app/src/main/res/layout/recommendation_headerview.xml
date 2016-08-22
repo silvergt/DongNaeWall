@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00000000"
+    android:background="#00FFFFFF"
     >
-    <View
-        android:id="@+id/recommendation_headerview_blank"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
-        />
     <LinearLayout
-        android:layout_weight="1"
+        android:id="@+id/recommendation_headerview_lower"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="100dp"
         android:orientation="vertical"
         android:background="#FFFFFF"
-        android:layout_below="@id/recommendation_headerview_blank"
+        android:layout_alignParentBottom="true"
         >
         <TextView
             android:id="@+id/recommendation_headerview_text1"
@@ -40,4 +34,4 @@
     </LinearLayout>
 
 
-</LinearLayout>
+</RelativeLayout>
