@@ -5,20 +5,39 @@
     android:background="#00000000"
     >
     <View
+        android:id="@+id/recommendation_headerview_blank"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
         />
-    <TextView
-        android:id="@+id/recommendation_headerview_text"
+    <LinearLayout
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:text="안녕하세요"
-        android:textSize="30sp"
-        android:textStyle="italic"
-        android:textColor="#202020"
+        android:orientation="vertical"
         android:background="#FFFFFF"
-        />
+        android:layout_below="@id/recommendation_headerview_blank"
+        >
+        <TextView
+            android:id="@+id/recommendation_headerview_text1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="안녕하세요"
+            android:textSize="30sp"
+            android:textStyle="italic"
+            android:textColor="#202020"
+            />
+        <TextView
+            android:id="@+id/recommendation_headerview_text2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="포스터를 검색해 보세요"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            android:textColor="#202020"
+            />
+
+    </LinearLayout>
+
 
 </LinearLayout>

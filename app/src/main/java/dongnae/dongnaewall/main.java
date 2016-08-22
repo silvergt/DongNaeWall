@@ -157,12 +157,22 @@ class contentAdapter extends BaseAdapter {
             }
             Poster poster = posterList.get(position);
 
+            TextView title=(TextView)convertView.findViewById(R.id.recommendation_title);
             ImageView image=(ImageView)convertView.findViewById(R.id.recommendation_image);
             TextView description=(TextView)convertView.findViewById(R.id.recommendation_description);
 
+            if(position==0){
+                title.setText(context.getResources().getString(R.string.recommendation_position_0));
+            }else if(position==1){
+                title.setText(context.getResources().getString(R.string.recommendation_position_1));
+            }else if(position==2){
+                title.setText(context.getResources().getString(R.string.recommendation_position_2));
+            }else{
+                title.setHeight(0);
+            }
+            title.setPadding(main.displayWidth/10,main.displayWidth/25,main.displayWidth/25,0);
             poster.main_picture_loaded.into(image);
-            //description.setText(poster.title);
-            description.setText(Integer.toString(position));
+            description.setText(poster.title);
 
             main.scrollNumber = position+1;
         }
@@ -255,7 +265,7 @@ public class main extends AppCompatActivity {
                 }
             }
         });
-        
+
         alarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -264,7 +274,7 @@ public class main extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
         });
-        
+
 
 
         //******SEARCH METHOD
@@ -345,7 +355,7 @@ public class main extends AppCompatActivity {
 
 
     }
-    
+
     public void setHeaderFooterViewToList(){
         try{
             mainProfileLayout.removeAllViews();
@@ -367,8 +377,10 @@ public class main extends AppCompatActivity {
 
             listHeader=(LinearLayout)MainInflater.inflate(R.layout.recommendation_headerview,null);
             ListView.LayoutParams LTHHparams=new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,main.displayHeight-(int)getResources().getDimension(R.dimen.topbar_size));
-            TextView headerText=(TextView)listHeader.findViewById(R.id.recommendation_headerview_text);
-            headerText.setPadding(main.displayWidth/10,main.displayHeight/15,0,0);
+            TextView headerText1=(TextView)listHeader.findViewById(R.id.recommendation_headerview_text1);
+            TextView headerText2=(TextView)listHeader.findViewById(R.id.recommendation_headerview_text2);
+            headerText1.setPadding(main.displayWidth/10,main.displayHeight/30,0,0);
+            headerText2.setPadding(main.displayWidth/10,5,0,0);
             listHeader.setLayoutParams(LTHHparams);
             list.addHeaderView(listHeader);
 

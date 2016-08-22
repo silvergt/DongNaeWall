@@ -2,4 +2,8 @@
     <string name="app_name">동네벽보</string>
 
     <string name="school">학교행사</string>
+
+    <string name="recommendation_position_0">최근 검색</string>
+    <string name="recommendation_position_1">인기 포스터</string>
+    <string name="recommendation_position_2">친구가 좋아한 포스터</string>
 </resources>
