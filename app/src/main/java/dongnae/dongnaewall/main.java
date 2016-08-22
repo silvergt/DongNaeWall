@@ -375,22 +375,25 @@ public class main extends AppCompatActivity {
 
         if(TempData.status==TempData.STATUS_RECOMMENDATION){
 
-            listHeader=(RelativeLayout)MainInflater.inflate(R.layout.recommendation_headerview,null);
             ListView.LayoutParams LTHHparams=new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,main.displayHeight-(int)getResources().getDimension(R.dimen.topbar_size));
+            listHeader=(RelativeLayout)MainInflater.inflate(R.layout.recommendation_headerview,null);
             LinearLayout lowerlayout=(LinearLayout) listHeader.findViewById(R.id.recommendation_headerview_lower);
-            TextView headerText1=(TextView)listHeader.findViewById(R.id.recommendation_headerview_text1);
-            TextView headerText2=(TextView)listHeader.findViewById(R.id.recommendation_headerview_text2);
 
             RelativeLayout.LayoutParams lowerlayoutParams=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,main.displayHeight/4);
             lowerlayoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
             lowerlayout.setLayoutParams(lowerlayoutParams);
+
+            TextView headerText1=(TextView)listHeader.findViewById(R.id.recommendation_headerview_text1);
+            TextView headerText2=(TextView)listHeader.findViewById(R.id.recommendation_headerview_text2);
             headerText1.setPadding(main.displayWidth/10,main.displayHeight/30,0,0);
             headerText2.setPadding(main.displayWidth/10,5,0,0);
+
             listHeader.setLayoutParams(LTHHparams);
             list.addHeaderView(listHeader);
 
             profileLayout=(RelativeLayout)MainInflater.inflate(R.layout.profile_layout,null);
             mainProfileLayout.addView(profileLayout);
+
             main.scrollNumber=1;
 
         }else if(TempData.status==TempData.STATUS_POSTER_ABBREVIATED){
