@@ -48,7 +48,6 @@ public class ServerConnector {
             socket=new Socket(ServerConnector.server_ip,ServerConnector.server_port);
 
             sendCurrentStatus();
-
             returningPosters=getPosterFromServer();
             if(returningPosters==null) {
                 Log.e("Log","returning poster is null!");
@@ -59,6 +58,7 @@ public class ServerConnector {
             socket.close();
         }catch (Exception e){
             Log.e("Log","ERROR at getPoster");
+            returningPosters=null;
             e.printStackTrace();
         }
 

@@ -13,7 +13,6 @@
             android:layout_height="wrap_content"
             android:text="안녕하세요"
             android:textSize="30sp"
-            android:textStyle="italic"
             android:textColor="#202020"
             />
         <TextView
@@ -22,7 +21,6 @@
             android:layout_height="wrap_content"
             android:text="포스터를 검색해 보세요"
             android:textSize="20sp"
-            android:textStyle="italic"
             android:textColor="#202020"
             />
 

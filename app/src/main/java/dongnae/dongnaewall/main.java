@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -51,7 +52,6 @@ class contentAdapter extends BaseAdapter {
         posterList=new ArrayList<>();
         getPosters();
         inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        TempData.changeStatus(TempData.STATUS_RECOMMENDATION);
     }
 
     public void reloadPosterFromStart(int status){
@@ -150,7 +150,7 @@ class contentAdapter extends BaseAdapter {
             if (position == posterList.size() - 1 && !reachedLastPoster) {
                 getPosters();
             }
-            main.scrollNumber = position;
+            main.scrollNumber = position+2;
         }else if(TempData.getStatus()==TempData.STATUS_RECOMMENDATION){
             if (convertView == null ||convertView.getId()!=R.id.recommendation_main) {
                 convertView = inflater.inflate(R.layout.content_main_recommendation, null);
@@ -174,7 +174,7 @@ class contentAdapter extends BaseAdapter {
             poster.main_picture_loaded.into(image);
             description.setText(poster.title);
 
-            main.scrollNumber = position+1;
+            main.scrollNumber = position+2;
         }
         //Log.v("Log from getView",Integer.toString(main.scrollNumber));
         return convertView;
@@ -187,13 +187,14 @@ public class main extends AppCompatActivity {
     static int scrollNumber=0;
     static boolean scrollIsDownward=true;
     static boolean scrolledByTouch=false;
-    static int displayHeight;
-    static int displayWidth;
+    static int displayHeight=0;
+    static int displayWidth=0;
 
     ListView list;
+    contentAdapter adapter;
     TextView listFooter;
     LinearLayout listHeader;
-    View blankView;
+    LinearLayout blankView;
     RelativeLayout profileLayout;
     RelativeLayout mainProfileLayout;
 
@@ -215,8 +216,6 @@ public class main extends AppCompatActivity {
 
         if(Build.VERSION.SDK_INT>Build.VERSION_CODES.LOLLIPOP) {
             Window window =getWindow();
-            //window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            //window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(ContextCompat.getColor(this, R.color.basicStatusBarColor));
         }
 
@@ -249,12 +248,13 @@ public class main extends AppCompatActivity {
         list=(ListView)findViewById(R.id.main_listview);
         TextView alarm=(TextView)findViewById(R.id.main_top_alarm);
 
-
-        final contentAdapter adapter=new contentAdapter(this);
+        TempData.changeStatus(TempData.STATUS_RECOMMENDATION);
+        if(adapter==null) {
+            setHeaderFooterViewToList(TempData.getStatus());
+        }
+        adapter=new contentAdapter(this);
         list.setAdapter(adapter);
-        setHeaderFooterViewToList();
 
-        changeToolBoxVisibility(false);
 
         //******SEARCH METHOD
         search.setOnClickListener(new View.OnClickListener() {
@@ -278,9 +278,8 @@ public class main extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 adapter.reloadPosterFromStart(TempData.STATUS_POSTER_ABBREVIATED);
-                setHeaderFooterViewToList();
                 adapter.notifyDataSetChanged();
-                changeToolBoxVisibility(true);
+                setHeaderFooterViewVisibility();
             }
         });
 
@@ -293,13 +292,12 @@ public class main extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 adapter.reloadPosterFromStart(TempData.STATUS_RECOMMENDATION);
-                setHeaderFooterViewToList();
                 adapter.notifyDataSetChanged();
                 if(searchBarIsVisible) {
                     mainLayout.removeView(searchBar);
                     searchBarIsVisible = false;
                 }
-                changeToolBoxVisibility(false);
+                setHeaderFooterViewVisibility();
             }
         });
 
@@ -344,8 +342,8 @@ public class main extends AppCompatActivity {
 
                 //Log.v("Log scroll to",Integer.toString(scrollNumber));
                 list.smoothScrollToPosition(scrollNumber++);
-                if (scrollNumber > adapter.getCount() + 1) {
-                    scrollNumber = adapter.getCount() + 1;
+                if (scrollNumber > adapter.getCount() + 2) {
+                    scrollNumber = adapter.getCount() + 2;
                 }
                 scrollIsDownward = true;
 
@@ -366,39 +364,23 @@ public class main extends AppCompatActivity {
 
     }
 
-    public void setHeaderFooterViewToList(){
+    private void setHeaderFooterViewToList(int status){
+        /*          THIS METHOD IS WHEN MINIMUM API IS API_19*/
         try{
             mainProfileLayout.removeAllViews();
         }catch (Exception e){
             Log.v("Log","profileLayout not detected");
         }
-        try{
-            list.removeHeaderView(listHeader);
-        }catch (Exception e){
-            Log.v("Log","no HeaderView detected");
-        }
-        try{
-            list.removeHeaderView(blankView);
-        }catch (Exception e){
-            Log.v("Log","no HeaderView2 detected");
-        }
-        try{
-            list.removeFooterView(listFooter);
-        }catch (Exception e){
-            Log.v("Log","no FooterView detected");
-        }
-
-        if(TempData.getStatus()==TempData.STATUS_RECOMMENDATION){
 
             listHeader=(LinearLayout) MainInflater.inflate(R.layout.recommendation_headerview,null);
 
-            ListView.LayoutParams LTHHparams1=new ListView.LayoutParams(
+            ListView.LayoutParams blankViewParams=new ListView.LayoutParams(
                     1,main.displayHeight*3/5);
-            ListView.LayoutParams LTHHparams2=new ListView.LayoutParams(
+            ListView.LayoutParams listHeaderParams=new ListView.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,main.displayHeight*3/10);
-            blankView=new View(this);
-            blankView.setLayoutParams(LTHHparams1);
-            listHeader.setLayoutParams(LTHHparams2);
+            blankView=new LinearLayout(this);
+            blankView.setLayoutParams(blankViewParams);
+            listHeader.setLayoutParams(listHeaderParams);
             TextView headerText1=(TextView)listHeader.findViewById(R.id.recommendation_headerview_text1);
             TextView headerText2=(TextView)listHeader.findViewById(R.id.recommendation_headerview_text2);
             headerText1.setPadding(main.displayWidth/10,main.displayHeight/20,0,0);
@@ -412,22 +394,20 @@ public class main extends AppCompatActivity {
 
             main.scrollNumber=1;
 
-        }else if(TempData.getStatus()==TempData.STATUS_POSTER_ABBREVIATED){
             //********FOOTER LOADING IMAGE SHOULD BE ADAPTED
             listFooter=new TextView(this);
-            ListView.LayoutParams LTFFparams=new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,100);
-            listFooter.setLayoutParams(LTFFparams);
+            ListView.LayoutParams listFooterParams=new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,100);
+            listFooter.setLayoutParams(listFooterParams);
             listFooter.setText("LOADING...");
             listFooter.setTextColor(Color.BLUE);
             listFooter.setBackgroundColor(Color.WHITE);
             list.addFooterView(listFooter);
             //********
-        }
-
 
     }
+/*
+    public void setToolBox(boolean setVisible){
 
-    public void changeToolBoxVisibility(boolean setVisible){
         if(setVisible){
             up.setVisibility(View.VISIBLE);
             down.setVisibility(View.VISIBLE);
@@ -438,6 +418,29 @@ public class main extends AppCompatActivity {
             filter.setVisibility(View.INVISIBLE);
 
         }
+
+    }
+*/
+    public void setHeaderFooterViewVisibility(){
+        if(TempData.getStatus()==TempData.STATUS_RECOMMENDATION){
+            Log.v("Log","setting visibility of header,footer view... RECOMM");
+            ListView.LayoutParams blankViewParams=new ListView.LayoutParams(
+                    1,main.displayHeight*3/5);
+            ListView.LayoutParams listHeaderParams=new ListView.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,main.displayHeight*3/10);
+            ListView.LayoutParams invisibleParam=new AbsListView.LayoutParams(1,1);
+            blankView.setLayoutParams(blankViewParams);
+            listHeader.setLayoutParams(listHeaderParams);
+            listFooter.setLayoutParams(invisibleParam);
+        }else if(TempData.getStatus()==TempData.STATUS_POSTER_ABBREVIATED){
+            ListView.LayoutParams listFooterParams=new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,100);
+            ListView.LayoutParams invisibleParam=new AbsListView.LayoutParams(1,1);
+            Log.v("Log","setting visibility of header,footer view... ABBR");
+            blankView.setLayoutParams(invisibleParam);
+            listHeader.setLayoutParams(invisibleParam);
+            listFooter.setLayoutParams(listFooterParams);
+        }
+
     }
 
 }
