@@ -13,7 +13,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-
+    <!--========================= 필터뷰 스타일 =========================-->
     <style name="filter_view_primary_category">
         <item name="android:layout_width">300dp</item>
         <item name="android:layout_height">40dp</item>
@@ -72,6 +72,8 @@
         <item name="android:background">#84CF59</item>
     </style>
 
+
+    <!--========================= 개인화면 스타일 =========================-->
     <style name="personal_info_second_row_favorites" parent="@android:style/TextAppearance">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">1</item>
@@ -109,6 +111,42 @@
         <item name="android:layout_gravity">center</item>
     </style>
 
+
+    <!--========================= 회원가입화면 브릿지 =========================-->
+    <style name="LogInBoxes" parent="@android:style/TextAppearance">
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">#ffcc99</item>
+    </style>
+
+    <style name="SignInBoxes_left" parent="@android:style/TextAppearance">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">#F5DEB3</item>
+    </style>
+    <style name="SignInBoxes_right" parent="@android:style/TextAppearance">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">#F5DEB3</item>
+    </style>
+
+    <style name="SignAndLogInBoxesTexts" parent="@android:style/TextAppearance">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+    </style>
 
 
 </resources>

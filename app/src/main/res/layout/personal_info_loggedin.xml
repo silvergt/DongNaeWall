@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<ScrollView
+    android:id="@+id/PersonalProfileBasicScreen"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <!-- scrollView 에는 layout이 하나만 들어가야 됨 -->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -16,6 +12,7 @@
             android:orientation="vertical">
             <!--=========================로그인 및 회원가입=========================-->
             <RelativeLayout
+                android:id="@+id/SignAndLogIn"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:background="#444444">
@@ -34,7 +31,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="즐겨찾기"/>
+                        android:text="@string/favorites"/>
                 </LinearLayout>
                 <LinearLayout
                     style="@style/personal_info_second_row_favorites"
@@ -43,7 +40,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="구독 단체"/>
+                        android:text="@string/subscribe"/>
                 </LinearLayout>
                 <LinearLayout
                     style="@style/personal_info_second_row_favorites"
@@ -52,7 +49,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="최근 본 이벤트"/>
+                        android:text="@string/recent_view"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -106,7 +103,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="설정"/>
+                        android:text="@string/settings"/>
                 </LinearLayout>
                 <LinearLayout
                     style="@style/personal_info_second_row_favorites"
@@ -115,7 +112,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="구독 단체"/>
+                        android:text="@string/notice"/>
                 </LinearLayout>
                 <LinearLayout
                     style="@style/personal_info_second_row_favorites"
@@ -124,13 +121,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="최근 본 이벤트"/>
+                        android:text="@string/customer_service"/>
                 </LinearLayout>
             </LinearLayout>
 
 
         </LinearLayout>
 
-    </ScrollView>
 
-</LinearLayout>
+</ScrollView>

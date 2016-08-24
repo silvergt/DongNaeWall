@@ -2,4 +2,27 @@
     <string name="app_name">동네벽보</string>
 
     <string name="school">학교행사</string>
+
+
+    <!--========================= 개인화면 =========================-->
+    <string name="favorites">즐겨찾기</string>
+    <string name="subscribe">구독단체</string>
+    <string name="recent_view">최근 본 이벤트</string>
+
+    <string name="hot_issue">실시간 핫 이슈</string>
+
+    <string name="settings">설정</string>
+    <string name="notice">공지사항</string>
+    <string name="customer_service">고객센터</string>
+
+
+
+    <!--========================= 회원가입화면 브릿지 =========================-->
+    <string name="log_and_sign_in">회원가입 및 로그인</string>
+    <string name="log_and_sign_in_yoohoo">오늘 어디서 놀래?</string>
+    <string name="log_and_sign_in_facebook">페이스북으로 로그인</string>
+    <string name="log_and_sign_in_email">이메일로 로그인</string>
+    <string name="log_and_sign_in_host">주최자 로그인</string>
+    <string name="signin_ordinary">일반회원가입</string>
+    <string name="signin_host">주최자가입</string>
 </resources>
