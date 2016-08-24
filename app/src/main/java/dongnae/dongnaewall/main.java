@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -201,6 +202,7 @@ public class main extends AppCompatActivity {
     static boolean searchBarIsVisible=false;
     LinearLayout searchBar;
     RelativeLayout mainLayout;
+    InputMethodManager IMM;
 
     TextView filter;
     TextView down;
@@ -224,6 +226,9 @@ public class main extends AppCompatActivity {
         displayWidth=metrics.widthPixels;
         displayHeight=metrics.heightPixels;
         Log.v("Display size : ", Integer.toString(displayWidth) + "," + Integer.toString(displayHeight));
+
+        IMM = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+
 
         MainInflater=(LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
         Poster.context=this;
@@ -249,28 +254,33 @@ public class main extends AppCompatActivity {
         TextView alarm=(TextView)findViewById(R.id.main_top_alarm);
 
         TempData.changeStatus(TempData.STATUS_RECOMMENDATION);
+
         if(adapter==null) {
-            setHeaderFooterViewToList(TempData.getStatus());
+            setHeaderFooterViewToList();
         }
         adapter=new contentAdapter(this);
         list.setAdapter(adapter);
+        list.setVerticalScrollBarEnabled(false);
+        list.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if(scrollState==SCROLL_STATE_TOUCH_SCROLL){
+                    setSearchBarStatus(false);
+                }
+            }
 
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
+        setHeaderFooterViewVisibility();
 
         //******SEARCH METHOD
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!searchBarIsVisible) {
-                    RelativeLayout.LayoutParams searchBarParams = new RelativeLayout.LayoutParams
-                            (ViewGroup.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.topbar_size));
-                    searchBarParams.addRule(RelativeLayout.BELOW, R.id.main_topbar);
-                    searchBar = (LinearLayout) MainInflater.inflate(R.layout.searchbar, null);
-                    mainLayout.addView(searchBar, searchBarParams);
-                    searchBarIsVisible = true;
-                }else{
-                    mainLayout.removeView(searchBar);
-                    searchBarIsVisible=false;
-                }
+                setSearchBarStatus(!searchBarIsVisible);
             }
         });
 
@@ -279,6 +289,7 @@ public class main extends AppCompatActivity {
             public void onClick(View v) {
                 adapter.reloadPosterFromStart(TempData.STATUS_POSTER_ABBREVIATED);
                 adapter.notifyDataSetChanged();
+                setSearchBarStatus(false);
                 setHeaderFooterViewVisibility();
             }
         });
@@ -294,8 +305,7 @@ public class main extends AppCompatActivity {
                 adapter.reloadPosterFromStart(TempData.STATUS_RECOMMENDATION);
                 adapter.notifyDataSetChanged();
                 if(searchBarIsVisible) {
-                    mainLayout.removeView(searchBar);
-                    searchBarIsVisible = false;
+                    setSearchBarStatus(true);
                 }
                 setHeaderFooterViewVisibility();
             }
@@ -312,6 +322,9 @@ public class main extends AppCompatActivity {
         up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(searchBarIsVisible){
+                    setSearchBarStatus(false);
+                }
                 scrolledByTouch=false;
                 if (scrollIsDownward) {
                     scrollNumber -= 2;
@@ -328,11 +341,15 @@ public class main extends AppCompatActivity {
                 }
 
 
+
             }
         });
         down.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(searchBarIsVisible){
+                    setSearchBarStatus(false);
+                }
                 scrolledByTouch = false;
                 if (!scrollIsDownward && scrollNumber > 1) {
                     scrollNumber += 2;
@@ -364,7 +381,7 @@ public class main extends AppCompatActivity {
 
     }
 
-    private void setHeaderFooterViewToList(int status){
+    private void setHeaderFooterViewToList(){
         /*          THIS METHOD IS WHEN MINIMUM API IS API_19*/
         try{
             mainProfileLayout.removeAllViews();
@@ -405,22 +422,27 @@ public class main extends AppCompatActivity {
             //********
 
     }
-/*
-    public void setToolBox(boolean setVisible){
 
-        if(setVisible){
-            up.setVisibility(View.VISIBLE);
-            down.setVisibility(View.VISIBLE);
-            filter.setVisibility(View.VISIBLE);
-        }else{
-            up.setVisibility(View.INVISIBLE);
-            down.setVisibility(View.INVISIBLE);
-            filter.setVisibility(View.INVISIBLE);
-
+    public void setSearchBarStatus(boolean turnOnSearchBar){
+        try {
+            if (turnOnSearchBar) {
+                RelativeLayout.LayoutParams searchBarParams = new RelativeLayout.LayoutParams
+                        (ViewGroup.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.topbar_size));
+                searchBarParams.addRule(RelativeLayout.BELOW, R.id.main_topbar);
+                searchBar = (LinearLayout) MainInflater.inflate(R.layout.searchbar, null);
+                mainLayout.addView(searchBar, searchBarParams);
+                searchBarIsVisible = true;
+            } else {
+                IMM.hideSoftInputFromWindow(searchBar.getApplicationWindowToken(),0);
+                mainLayout.removeView(searchBar);
+                searchBarIsVisible = false;
+            }
+        }catch (Exception e){
+            Log.e("Log","SearchBar Visibility failed to be changed!");
         }
-
     }
-*/
+
+
     public void setHeaderFooterViewVisibility(){
         if(TempData.getStatus()==TempData.STATUS_RECOMMENDATION){
             Log.v("Log","setting visibility of header,footer view... RECOMM");
