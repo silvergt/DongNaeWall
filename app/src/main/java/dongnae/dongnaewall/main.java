@@ -26,7 +26,281 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 
+public class main extends AppCompatActivity {
+    static int scrollNumber=0;
+    static boolean scrollIsDownward=true;
+    static int displayHeight=0;
+    static int displayWidth=0;
 
+    ListView list;
+    contentAdapter adapter;
+    TextView listFooter;
+    LinearLayout listHeader;
+    LinearLayout blankView;
+    RelativeLayout profileLayout;
+    RelativeLayout mainProfileLayout;
+
+    static boolean searchBarIsVisible=false;
+    LinearLayout searchBar;
+    RelativeLayout mainLayout;
+    InputMethodManager IMM;
+
+    TextView filter;
+    TextView down;
+    TextView up;
+    ImageView logo;
+    TextView search;
+
+    LayoutInflater MainInflater;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if(Build.VERSION.SDK_INT>Build.VERSION_CODES.LOLLIPOP) {
+            Window window =getWindow();
+            window.setStatusBarColor(ContextCompat.getColor(this, R.color.basicStatusBarColor));
+        }
+
+        DisplayMetrics metrics=new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        displayWidth=metrics.widthPixels;
+        displayHeight=metrics.heightPixels;
+        Log.v("Display size : ", Integer.toString(displayWidth) + "," + Integer.toString(displayHeight));
+
+        IMM = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+
+
+        MainInflater=(LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
+        Poster.context=this;
+        createMainView();
+
+
+    }
+
+    public void createMainView(){
+        setContentView(R.layout.content_main);
+
+
+        mainLayout=(RelativeLayout)findViewById(R.id.main);
+        mainProfileLayout=(RelativeLayout)findViewById(R.id.main_background_profilelayout);
+        filter=(TextView)findViewById(R.id.main_bottom_filter);
+        down=(TextView)findViewById(R.id.main_bottom_down);
+        up=(TextView)findViewById(R.id.main_bottom_up);
+        logo=(ImageView)findViewById(R.id.main_logo);
+        search=(TextView)findViewById(R.id.main_top_search);
+        list=(ListView)findViewById(R.id.main_listview);
+        TextView alarm=(TextView)findViewById(R.id.main_top_alarm);
+
+        TempData.changeStatus(TempData.STATUS_RECOMMENDATION);
+
+        if(adapter==null) {
+            setHeaderFooterViewToList();
+        }
+        adapter=new contentAdapter(this);
+        list.setAdapter(adapter);
+        list.setVerticalScrollBarEnabled(false);
+        list.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if(scrollState==SCROLL_STATE_TOUCH_SCROLL){
+                    setSearchBarStatus(false);
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
+        setHeaderFooterViewVisibility();
+
+        //******SEARCH METHOD
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setSearchBarStatus(!searchBarIsVisible);
+            }
+        });
+
+        alarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.reloadPosterFromStart(TempData.STATUS_POSTER_ABBREVIATED);
+                adapter.notifyDataSetChanged();
+                setSearchBarStatus(false);
+                setHeaderFooterViewVisibility();
+            }
+        });
+
+
+
+        //******SEARCH METHOD
+
+
+        logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.reloadPosterFromStart(TempData.STATUS_RECOMMENDATION);
+                adapter.notifyDataSetChanged();
+                if(searchBarIsVisible) {
+                    setSearchBarStatus(true);
+                }
+                setHeaderFooterViewVisibility();
+            }
+        });
+
+        filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(searchBarIsVisible){
+                    setSearchBarStatus(false);
+                }
+                Intent intent=new Intent(main.this, filter.class);
+                startActivity(intent);
+            }
+        });
+
+        up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(searchBarIsVisible){
+                    setSearchBarStatus(false);
+                }
+                if (scrollIsDownward) {
+                    scrollNumber -= 2;
+                    if (scrollNumber < 0) {
+                        scrollNumber = 0;
+                    }
+                }
+                //Log.v("Log scroll to",Integer.toString(scrollNumber));
+                list.smoothScrollToPosition(scrollNumber--);
+                scrollIsDownward = false;
+
+                if (scrollNumber < 0) {
+                    scrollNumber = 0;
+                }
+
+
+
+            }
+        });
+        down.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(searchBarIsVisible){
+                    setSearchBarStatus(false);
+                }
+                if (!scrollIsDownward && scrollNumber > 1) {
+                    scrollNumber += 2;
+                } else if (!scrollIsDownward && scrollNumber <= 1) {
+                    scrollNumber += 1;
+                }
+
+                //Log.v("Log scroll to",Integer.toString(scrollNumber));
+                list.smoothScrollToPosition(scrollNumber++);
+                if (scrollNumber > adapter.getCount() + 2) {
+                    scrollNumber = adapter.getCount() + 2;
+                }
+                scrollIsDownward = true;
+
+            }
+
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(searchBarIsVisible){
+            setSearchBarStatus(false);
+            return;
+        }
+        super.onBackPressed();
+
+
+    }
+
+    private void setHeaderFooterViewToList(){
+        try{
+            mainProfileLayout.removeAllViews();
+        }catch (Exception e){
+            Log.v("Log","profileLayout not detected");
+        }
+
+        listHeader=(LinearLayout) MainInflater.inflate(R.layout.recommendation_headerview,null);
+
+        ListView.LayoutParams blankViewParams=new ListView.LayoutParams(
+                1,main.displayHeight*3/5);
+        ListView.LayoutParams listHeaderParams=new ListView.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,main.displayHeight*3/10);
+        blankView=new LinearLayout(this);
+        blankView.setLayoutParams(blankViewParams);
+        listHeader.setLayoutParams(listHeaderParams);
+        TextView headerText1=(TextView)listHeader.findViewById(R.id.recommendation_headerview_text1);
+        TextView headerText2=(TextView)listHeader.findViewById(R.id.recommendation_headerview_text2);
+        headerText1.setPadding(main.displayWidth/10,main.displayHeight/20,0,0);
+        headerText2.setPadding(main.displayWidth/10,5,0,0);
+
+        list.addHeaderView(blankView);
+        list.addHeaderView(listHeader);
+
+        profileLayout=(RelativeLayout)MainInflater.inflate(R.layout.profile_layout, null);
+        mainProfileLayout.addView(profileLayout);
+
+        main.scrollNumber=1;
+
+        listFooter=new TextView(this);
+        ListView.LayoutParams listFooterParams=new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,100);
+        listFooter.setLayoutParams(listFooterParams);
+        listFooter.setText("LOADING...");
+        listFooter.setTextColor(Color.BLUE);
+        listFooter.setBackgroundColor(Color.WHITE);
+        list.addFooterView(listFooter);
+
+    }
+
+    public void setHeaderFooterViewVisibility(){
+
+        if(TempData.getStatus()==TempData.STATUS_RECOMMENDATION){
+            Log.v("Log","setting visibility of header,footer view... RECOMM");
+            ListView.LayoutParams blankViewParams=new ListView.LayoutParams(
+                    1,main.displayHeight*3/5);
+            ListView.LayoutParams listHeaderParams=new ListView.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,main.displayHeight*3/10);
+            ListView.LayoutParams invisibleParam=new AbsListView.LayoutParams(1,1);
+            blankView.setLayoutParams(blankViewParams);
+            listHeader.setLayoutParams(listHeaderParams);
+            listFooter.setLayoutParams(invisibleParam);
+        }else if(TempData.getStatus()==TempData.STATUS_POSTER_ABBREVIATED){
+            ListView.LayoutParams listFooterParams=new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,100);
+            ListView.LayoutParams invisibleParam=new AbsListView.LayoutParams(1,1);
+            Log.v("Log","setting visibility of header,footer view... ABBR");
+            blankView.setLayoutParams(invisibleParam);
+            listHeader.setLayoutParams(invisibleParam);
+            listFooter.setLayoutParams(listFooterParams);
+        }
+
+    }
+
+    public void setSearchBarStatus(boolean turnOnSearchBar){
+        try {
+            if (turnOnSearchBar) {
+                RelativeLayout.LayoutParams searchBarParams = new RelativeLayout.LayoutParams
+                        (ViewGroup.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.topbar_size));
+                searchBarParams.addRule(RelativeLayout.BELOW, R.id.main_topbar);
+                searchBar = (LinearLayout) MainInflater.inflate(R.layout.searchbar, null);
+                mainLayout.addView(searchBar, searchBarParams);
+                searchBarIsVisible = true;
+            } else {
+                IMM.hideSoftInputFromWindow(searchBar.getApplicationWindowToken(),0);
+                mainLayout.removeView(searchBar);
+                searchBarIsVisible = false;
+            }
+        }catch (Exception e){
+            Log.e("Log","SearchBar Visibility failed to be changed!");
+        }
+    }
+}
 
 class contentAdapter extends BaseAdapter {
     Context context;
@@ -184,285 +458,3 @@ class contentAdapter extends BaseAdapter {
 }
 
 
-public class main extends AppCompatActivity {
-    static int scrollNumber=0;
-    static boolean scrollIsDownward=true;
-    static boolean scrolledByTouch=false;
-    static int displayHeight=0;
-    static int displayWidth=0;
-
-    ListView list;
-    contentAdapter adapter;
-    TextView listFooter;
-    LinearLayout listHeader;
-    LinearLayout blankView;
-    RelativeLayout profileLayout;
-    RelativeLayout mainProfileLayout;
-
-    static boolean searchBarIsVisible=false;
-    LinearLayout searchBar;
-    RelativeLayout mainLayout;
-    InputMethodManager IMM;
-
-    TextView filter;
-    TextView down;
-    TextView up;
-    ImageView logo;
-    TextView search;
-
-    LayoutInflater MainInflater;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if(Build.VERSION.SDK_INT>Build.VERSION_CODES.LOLLIPOP) {
-            Window window =getWindow();
-            window.setStatusBarColor(ContextCompat.getColor(this, R.color.basicStatusBarColor));
-        }
-
-        DisplayMetrics metrics=new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        displayWidth=metrics.widthPixels;
-        displayHeight=metrics.heightPixels;
-        Log.v("Display size : ", Integer.toString(displayWidth) + "," + Integer.toString(displayHeight));
-
-        IMM = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-
-
-        MainInflater=(LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
-        Poster.context=this;
-        createMainView();
-
-
-    }
-
-
-
-    public void createMainView(){
-        setContentView(R.layout.content_main);
-
-
-        mainLayout=(RelativeLayout)findViewById(R.id.main);
-        mainProfileLayout=(RelativeLayout)findViewById(R.id.main_background_profilelayout);
-        filter=(TextView)findViewById(R.id.main_bottom_filter);
-        down=(TextView)findViewById(R.id.main_bottom_down);
-        up=(TextView)findViewById(R.id.main_bottom_up);
-        logo=(ImageView)findViewById(R.id.main_logo);
-        search=(TextView)findViewById(R.id.main_top_search);
-        list=(ListView)findViewById(R.id.main_listview);
-        TextView alarm=(TextView)findViewById(R.id.main_top_alarm);
-
-        TempData.changeStatus(TempData.STATUS_RECOMMENDATION);
-
-        if(adapter==null) {
-            setHeaderFooterViewToList();
-        }
-        adapter=new contentAdapter(this);
-        list.setAdapter(adapter);
-        list.setVerticalScrollBarEnabled(false);
-        list.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if(scrollState==SCROLL_STATE_TOUCH_SCROLL){
-                    setSearchBarStatus(false);
-                }
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-            }
-        });
-        setHeaderFooterViewVisibility();
-
-        //******SEARCH METHOD
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setSearchBarStatus(!searchBarIsVisible);
-            }
-        });
-
-        alarm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                adapter.reloadPosterFromStart(TempData.STATUS_POSTER_ABBREVIATED);
-                adapter.notifyDataSetChanged();
-                setSearchBarStatus(false);
-                setHeaderFooterViewVisibility();
-            }
-        });
-
-
-
-        //******SEARCH METHOD
-
-
-        logo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                adapter.reloadPosterFromStart(TempData.STATUS_RECOMMENDATION);
-                adapter.notifyDataSetChanged();
-                if(searchBarIsVisible) {
-                    setSearchBarStatus(true);
-                }
-                setHeaderFooterViewVisibility();
-            }
-        });
-
-        filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(main.this, filter.class);
-                startActivity(intent);
-            }
-        });
-
-        up.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(searchBarIsVisible){
-                    setSearchBarStatus(false);
-                }
-                scrolledByTouch=false;
-                if (scrollIsDownward) {
-                    scrollNumber -= 2;
-                    if (scrollNumber < 0) {
-                        scrollNumber = 0;
-                    }
-                }
-                //Log.v("Log scroll to",Integer.toString(scrollNumber));
-                list.smoothScrollToPosition(scrollNumber--);
-                scrollIsDownward = false;
-
-                if (scrollNumber < 0) {
-                    scrollNumber = 0;
-                }
-
-
-
-            }
-        });
-        down.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(searchBarIsVisible){
-                    setSearchBarStatus(false);
-                }
-                scrolledByTouch = false;
-                if (!scrollIsDownward && scrollNumber > 1) {
-                    scrollNumber += 2;
-                } else if (!scrollIsDownward && scrollNumber <= 1) {
-                    scrollNumber += 1;
-                }
-
-                //Log.v("Log scroll to",Integer.toString(scrollNumber));
-                list.smoothScrollToPosition(scrollNumber++);
-                if (scrollNumber > adapter.getCount() + 2) {
-                    scrollNumber = adapter.getCount() + 2;
-                }
-                scrollIsDownward = true;
-
-            }
-
-        });
-    }
-
-    @Override
-    public void onBackPressed() {
-        if(searchBarIsVisible){
-            mainLayout.removeView(searchBar);
-            searchBarIsVisible=false;
-            return;
-        }
-        super.onBackPressed();
-
-
-    }
-
-    private void setHeaderFooterViewToList(){
-        /*          THIS METHOD IS WHEN MINIMUM API IS API_19*/
-        try{
-            mainProfileLayout.removeAllViews();
-        }catch (Exception e){
-            Log.v("Log","profileLayout not detected");
-        }
-
-            listHeader=(LinearLayout) MainInflater.inflate(R.layout.recommendation_headerview,null);
-
-            ListView.LayoutParams blankViewParams=new ListView.LayoutParams(
-                    1,main.displayHeight*3/5);
-            ListView.LayoutParams listHeaderParams=new ListView.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,main.displayHeight*3/10);
-            blankView=new LinearLayout(this);
-            blankView.setLayoutParams(blankViewParams);
-            listHeader.setLayoutParams(listHeaderParams);
-            TextView headerText1=(TextView)listHeader.findViewById(R.id.recommendation_headerview_text1);
-            TextView headerText2=(TextView)listHeader.findViewById(R.id.recommendation_headerview_text2);
-            headerText1.setPadding(main.displayWidth/10,main.displayHeight/20,0,0);
-            headerText2.setPadding(main.displayWidth/10,5,0,0);
-
-            list.addHeaderView(blankView);
-            list.addHeaderView(listHeader);
-
-            profileLayout=(RelativeLayout)MainInflater.inflate(R.layout.profile_layout,null);
-            mainProfileLayout.addView(profileLayout);
-
-            main.scrollNumber=1;
-
-            //********FOOTER LOADING IMAGE SHOULD BE ADAPTED
-            listFooter=new TextView(this);
-            ListView.LayoutParams listFooterParams=new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,100);
-            listFooter.setLayoutParams(listFooterParams);
-            listFooter.setText("LOADING...");
-            listFooter.setTextColor(Color.BLUE);
-            listFooter.setBackgroundColor(Color.WHITE);
-            list.addFooterView(listFooter);
-            //********
-
-    }
-
-    public void setSearchBarStatus(boolean turnOnSearchBar){
-        try {
-            if (turnOnSearchBar) {
-                RelativeLayout.LayoutParams searchBarParams = new RelativeLayout.LayoutParams
-                        (ViewGroup.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.topbar_size));
-                searchBarParams.addRule(RelativeLayout.BELOW, R.id.main_topbar);
-                searchBar = (LinearLayout) MainInflater.inflate(R.layout.searchbar, null);
-                mainLayout.addView(searchBar, searchBarParams);
-                searchBarIsVisible = true;
-            } else {
-                IMM.hideSoftInputFromWindow(searchBar.getApplicationWindowToken(),0);
-                mainLayout.removeView(searchBar);
-                searchBarIsVisible = false;
-            }
-        }catch (Exception e){
-            Log.e("Log","SearchBar Visibility failed to be changed!");
-        }
-    }
-
-
-    public void setHeaderFooterViewVisibility(){
-        if(TempData.getStatus()==TempData.STATUS_RECOMMENDATION){
-            Log.v("Log","setting visibility of header,footer view... RECOMM");
-            ListView.LayoutParams blankViewParams=new ListView.LayoutParams(
-                    1,main.displayHeight*3/5);
-            ListView.LayoutParams listHeaderParams=new ListView.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,main.displayHeight*3/10);
-            ListView.LayoutParams invisibleParam=new AbsListView.LayoutParams(1,1);
-            blankView.setLayoutParams(blankViewParams);
-            listHeader.setLayoutParams(listHeaderParams);
-            listFooter.setLayoutParams(invisibleParam);
-        }else if(TempData.getStatus()==TempData.STATUS_POSTER_ABBREVIATED){
-            ListView.LayoutParams listFooterParams=new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,100);
-            ListView.LayoutParams invisibleParam=new AbsListView.LayoutParams(1,1);
-            Log.v("Log","setting visibility of header,footer view... ABBR");
-            blankView.setLayoutParams(invisibleParam);
-            listHeader.setLayoutParams(invisibleParam);
-            listFooter.setLayoutParams(listFooterParams);
-        }
-
-    }
-
-}
