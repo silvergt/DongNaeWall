@@ -42,6 +42,7 @@ public class TempData {
 
     public static void changeStatus(int status){
         TempData.status=status;
+        main.setHeaderFooterViewVisibility();
     }
 
     public static void changeOrder(int order){

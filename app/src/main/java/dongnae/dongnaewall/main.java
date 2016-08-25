@@ -34,9 +34,9 @@ public class main extends AppCompatActivity {
 
     ListView list;
     static contentAdapter adapter;
-    TextView listFooter;
-    LinearLayout listHeader;
-    LinearLayout blankView;
+    static TextView listFooter;
+    static LinearLayout listHeader;
+    static LinearLayout blankView;
     RelativeLayout profileLayout;
     RelativeLayout mainProfileLayout;
 
@@ -114,7 +114,6 @@ public class main extends AppCompatActivity {
             }
         });
 
-        setHeaderFooterViewVisibility();
 
         //******SEARCH METHOD
         search.setOnClickListener(new View.OnClickListener() {
@@ -130,7 +129,6 @@ public class main extends AppCompatActivity {
                 adapter.reloadPosterFromStart(TempData.STATUS_POSTER_ABBREVIATED);
                 adapter.notifyDataSetChanged();
                 setSearchBarStatus(false);
-                setHeaderFooterViewVisibility();
             }
         });
 
@@ -147,7 +145,6 @@ public class main extends AppCompatActivity {
                 if(searchBarIsVisible) {
                     setSearchBarStatus(false);
                 }
-                setHeaderFooterViewVisibility();
             }
         });
 
@@ -262,25 +259,29 @@ public class main extends AppCompatActivity {
 
     }
 
-    public void setHeaderFooterViewVisibility(){
-
-        if(TempData.getStatus()==TempData.STATUS_RECOMMENDATION){
-            Log.v("Log","setting visibility of header,footer view... RECOMM");
-            ListView.LayoutParams blankViewParams=new ListView.LayoutParams(
-                    1,main.displayHeight*3/5);
-            ListView.LayoutParams listHeaderParams=new ListView.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,main.displayHeight*3/10);
-            ListView.LayoutParams invisibleParam=new AbsListView.LayoutParams(1,1);
-            blankView.setLayoutParams(blankViewParams);
-            listHeader.setLayoutParams(listHeaderParams);
-            listFooter.setLayoutParams(invisibleParam);
-        }else if(TempData.getStatus()==TempData.STATUS_POSTER_ABBREVIATED){
-            ListView.LayoutParams listFooterParams=new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,100);
-            ListView.LayoutParams invisibleParam=new AbsListView.LayoutParams(1,1);
-            Log.v("Log","setting visibility of header,footer view... ABBR");
-            blankView.setLayoutParams(invisibleParam);
-            listHeader.setLayoutParams(invisibleParam);
-            listFooter.setLayoutParams(listFooterParams);
+    public static void setHeaderFooterViewVisibility(){
+        try {
+            if (TempData.getStatus() == TempData.STATUS_RECOMMENDATION) {
+                Log.v("Log", "setting visibility of header,footer view... RECOMM");
+                ListView.LayoutParams blankViewParams = new ListView.LayoutParams(
+                        1, main.displayHeight * 3 / 5);
+                ListView.LayoutParams listHeaderParams = new ListView.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, main.displayHeight * 3 / 10);
+                ListView.LayoutParams invisibleParam = new AbsListView.LayoutParams(1, 1);
+                blankView.setLayoutParams(blankViewParams);
+                listHeader.setLayoutParams(listHeaderParams);
+                listFooter.setLayoutParams(invisibleParam);
+            } else if (TempData.getStatus() == TempData.STATUS_POSTER_ABBREVIATED) {
+                ListView.LayoutParams listFooterParams = new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 100);
+                ListView.LayoutParams invisibleParam = new AbsListView.LayoutParams(1, 1);
+                Log.v("Log", "setting visibility of header,footer view... ABBR");
+                blankView.setLayoutParams(invisibleParam);
+                listHeader.setLayoutParams(invisibleParam);
+                listFooter.setLayoutParams(listFooterParams);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.e("Log","setHeaderFooterViewVisibility ERROR");
         }
 
     }
@@ -343,7 +344,7 @@ class contentAdapter extends BaseAdapter {
 
     public boolean getPosters(){
 
-        AsyncTask async=new AsyncTask() {
+        AsyncTask posterThread=new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] params) {
                 posters=SC.getPoster();
@@ -352,10 +353,8 @@ class contentAdapter extends BaseAdapter {
                     return false;
                 }else if(posters.size()!=0) {
                     Log.v("Log", "received");
-                    for(int i=0;i<posters.size();i++){
-                        posterList.add(posters.get(i));
-                        publishProgress(0);
-                    }
+                    posterList.addAll(posters);
+                    publishProgress(0);
                     TempData.changeStartNum(TempData.getStartNum() + posters.size());
                     Log.v("total Loaded poster :", Integer.toString(TempData.getStartNum()));
                     return true;
@@ -376,7 +375,7 @@ class contentAdapter extends BaseAdapter {
                 notifyDataSetChanged();
             }
         };
-        async.execute(0);
+        posterThread.execute(0);
 
         return false;
 
