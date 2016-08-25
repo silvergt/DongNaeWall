@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout
+        android:id="@+id/recommendation_headerview_lower"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        android:background="#FFFFFF"
+        >
+        <TextView
+            android:id="@+id/recommendation_headerview_text1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="안녕하세요"
+            android:textSize="30sp"
+            android:textColor="#202020"
+            />
+        <TextView
+            android:id="@+id/recommendation_headerview_text2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="포스터를 검색해 보세요"
+            android:textSize="20sp"
+            android:textColor="#202020"
+            />
+
+    </LinearLayout>

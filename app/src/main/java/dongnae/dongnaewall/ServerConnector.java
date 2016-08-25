@@ -8,8 +8,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
-
-import pre_Poster.Pre_Poster;
+import java.util.HashMap;
 
 /**
  * sendCurrentStatus and sendRequestOfAdditionalPosterInfo both send array with length of 4.
@@ -34,11 +33,8 @@ public class ServerConnector {
     final static int server_port=9491;
 
     Socket socket;
-    Poster[] returningPosters=null;
-    ArrayList<Poster> convertedPosters=null;
-    int status;
+    ArrayList<Poster> returningPosters=null;
 
-    additionalPosterInfo additionalInfo=null;
     int id;
 
     OutputStream OS=null;
@@ -46,52 +42,47 @@ public class ServerConnector {
     InputStream IS=null;
     ObjectInputStream OIS=null;
 
-    public ArrayList<Poster> getPosterFromServer(int status){
-        this.status=status;
-        convertedPosters=new ArrayList<>();
+    public ArrayList<Poster> getPoster(){
 
         try{
             socket=new Socket(ServerConnector.server_ip,ServerConnector.server_port);
 
             sendCurrentStatus();
-
             returningPosters=getPosterFromServer();
-            if(returningPosters!=null) {
-                for (int i = 0; i < returningPosters.length; i++) {
-                    Log.v("Log","logging "+Integer.toString(TempData.startNum+i)+"th poster");
-                    convertedPosters.add(returningPosters[i]);
-                }
-            }else{
+            if(returningPosters==null) {
                 Log.e("Log","returning poster is null!");
+            }else if(returningPosters.size()==0){
+                Log.v("Log","returning poster size is 0");
             }
 
             socket.close();
         }catch (Exception e){
             Log.e("Log","ERROR at getPoster");
+            returningPosters=null;
             e.printStackTrace();
         }
 
 
-        return convertedPosters;
+        return returningPosters;
     }
 
     private void sendCurrentStatus(){
         /** pack
-         *  1. status                           -int
+         *  1. Tempdata.status                  -int
          *  2. Tempdata.order                   -int
          *  3. TempData.search                  -String
          *  4. TempData.startNum                -int
          *  5. filter.getFilterCheckedData()    -boolean[]
          */
         ArrayList<Object> pack=new ArrayList<>();
-        pack.add(status);
-        pack.add(TempData.order);
-        if(TempData.search==null|| TempData.search.equals("")){
-            pack.add("`!`");
+        pack.add(TempData.getStatus());
+        pack.add(TempData.getOrder());
+        if(TempData.getSearch()==null|| TempData.getSearch().equals("")){
+            pack.add("`!`null");
         }else{
-            pack.add(TempData.search);
+            pack.add(TempData.getSearch());
         }
-        pack.add(TempData.startNum);
+        pack.add(TempData.getStartNum());
         pack.add(filter.getFilterCheckedData());
         try {
             OS = socket.getOutputStream();
@@ -104,16 +95,16 @@ public class ServerConnector {
 
     }
 
-    private Poster[] getPosterFromServer(){
-        Pre_Poster[] posters=null;
-        Poster[] returningPosterArray=null;
+    private ArrayList<Poster> getPosterFromServer(){
+        ArrayList<HashMap<String,Object>> posters=null;
+        ArrayList<Poster> returningPosterArray=null;
         try{
             IS=socket.getInputStream();
             OIS=new ObjectInputStream(IS);
-            posters=(Pre_Poster[])OIS.readObject();
-            returningPosterArray=new Poster[posters.length];
-            for(int i=0;i<returningPosterArray.length;i++){
-                returningPosterArray[i]=new Poster(posters[i]);
+            posters=(ArrayList<HashMap<String,Object>>)OIS.readObject();
+            returningPosterArray=new ArrayList<>();
+            for(int i=0;i<posters.size();i++){
+                returningPosterArray.add(new Poster(posters.get(i)));
             }
         }catch (Exception e){
             Log.v("Log","exception in getPrePosterFromServer");
@@ -133,8 +124,9 @@ public class ServerConnector {
     }
 
 
-    public additionalPosterInfo getAdditionalPosterInfo(int id){
+    public ArrayList<HashMap<String,Object>> getAdditionalPosterInfo(int id){
         this.id=id;
+        ArrayList<HashMap<String,Object>> additionalInfo=null;
         try{
             socket=new Socket(ServerConnector.server_ip,ServerConnector.server_port);
 
@@ -174,15 +166,16 @@ public class ServerConnector {
         }
     }
 
-    private additionalPosterInfo getAdditionalPosterInfoFromServer(){
-        additionalPosterInfo additional=null;
+    private ArrayList<HashMap<String,Object>> getAdditionalPosterInfoFromServer(){
+        ArrayList<HashMap<String,Object>> additional=null;
         try{
             InputStream IS=socket.getInputStream();
             ObjectInputStream OIS=new ObjectInputStream(IS);
-            additional=(additionalPosterInfo)OIS.readObject();
+            additional=(ArrayList<HashMap<String,Object>>)OIS.readObject();
         }catch (Exception e){
             Log.e("Log","ERROR at getAdditionalPosterInfoFromServer");
         }
         return additional;
     }
+
 }
