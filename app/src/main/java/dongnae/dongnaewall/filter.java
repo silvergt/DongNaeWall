@@ -191,8 +191,29 @@ public class filter extends AppCompatActivity {
                         changeCheckedState(true,v);
                     }
                 }
-            }
+            }else if(v.category==0){
+                switch (v.getId()){
+                    case R.id.filterview_second_primary_category_minimum_date:
+                        startCalendarDialog(true);
+                        break;
+                    case R.id.filterview_second_primary_category_maximum_date:
+                        startCalendarDialog(false);
+                        break;
+                }
 
+
+        }
+
+    }
+
+    public void startCalendarDialog(boolean dateFrom){
+        Calendar_dialog dialog=new Calendar_dialog(this);
+        dialog.show();
+        if(dateFrom){
+
+        }else{
+
+        }
     }
 
     public static void changeCheckedState(boolean changeStateToChecked,filterContentView... views){
