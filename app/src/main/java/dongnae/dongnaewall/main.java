@@ -33,7 +33,7 @@ public class main extends AppCompatActivity {
     static int displayWidth=0;
 
     ListView list;
-    contentAdapter adapter;
+    static contentAdapter adapter;
     TextView listFooter;
     LinearLayout listHeader;
     LinearLayout blankView;
@@ -113,6 +113,7 @@ public class main extends AppCompatActivity {
 
             }
         });
+
         setHeaderFooterViewVisibility();
 
         //******SEARCH METHOD
@@ -144,7 +145,7 @@ public class main extends AppCompatActivity {
                 adapter.reloadPosterFromStart(TempData.STATUS_RECOMMENDATION);
                 adapter.notifyDataSetChanged();
                 if(searchBarIsVisible) {
-                    setSearchBarStatus(true);
+                    setSearchBarStatus(false);
                 }
                 setHeaderFooterViewVisibility();
             }
@@ -257,6 +258,8 @@ public class main extends AppCompatActivity {
         listFooter.setBackgroundColor(Color.WHITE);
         list.addFooterView(listFooter);
 
+        Log.v("Log","header & footer view adapted");
+
     }
 
     public void setHeaderFooterViewVisibility(){
@@ -292,12 +295,13 @@ public class main extends AppCompatActivity {
                 mainLayout.addView(searchBar, searchBarParams);
                 searchBarIsVisible = true;
             } else {
-                IMM.hideSoftInputFromWindow(searchBar.getApplicationWindowToken(),0);
+                IMM.hideSoftInputFromWindow(searchBar.getWindowToken(),0);
                 mainLayout.removeView(searchBar);
                 searchBarIsVisible = false;
             }
         }catch (Exception e){
             Log.e("Log","SearchBar Visibility failed to be changed!");
+            e.printStackTrace();
         }
     }
 }
@@ -309,7 +313,6 @@ class contentAdapter extends BaseAdapter {
     ArrayList<Poster> posters;
     ServerConnector SC;
     boolean reachedLastPoster=false;
-    int count;
 
     ImageView posterImage;
     TextView likeNumber;
@@ -322,18 +325,16 @@ class contentAdapter extends BaseAdapter {
 
     public contentAdapter(Context context){
         this.context=context;
-        count=0;
         SC=new ServerConnector();
         posterList=new ArrayList<>();
-        getPosters();
         inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        getPosters();
     }
 
     public void reloadPosterFromStart(int status){
         posterList=new ArrayList<>();
         main.scrollNumber=0;
         TempData.changeStatus(status);
-        count=0;
         TempData.changeStartNum(0);
         reachedLastPoster=false;
         getPosters();
@@ -351,11 +352,12 @@ class contentAdapter extends BaseAdapter {
                     return false;
                 }else if(posters.size()!=0) {
                     Log.v("Log", "received");
-                    posterList.addAll(posters);
+                    for(int i=0;i<posters.size();i++){
+                        posterList.add(posters.get(i));
+                        publishProgress(0);
+                    }
                     TempData.changeStartNum(TempData.getStartNum() + posters.size());
                     Log.v("total Loaded poster :", Integer.toString(TempData.getStartNum()));
-                    count=posterList.size();
-                    publishProgress(0);
                     return true;
                 }else if(posters.size()==0){
                     Log.v("Log","poster size is zero. client reached last poster!");
@@ -382,8 +384,7 @@ class contentAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return count;
-        //return posterList.size();
+        return posterList.size();
     }
 
     @Override
