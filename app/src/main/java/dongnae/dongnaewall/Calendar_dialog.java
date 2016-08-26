@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -57,15 +58,18 @@ public class Calendar_dialog extends Dialog implements View.OnClickListener{
     public Calendar_dialog(Context context) {
         super(context);
         this.context=context;
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         onCreate();
     }
 
     private void onCreate(){
         setContentView(R.layout.calendar);
 
+        Log.v("Log","calendar size candidate 1 : "+Integer.toString(main.displayWidth*4/5)+","+Integer.toString(main.displayHeight*13/20));
         WindowManager.LayoutParams par=getWindow().getAttributes();
         par.width=main.displayWidth*4/5>450?main.displayWidth*4/5:450;
-        par.height=main.displayHeight*3/5>570?main.displayHeight*3/5:570;
+        par.height=par.width*7/5>600?par.width*7/5:600;
+        Log.v("Log","calendar size : "+Integer.toString(par.width)+","+Integer.toString(par.height));
         getWindow().setAttributes(par);
 
         inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -138,8 +142,8 @@ public class Calendar_dialog extends Dialog implements View.OnClickListener{
         }else{
             yearAndMonth.setText(Integer.toString(year) + "." + Integer.toString(month+1));
         }
-        Log.v("Log",Integer.toString(year)+"-"+Integer.toString(month+1)+"-"+Integer.toString(1));
-        Log.v("Log",calendar.getTime().toString());
+        //Log.v("Log",Integer.toString(year)+"-"+Integer.toString(month+1)+"-"+Integer.toString(1));
+        //Log.v("Log",calendar.getTime().toString());
 
         calendar_calendar.removeAllViews();
         int dayOfWeek=calendar.get(Calendar.DAY_OF_WEEK);    //해당 월의 1일의 요일 - 1:일 2:월 3:화....
@@ -152,8 +156,8 @@ public class Calendar_dialog extends Dialog implements View.OnClickListener{
             }
             dayOfWeek=1;
         }
-        Log.v("Log","number of weeks : "+Integer.toString(numberOfWeeks));
-        Log.v("Log","total day : "+Integer.toString(totalDays));
+        //Log.v("Log","number of weeks : "+Integer.toString(numberOfWeeks));
+        //Log.v("Log","total day : "+Integer.toString(totalDays));
 
         calendar_week=new LinearLayout[numberOfWeeks];
         calendar_day=new calendarCell[numberOfWeeks][7];
