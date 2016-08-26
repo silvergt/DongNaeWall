@@ -97,16 +97,13 @@ public class main extends AppCompatActivity {
         TextView alarm=(TextView)findViewById(R.id.main_top_alarm);
 
         TempData.changeStatus(TempData.STATUS_RECOMMENDATION);
-
-        list.setVerticalScrollBarEnabled(false);
+/*
         list.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-                /**REFRESH METHOD HERE!!!!**/
-                headerFooter=list.getRefreshableView();
-                setHeaderFooterViewToList();
             }
         });
+        */
         headerFooter=list.getRefreshableView();
         if(adapter==null || TempData.getStatus()==TempData.STATUS_RECOMMENDATION) {
             Log.v("Log","first setup for header & footer");
