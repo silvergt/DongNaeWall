@@ -23,6 +23,9 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+
 import java.util.ArrayList;
 
 
@@ -32,7 +35,8 @@ public class main extends AppCompatActivity {
     static int displayHeight=0;
     static int displayWidth=0;
 
-    ListView list;
+    PullToRefreshListView list;
+    ListView headerFooter;
     static contentAdapter adapter;
     static TextView listFooter;
     static LinearLayout listHeader;
@@ -57,7 +61,7 @@ public class main extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(Build.VERSION.SDK_INT>Build.VERSION_CODES.LOLLIPOP) {
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP) {
             Window window =getWindow();
             window.setStatusBarColor(ContextCompat.getColor(this, R.color.basicStatusBarColor));
         }
@@ -89,17 +93,27 @@ public class main extends AppCompatActivity {
         up=(TextView)findViewById(R.id.main_bottom_up);
         logo=(ImageView)findViewById(R.id.main_logo);
         search=(TextView)findViewById(R.id.main_top_search);
-        list=(ListView)findViewById(R.id.main_listview);
+        list=(PullToRefreshListView)findViewById(R.id.main_listview);
         TextView alarm=(TextView)findViewById(R.id.main_top_alarm);
 
         TempData.changeStatus(TempData.STATUS_RECOMMENDATION);
 
-        if(adapter==null) {
+        list.setVerticalScrollBarEnabled(false);
+        list.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
+            @Override
+            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+                /**REFRESH METHOD HERE!!!!**/
+            }
+        });
+        headerFooter=list.getRefreshableView();
+        if(adapter==null || TempData.getStatus()==TempData.STATUS_RECOMMENDATION) {
+            Log.v("Log","first setup for header & footer");
             setHeaderFooterViewToList();
         }
         adapter=new contentAdapter(this);
         list.setAdapter(adapter);
-        list.setVerticalScrollBarEnabled(false);
+
+
         list.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -113,6 +127,7 @@ public class main extends AppCompatActivity {
 
             }
         });
+
         TempData.changeStatus(TempData.STATUS_RECOMMENDATION);  //MANDATORY BECAUSE OF setHeaderFooterViewVisibility()
 
 
@@ -173,7 +188,7 @@ public class main extends AppCompatActivity {
                     }
                 }
                 //Log.v("Log scroll to",Integer.toString(scrollNumber));
-                list.smoothScrollToPosition(scrollNumber--);
+                //list.smoothScrollToPosition(scrollNumber--);
                 scrollIsDownward = false;
 
                 if (scrollNumber < 0) {
@@ -197,7 +212,7 @@ public class main extends AppCompatActivity {
                 }
 
                 //Log.v("Log scroll to",Integer.toString(scrollNumber));
-                list.smoothScrollToPosition(scrollNumber++);
+                //list.smoothScrollToPosition(scrollNumber++);
                 if (scrollNumber > adapter.getCount() + 2) {
                     scrollNumber = adapter.getCount() + 2;
                 }
@@ -240,8 +255,8 @@ public class main extends AppCompatActivity {
         headerText1.setPadding(main.displayWidth/10,main.displayHeight/20,0,0);
         headerText2.setPadding(main.displayWidth/10,5,0,0);
 
-        list.addHeaderView(blankView);
-        list.addHeaderView(listHeader);
+        headerFooter.addHeaderView(blankView);
+        headerFooter.addHeaderView(listHeader);
 
         profileLayout=(RelativeLayout)MainInflater.inflate(R.layout.profile_layout, null);
         mainProfileLayout.addView(profileLayout);
@@ -254,7 +269,7 @@ public class main extends AppCompatActivity {
         listFooter.setText("LOADING...");
         listFooter.setTextColor(Color.BLUE);
         listFooter.setBackgroundColor(Color.WHITE);
-        list.addFooterView(listFooter);
+        headerFooter.addFooterView(listFooter);
 
         Log.v("Log","header & footer view adapted");
 
@@ -303,7 +318,6 @@ public class main extends AppCompatActivity {
             }
         }catch (Exception e){
             Log.e("Log","SearchBar Visibility failed to be changed!");
-            e.printStackTrace();
         }
     }
 }
