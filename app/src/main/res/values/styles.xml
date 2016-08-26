@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <!-- Base application theme. -->
@@ -147,6 +148,72 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:gravity">center</item>
     </style>
+
+
+    <!--========================= 회원가입화면 =========================-->
+    <style name="SignInBoxes" parent="@android:style/TextAppearance">
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">#ffcc99</item>
+    </style>
+
+    <style name="SignInBoxesTexts" parent="@android:style/TextAppearance">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">left</item>
+        <item name="android:paddingLeft">15dp</item>
+    </style>
+
+    <style name="SignInApplyButton" parent="@android:style/TextAppearance">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">#111111</item>
+    </style>
+
+    <style name="SignInApplyButtonText" parent="@android:style/TextAppearance">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="SignInFacebook" parent="@android:style/TextAppearance">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">#333333</item>
+    </style>
+
+    <style name="SignInFacebookText" parent="@android:style/TextAppearance">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="SignInBottomBox_left" parent="@android:style/TextAppearance">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">#ffffff</item>
+    </style>
+    <style name="SignInBottomBox_right" parent="@android:style/TextAppearance">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">#ffffff</item>
+    </style>
+
+
 
 
 </resources>

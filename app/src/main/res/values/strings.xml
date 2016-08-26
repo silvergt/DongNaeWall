@@ -3,9 +3,12 @@
 
     <string name="school">학교행사</string>
 
-    <!--========================= 필터 =========================-->
-    <string name="dateFrom">이때부터</string>
-    <string name="dateTo">이때까지</string>
+    <string name="recommendation_position_0">최근 검색</string>
+    <string name="recommendation_position_1">인기 포스터</string>
+    <string name="recommendation_position_2">친구가 좋아한 포스터</string>
+
+
+
 
     <!--========================= 개인화면 =========================-->
     <string name="favorites">즐겨찾기</string>
@@ -28,9 +31,20 @@
     <string name="log_and_sign_in_host">주최자 로그인</string>
     <string name="signin_ordinary">일반회원가입</string>
     <string name="signin_host">주최자가입</string>
-=======
-    <string name="recommendation_position_0">최근 검색</string>
-    <string name="recommendation_position_1">인기 포스터</string>
-    <string name="recommendation_position_2">친구가 좋아한 포스터</string>
 
+
+
+    <!--========================= 회원가입화면=========================-->
+    <string name="signin_top_message">사용중인 이메일로 가입하고 편리하게 사용해보세요</string>
+    <string name="signin_nickname">닉네임</string>
+    <string name="signin_email">이메일</string>
+    <string name="signin_password">비밀번호</string>
+    <string name="signin_password_confirm">비밀번호 확인</string>
+    <string name="signin_apply">가입하기</string>
+    <string name="signin_apply_facebook">페이스북으로 가입하기</string>
+    <string name="signin_bottom_message">
+        회원가입을 함으로써 동네벽보의 이용약관 개인정보 최급방침 및 운영원칙 이벤트와 혜택 알림에 수신동의 하시게 됩니다
+    </string>
+    <string name="signin_bottom_box_terms">첫차 이용약관</string>
+    <string name="signin_bottom_box_rules">개인정보 취급방침 및 운영원칙</string>
 </resources>
