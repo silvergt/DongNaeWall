@@ -103,6 +103,8 @@ public class main extends AppCompatActivity {
             @Override
             public void onRefresh(PullToRefreshBase<ListView> refreshView) {
                 /**REFRESH METHOD HERE!!!!**/
+                headerFooter=list.getRefreshableView();
+                setHeaderFooterViewToList();
             }
         });
         headerFooter=list.getRefreshableView();

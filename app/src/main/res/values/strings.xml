@@ -7,7 +7,8 @@
     <string name="recommendation_position_1">인기 포스터</string>
     <string name="recommendation_position_2">친구가 좋아한 포스터</string>
 
-
+    <string name="dateFrom">이때부터</string>
+    <string name="dateTo">이때까지</string>
 
 
     <!--========================= 개인화면 =========================-->
