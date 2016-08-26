@@ -12,7 +12,7 @@
             android:orientation="vertical">
             <!--=========================로그인 및 회원가입=========================-->
             <RelativeLayout
-                android:id="@+id/SignAndLogIn"
+                android:id="@+id/PersonalInfoLoggedInTopEmpty"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:background="#444444">
@@ -21,6 +21,7 @@
             </RelativeLayout>
             <!--=========================즐찾, 구독, 최근 본 이벤트=========================-->
             <LinearLayout
+                android:id="@+id/PersonalInfoLoggedInLayout1"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:orientation="horizontal">
@@ -55,6 +56,7 @@
 
             <!--=========================실시간 핫 이벤트=========================-->
             <LinearLayout
+                android:id="@+id/PersonalInfoLoggedInLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="270dp"
                 android:orientation="vertical">
@@ -93,6 +95,7 @@
             </LinearLayout>
             <!--=========================하단부=========================-->
             <LinearLayout
+                android:id="@+id/PersonalInfoLoggedInBOTTOM"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:orientation="horizontal">

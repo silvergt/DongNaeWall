@@ -1,20 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
+
 
     <!--========================= 필터뷰 스타일 =========================-->
+    <!--카테고리 메인 기본 틀-->
+
+    <style name="filter_view_basic_frame_1">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:background">#FFFFE0</item>
+    </style>
+
+    <!--카테고리 항목별 기본 틀-->
+
+    <style name="filter_view_category_basic_frame_1">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_margin">4dp</item>
+    </style>
+
+    <!--카테고리별 스타일-->
     <style name="filter_view_primary_category">
         <item name="android:layout_width">300dp</item>
         <item name="android:layout_height">40dp</item>
@@ -62,6 +73,24 @@
         <item name="android:layout_marginRight">3dp</item>
         <item name="android:background">#D8BFD8</item>
         <item name="android:textSize">12dp</item>
+    </style>
+
+
+    <!--top & bottom 레이아웃 및 텍스트 뷰-->
+
+    <style name="filter_top_view_layout">
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">top</item>
+    </style>
+
+    <style name="filter_bottom_view_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">bottom</item>
     </style>
 
     <style name="filter_top_bottom_view">

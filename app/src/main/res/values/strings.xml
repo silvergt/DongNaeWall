@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">동네벽보</string>
 
-    <string name="school">학교행사</string>
+
 
     <string name="recommendation_position_0">최근 검색</string>
     <string name="recommendation_position_1">인기 포스터</string>
@@ -10,6 +10,42 @@
     <string name="dateFrom">이때부터</string>
     <string name="dateTo">이때까지</string>
 
+
+    <!--========================= 필터화면 =========================-->
+    <string name="filter_apply">필터적용</string>
+    <string name="filter_initialize">필터초기화</string>
+    <string name="filter_event_category">행사종류필터</string>
+
+    <string name="school">학교행사</string>
+    <string name="school_inschool">교내행사</string>
+    <string name="school_forum">학회행사</string>
+    <string name="school_circle">동아리행사</string>
+
+    <string name="exhibition">전시회</string>
+    <string name="exhibition_drawing">미술</string>
+    <string name="exhibition_sculpture">조각</string>
+
+    <string name="performance">공연</string>
+    <string name="performance_musical">뮤지컬</string>
+    <string name="performance_act">연극</string>
+    <string name="performance_concert">콘서트</string>
+    <string name="performance_children_family">아동, 가족</string>
+
+    <string name="presentation">설명회, 공모전</string>
+    <string name="presentation_company">기업설명회</string>
+    <string name="presentation_company_event">기업행사</string>
+    <string name="presentation_passionpay">공모전</string>
+    <string name="presentation_student">학생 설명</string>
+
+    <string name="wanted">구인/구직</string>
+    <string name="wanted_part_time">알바</string>
+    <string name="wanted_full_time">공채/특채</string>
+
+    <string name="choose_date">날짜 선택</string>
+
+    <string name="choose_location">장소 선택</string>
+
+    <string name="choose_fee_range">금액 선택</string>
 
     <!--========================= 개인화면 =========================-->
     <string name="favorites">즐겨찾기</string>

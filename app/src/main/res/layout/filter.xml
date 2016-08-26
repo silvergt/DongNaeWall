@@ -11,25 +11,21 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
     <!--======== 필터탑 ===========-->
     <LinearLayout
-        android:layout_marginTop="10dp"
         android:id="@+id/filterview_top"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="top">
+        style="@style/filter_top_view_layout">
         <TextView
             android:id="@+id/filterview_top_apply"
             style="@style/filter_top_bottom_view"
-            android:text="필터적용"
+            android:text="@string/filter_apply"
             />
         <TextView
             android:id="@+id/filterview_top_initialize"
             style="@style/filter_top_bottom_view"
-            android:text="필터초기화"
+            android:text="@string/filter_initialize"
             />
     </LinearLayout>
 
@@ -39,20 +35,15 @@
 
         <!--======== 학교행사 ===========-->
     <LinearLayout
-        android:layout_marginTop="10dp"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:background="#FFFFE0">
+        style="@style/filter_view_basic_frame_1"
+        >
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            style="@style/filter_view_category_basic_frame_1"
+            >
             <TextView
                 android:id="@+id/filterview_first_primary_category"
                 style="@style/filter_view_primary_category"
-                android:text="행사종류필터"/>
+                android:text="@string/filter_event_category"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -72,31 +63,29 @@
                     android:id="@+id/filterview_first_event_category_school_inschool_activities"
                     style="@style/filter_view_sub_box_view"
                     android:onClick="filterContentClicked"
-                    android:text="교내행사"/>
+                    android:text="@string/school_inschool"/>
                 <dongnae.dongnaewall.filterContentView
                     android:id="@+id/filterview_first_event_category_school_inschool_forums"
                     style="@style/filter_view_sub_box_view"
                     android:onClick="filterContentClicked"
-                    android:text="학회행사"/>
+                    android:text="@string/school_forum"/>
                 <dongnae.dongnaewall.filterContentView
                     android:id="@+id/filterview_first_event_category_school_inschool_circles"
                     style="@style/filter_view_sub_box_view"
                     android:onClick="filterContentClicked"
-                    android:text="동아리행사"/>
+                    android:text="@string/school_circle"/>
             </LinearLayout>
         </LinearLayout>
 
         <!--======== 전시 ===========-->
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="4dp">
+            style="@style/filter_view_category_basic_frame_1"
+            >
             <dongnae.dongnaewall.filterContentView
                 android:id="@+id/filterview_first_event_category_exhibition"
                 style="@style/filter_view_main_category"
                 android:onClick="filterContentClicked"
-                android:text="전시회"/>
+                android:text="@string/exhibition"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -105,25 +94,24 @@
                     android:id="@+id/filterview_first_event_category_exhibition_art"
                     style="@style/filter_view_sub_box_view"
                     android:onClick="filterContentClicked"
-                    android:text="미술"/>
+                    android:text="@string/exhibition_drawing"/>
                 <dongnae.dongnaewall.filterContentView
                     android:id="@+id/filterview_first_event_category_exhibition_sculpture"
                     style="@style/filter_view_sub_box_view"
                     android:onClick="filterContentClicked"
-                    android:text="조각"/>
+                    android:text="@string/exhibition_sculpture"/>
             </LinearLayout>
         </LinearLayout>
+
         <!--======== 공연 ===========-->
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="4dp">
+            style="@style/filter_view_category_basic_frame_1"
+            >
             <dongnae.dongnaewall.filterContentView
                 android:id="@+id/filterview_first_event_category_performance"
                 style="@style/filter_view_main_category"
                 android:onClick="filterContentClicked"
-                android:text="공연"/>
+                android:text="@string/performance"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -132,12 +120,12 @@
                     android:id="@+id/filterview_first_event_category_performance_musical"
                     style="@style/filter_view_sub_box_view"
                     android:onClick="filterContentClicked"
-                    android:text="뮤지컬"/>
+                    android:text="@string/performance_musical"/>
                 <dongnae.dongnaewall.filterContentView
                     android:id="@+id/filterview_first_event_category_performance_play"
                     style="@style/filter_view_sub_box_view"
                     android:onClick="filterContentClicked"
-                    android:text="연극"/>
+                    android:text="@string/performance_act"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -147,25 +135,24 @@
                     android:id="@+id/filterview_first_event_category_performance_family"
                     style="@style/filter_view_sub_box_view"
                     android:onClick="filterContentClicked"
-                    android:text="아동, 가족"/>
+                    android:text="@string/performance_children_family"/>
                 <dongnae.dongnaewall.filterContentView
                     android:id="@+id/filterview_first_event_category_performance_concert"
                     style="@style/filter_view_sub_box_view"
                     android:onClick="filterContentClicked"
-                    android:text="콘서트"/>
+                    android:text="@string/performance_concert"/>
             </LinearLayout>
         </LinearLayout>
 
         <!--======== 설명회, 공모전 ===========-->
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            style="@style/filter_view_category_basic_frame_1"
+            >
             <dongnae.dongnaewall.filterContentView
                 android:id="@+id/filterview_first_event_category_presentation"
                 style="@style/filter_view_main_category"
                 android:onClick="filterContentClicked"
-                android:text="설명회, 공모전"/>
+                android:text="@string/presentation"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -174,12 +161,12 @@
                     android:id="@+id/filterview_first_event_category_presentation_company"
                     style="@style/filter_view_sub_box_view"
                     android:onClick="filterContentClicked"
-                    android:text="기업설명회"/>
+                    android:text="@string/presentation_company"/>
                 <dongnae.dongnaewall.filterContentView
                     android:id="@+id/filterview_first_event_category_presentation_contest"
                     style="@style/filter_view_sub_box_view"
                     android:onClick="filterContentClicked"
-                    android:text="공모전"/>
+                    android:text="@string/presentation_passionpay"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -189,25 +176,24 @@
                     android:id="@+id/filterview_first_event_category_presentation_corporate"
                     style="@style/filter_view_sub_box_view"
                     android:onClick="filterContentClicked"
-                    android:text="기업행사"/>
+                    android:text="@string/presentation_company_event"/>
                 <dongnae.dongnaewall.filterContentView
                     android:id="@+id/filterview_first_event_category_presentation_student"
                     style="@style/filter_view_sub_box_view"
                     android:onClick="filterContentClicked"
-                    android:text="학생 설명"/>
+                    android:text="@string/presentation_student"/>
             </LinearLayout>
         </LinearLayout>
 
         <!--======== 구인, 구직 ===========-->
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            style="@style/filter_view_category_basic_frame_1"
+            >
             <dongnae.dongnaewall.filterContentView
                 android:id="@+id/filterview_first_event_category_job"
                 style="@style/filter_view_main_category"
                 android:onClick="filterContentClicked"
-                android:text="구인/구직"/>
+                android:text="@string/wanted"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -216,12 +202,12 @@
                     android:id="@+id/filterview_first_event_category_job_part_time"
                     style="@style/filter_view_sub_box_view"
                     android:onClick="filterContentClicked"
-                    android:text="알바"/>
+                    android:text="@string/wanted_part_time"/>
                 <dongnae.dongnaewall.filterContentView
                     android:id="@+id/filterview_first_event_category_job_wanted"
                     style="@style/filter_view_sub_box_view"
                     android:onClick="filterContentClicked"
-                    android:text="공채, 특채"/>
+                    android:text="@string/wanted_full_time"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -241,7 +227,7 @@
             <dongnae.dongnaewall.filterContentView
                 android:id="@+id/filterview_second_primary_category"
                 style="@style/filter_view_primary_category"
-                android:text="날짜선택"/>
+                android:text="@string/choose_date"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -339,7 +325,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/filterview_third_primary_category"
+                    style="@style/filter_view_primary_category"
+                    android:text="@string/choose_location"/>
+            </LinearLayout>
+        </LinearLayout>
 
         <!--==========================================================-->
         <!--======================= 금액선택 ===========================-->
@@ -353,9 +348,9 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <TextView
-                    android:id="@+id/filterview_third_primary_category"
+                    android:id="@+id/filterview_fourth_primary_category"
                     style="@style/filter_view_primary_category"
-                    android:text="금액선택"/>
+                    android:text="@string/choose_fee_range"/>
             </LinearLayout>
             <SeekBar
                 android:layout_width="match_parent"
@@ -367,19 +362,16 @@
 
         <LinearLayout
         android:id="@+id/filterview_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="bottom">
+            style="@style/filter_top_bottom_view">
         <TextView
             android:id="@+id/filterview_bottom_apply"
             style="@style/filter_top_bottom_view"
-            android:text="필터적용"
+            android:text="@string/filter_apply"
             />
         <TextView
             android:id="@+id/filterview_bottom_initialize"
             style="@style/filter_top_bottom_view"
-            android:text="필터초기화"
+            android:text="@string/filter_initialize"
             />
     </LinearLayout>
     </LinearLayout>
