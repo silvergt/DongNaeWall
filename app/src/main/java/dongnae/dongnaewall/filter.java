@@ -1,6 +1,7 @@
 package dongnae.dongnaewall;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -43,6 +45,7 @@ public class filter extends AppCompatActivity {
     final static int CATEGORY_job=5;
 
     static ArrayList<filterContentView> categoryList;
+    Calendar_dialog calendar_dialog;
 
     static filterContentView school=null;
     static filterContentView inschool_activities;
@@ -206,14 +209,69 @@ public class filter extends AppCompatActivity {
 
     }
 
-    public void startCalendarDialog(boolean dateFrom){
-        Calendar_dialog dialog=new Calendar_dialog(this);
-        dialog.show();
-        if(dateFrom){
-
-        }else{
-
-        }
+    public void startCalendarDialog(final boolean clickedStartDate){
+        calendar_dialog=new Calendar_dialog(this);
+        calendar_dialog.show();
+        calendar_dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                if(calendar_dialog.isDismissedWithOrder){
+                    int[] date=calendar_dialog.getSelectedDate();
+                    if(date[0]==0&&date[1]==0&&date[2]==0){
+                        if(clickedStartDate){
+                            dateFrom.date=null;
+                            dateFrom.setText(getResources().getText(R.string.dateFrom));
+                            return;
+                        }else{
+                            dateTo.date=null;
+                            dateFrom.setText(getResources().getText(R.string.dateTo));
+                            return;
+                        }
+                    }
+                    String str=Integer.toString(date[0])+"."+Integer.toString(date[1])+"."
+                            +Integer.toString(date[2]);
+                    if(clickedStartDate){
+                        if(dateTo.date!=null){
+                            if(dateTo.date[0]<date[0]){
+                                Toast.makeText(filter.this,"종료일보다 이후의 날짜입니다",Toast.LENGTH_SHORT).show();
+                                return;
+                            }else if(dateTo.date[0]==date[0]){
+                                if(dateTo.date[1]<date[1]){
+                                    Toast.makeText(filter.this,"종료일보다 이후의 날짜입니다",Toast.LENGTH_SHORT).show();
+                                    return;
+                                }else if (dateTo.date[1]==date[1]){
+                                    if(dateTo.date[2]<date[2]){
+                                        Toast.makeText(filter.this,"종료일보다 이후의 날짜입니다",Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                        dateFrom.date=date;
+                        dateFrom.setText(str);
+                    }else{
+                        if(dateFrom.date!=null){
+                            if(dateFrom.date[0]>date[0]){
+                                Toast.makeText(filter.this,"시작일보다 이전의 날짜입니다",Toast.LENGTH_SHORT).show();
+                                return;
+                            }else if(dateFrom.date[0]==date[0]){
+                                if(dateFrom.date[1]>date[1]){
+                                    Toast.makeText(filter.this,"시작일보다 이전의 날짜입니다",Toast.LENGTH_SHORT).show();
+                                    return;
+                                }else if (dateFrom.date[1]==date[1]){
+                                    if(dateFrom.date[2]>date[2]){
+                                        Toast.makeText(filter.this,"시작일보다 이전의 날짜입니다",Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                        dateTo.date=date;
+                        dateTo.setText(str);
+                    }
+                }
+            }
+        });
     }
 
     public static void changeCheckedState(boolean changeStateToChecked,filterContentView... views){

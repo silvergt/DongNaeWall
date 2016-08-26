@@ -260,7 +260,7 @@
                 android:layout_height="30dp"
                 style="@style/filterview_second_primary_category_dates"
                 android:onClick="filterContentClicked"
-                android:text="이때부터"/>
+                android:text="@string/dateFrom"/>
             <dongnae.dongnaewall.filterContentView
                 android:id="@+id/filterview_second_primary_category_maximum_date"
                 android:layout_width="0dp"
@@ -268,7 +268,7 @@
                 android:layout_height="30dp"
                 style="@style/filterview_second_primary_category_dates"
                 android:onClick="filterContentClicked"
-                android:text="이때까지"/>
+                android:text="@string/dateTo"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"

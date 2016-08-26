@@ -3,90 +3,83 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <dongnae.dongnaewall.calendarCell
         android:id="@+id/calendar_line1"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="1"
         />
     <View
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:background="#000000"
         />
-    <TextView
+    <dongnae.dongnaewall.calendarCell
         android:id="@+id/calendar_line2"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="1"
         />
     <View
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:background="#000000"
         />
-    <TextView
+    <dongnae.dongnaewall.calendarCell
         android:id="@+id/calendar_line3"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="1"
         />
     <View
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:background="#000000"
         />
-    <TextView
+    <dongnae.dongnaewall.calendarCell
         android:id="@+id/calendar_line4"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="1"
         />
     <View
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:background="#000000"
         />
-    <TextView
+    <dongnae.dongnaewall.calendarCell
         android:id="@+id/calendar_line5"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="1"
         />
     <View
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:background="#000000"
         />
-    <TextView
+    <dongnae.dongnaewall.calendarCell
         android:id="@+id/calendar_line6"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="1"
         />
     <View
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:background="#000000"
         />
-    <TextView
+    <dongnae.dongnaewall.calendarCell
         android:id="@+id/calendar_line7"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="1"
         />
 </LinearLayout>
