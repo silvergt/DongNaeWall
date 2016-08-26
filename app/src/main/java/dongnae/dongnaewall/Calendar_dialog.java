@@ -41,6 +41,7 @@ public class Calendar_dialog extends Dialog implements View.OnClickListener{
     TextView leftButton;
     TextView yearAndMonth;
     TextView rightButton;
+    TextView initialize;
     TextView cancel;
     TextView apply;
 
@@ -73,6 +74,7 @@ public class Calendar_dialog extends Dialog implements View.OnClickListener{
         leftButton=(TextView)findViewById(R.id.calendar_left);
         yearAndMonth=(TextView)findViewById(R.id.calendar_yymm);
         rightButton=(TextView)findViewById(R.id.calendar_right);
+        initialize=(TextView)findViewById(R.id.calendar_initialize);
         cancel=(TextView)findViewById(R.id.calendar_cancel);
         apply=(TextView)findViewById(R.id.calendar_apply);
 
@@ -91,7 +93,7 @@ public class Calendar_dialog extends Dialog implements View.OnClickListener{
                 createCalendar(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH)+1);
             }
         });
-        cancel.setOnClickListener(new View.OnClickListener() {
+        initialize.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 isDismissedWithOrder=true;
@@ -99,6 +101,13 @@ public class Calendar_dialog extends Dialog implements View.OnClickListener{
                 selectedMonth=0;
                 selectedDay=0;
                 dismiss();
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancel();
             }
         });
         apply.setOnClickListener(new View.OnClickListener() {
@@ -190,7 +199,6 @@ public class Calendar_dialog extends Dialog implements View.OnClickListener{
     public int[] getSelectedDate(){
         return new int[]{selectedYear,selectedMonth,selectedDay};
     }
-
 
     @Override
     public void onClick(View v) {

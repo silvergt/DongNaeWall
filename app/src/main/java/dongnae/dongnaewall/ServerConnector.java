@@ -73,6 +73,7 @@ public class ServerConnector {
          *  3. TempData.search                  -String
          *  4. TempData.startNum                -int
          *  5. filter.getFilterCheckedData()    -boolean[]
+         *  6. filter.getDayOfWeekCheckedData() -boolean[]
          */
         ArrayList<Object> pack=new ArrayList<>();
         pack.add(TempData.getStatus());
@@ -84,6 +85,7 @@ public class ServerConnector {
         }
         pack.add(TempData.getStartNum());
         pack.add(filter.getFilterCheckedData());
+        pack.add(filter.getDayOfWeekCheckedData());
         try {
             OS = socket.getOutputStream();
             OOS=new ObjectOutputStream(OS);

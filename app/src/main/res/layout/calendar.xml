@@ -145,12 +145,22 @@
         android:orientation="horizontal"
         >
         <TextView
-            android:id="@+id/calendar_cancel"
+            android:id="@+id/calendar_initialize"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
             android:layout_weight="1"
             android:text="초기화"
+            android:gravity="center"
+            android:background="#3FB0FA"
+            />
+        <TextView
+            android:id="@+id/calendar_cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            android:text="취소"
             android:gravity="center"
             android:background="#3FB0FA"
             />

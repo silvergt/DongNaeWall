@@ -113,6 +113,7 @@ public class main extends AppCompatActivity {
 
             }
         });
+        TempData.changeStatus(TempData.STATUS_RECOMMENDATION);  //MANDATORY BECAUSE OF setHeaderFooterViewVisibility()
 
 
         //******SEARCH METHOD
@@ -344,9 +345,9 @@ class contentAdapter extends BaseAdapter {
 
     public boolean getPosters(){
 
-        AsyncTask posterThread=new AsyncTask() {
+        AsyncTask<Integer, Integer, Boolean> posterThread=new AsyncTask<Integer, Integer, Boolean>() {
             @Override
-            protected Object doInBackground(Object[] params) {
+            protected Boolean doInBackground(Integer[] params) {
                 posters=SC.getPoster();
                 if(posters==null){
                     Log.e("Log","NO SERVER RECEIVED POSTERS!");
@@ -369,7 +370,7 @@ class contentAdapter extends BaseAdapter {
 
 
             @Override
-            protected void onProgressUpdate(Object[] values) {
+            protected void onProgressUpdate(Integer[] values) {
                 super.onProgressUpdate(values);
                 Log.v("Log","progress updating");
                 notifyDataSetChanged();

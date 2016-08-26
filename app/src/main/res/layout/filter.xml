@@ -241,7 +241,6 @@
             <dongnae.dongnaewall.filterContentView
                 android:id="@+id/filterview_second_primary_category"
                 style="@style/filter_view_primary_category"
-                android:onClick="filterContentClicked"
                 android:text="날짜선택"/>
         </LinearLayout>
         <LinearLayout
@@ -251,8 +250,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="30dp">
-            </TextView>
+                android:layout_height="30dp"/>
             <dongnae.dongnaewall.filterContentView
                 android:id="@+id/filterview_second_primary_category_minimum_date"
                 android:layout_width="0dp"
@@ -272,10 +270,65 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="30dp">
-            </TextView>
+                android:layout_height="30dp"/>
         </LinearLayout>
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="30dp"
+                    />
+                <dongnae.dongnaewall.filterContentView
+                    android:id="@+id/filterview_day_sun"
+                    style="@style/filter_view_sub_box_view"
+                    android:text="일"
+                    android:onClick="filterContentClicked"
+                    />
+                <dongnae.dongnaewall.filterContentView
+                    android:id="@+id/filterview_day_mon"
+                    style="@style/filter_view_sub_box_view"
+                    android:text="월"
+                    android:onClick="filterContentClicked"
+                    />
+                <dongnae.dongnaewall.filterContentView
+                    android:id="@+id/filterview_day_tue"
+                    style="@style/filter_view_sub_box_view"
+                    android:text="화"
+                    android:onClick="filterContentClicked"
+                    />
+                <dongnae.dongnaewall.filterContentView
+                    android:id="@+id/filterview_day_wed"
+                    style="@style/filter_view_sub_box_view"
+                    android:text="수"
+                    android:onClick="filterContentClicked"
+                    />
+                <dongnae.dongnaewall.filterContentView
+                    android:id="@+id/filterview_day_thu"
+                    style="@style/filter_view_sub_box_view"
+                    android:text="목"
+                    android:onClick="filterContentClicked"
+                    />
+                <dongnae.dongnaewall.filterContentView
+                    android:id="@+id/filterview_day_fri"
+                    style="@style/filter_view_sub_box_view"
+                    android:text="금"
+                    android:onClick="filterContentClicked"
+                    />
+                <dongnae.dongnaewall.filterContentView
+                    android:id="@+id/filterview_day_sat"
+                    style="@style/filter_view_sub_box_view"
+                    android:text="토"
+                    android:onClick="filterContentClicked"
+                    />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="30dp"
+                    />
+            </LinearLayout>
     </LinearLayout>
 
         <!--==========================================================-->

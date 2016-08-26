@@ -45,6 +45,7 @@ public class filter extends AppCompatActivity {
     final static int CATEGORY_job=5;
 
     static ArrayList<filterContentView> categoryList;
+    static ArrayList<filterContentView> dayOfWeek;
     Calendar_dialog calendar_dialog;
 
     static filterContentView school=null;
@@ -74,6 +75,14 @@ public class filter extends AppCompatActivity {
 
     static filterContentView dateFrom;
     static filterContentView dateTo;
+
+    static filterContentView day_sun;
+    static filterContentView day_mon;
+    static filterContentView day_tue;
+    static filterContentView day_wed;
+    static filterContentView day_thu;
+    static filterContentView day_fri;
+    static filterContentView day_sat;
     
     
     @Override 
@@ -90,9 +99,23 @@ public class filter extends AppCompatActivity {
             return null;
         }
         boolean[] returningArray=new boolean[categoryList.size()];
-        Log.v("Log","making array... size :"+Integer.toString(returningArray.length));
+        Log.v("Log","making categoryList array... size :"+Integer.toString(returningArray.length));
         for(int i=0;i<returningArray.length;i++){
             returningArray[i]=categoryList.get(i).isChecked;
+        }
+
+        return returningArray;
+    }
+
+    public static boolean[] getDayOfWeekCheckedData(){
+        if(dayOfWeek==null){
+            Log.v("Log","dayOfWeek is null. sending boolean[]==null");
+            return null;
+        }
+        boolean[] returningArray=new boolean[dayOfWeek.size()];
+        Log.v("Log","making dayOfWeek array... size :"+Integer.toString(returningArray.length));
+        for(int i=0;i<returningArray.length;i++){
+            returningArray[i]=dayOfWeek.get(i).isChecked;
         }
 
         return returningArray;
@@ -112,7 +135,15 @@ public class filter extends AppCompatActivity {
         FCV.category=category;
         changeCheckedState(FCV.isChecked, FCV);
 
-        categoryList.add(FCV);
+        if(category!=CATEGORY_NONE) {
+            categoryList.add(FCV);
+        }else{
+            switch (FCV.getId()){
+                case R.id.filterview_day_sun:case R.id.filterview_day_mon:case R.id.filterview_day_tue:case R.id.filterview_day_wed:
+                case R.id.filterview_day_thu:case R.id.filterview_day_fri:case R.id.filterview_day_sat:
+                    dayOfWeek.add(FCV);
+            }
+        }
         
         return FCV;
     }
@@ -120,6 +151,7 @@ public class filter extends AppCompatActivity {
     private void initialize(){
 
         categoryList=new ArrayList<>();
+        dayOfWeek=new ArrayList<>();
 
         school=findFilterContentViewById(R.id.filterview_first_event_category_school, school, true, CATEGORY_school);
         inschool_activities=findFilterContentViewById(R.id.filterview_first_event_category_school_inschool_activities, inschool_activities, false, CATEGORY_school);
@@ -148,11 +180,19 @@ public class filter extends AppCompatActivity {
 
         dateFrom=findFilterContentViewById(R.id.filterview_second_primary_category_minimum_date, dateFrom, false, CATEGORY_NONE);
         dateTo=findFilterContentViewById(R.id.filterview_second_primary_category_maximum_date, dateTo, false, CATEGORY_NONE);
+
+        day_sun=findFilterContentViewById(R.id.filterview_day_sun,day_sun,false,CATEGORY_NONE);
+        day_mon=findFilterContentViewById(R.id.filterview_day_mon,day_mon,false,CATEGORY_NONE);
+        day_tue=findFilterContentViewById(R.id.filterview_day_tue,day_tue,false,CATEGORY_NONE);
+        day_wed=findFilterContentViewById(R.id.filterview_day_wed,day_wed,false,CATEGORY_NONE);
+        day_thu=findFilterContentViewById(R.id.filterview_day_thu,day_thu,false,CATEGORY_NONE);
+        day_fri=findFilterContentViewById(R.id.filterview_day_fri,day_fri,false,CATEGORY_NONE);
+        day_sat=findFilterContentViewById(R.id.filterview_day_sat,day_sat,false,CATEGORY_NONE);
     }
     
     public void filterContentClicked(View view){
         filterContentView v=(filterContentView)view;
-            if(v.category!=0){
+            if(v.category!=CATEGORY_NONE){
                 if(v.isBigCategory) {
                     switch (v.category){
                         case CATEGORY_school:
@@ -194,15 +234,21 @@ public class filter extends AppCompatActivity {
                         changeCheckedState(true,v);
                     }
                 }
-            }else if(v.category==0){
+            }else if(v.category==CATEGORY_NONE){
                 switch (v.getId()){
                     case R.id.filterview_second_primary_category_minimum_date:
                         startCalendarDialog(true);
-                        break;
+                        return;
                     case R.id.filterview_second_primary_category_maximum_date:
                         startCalendarDialog(false);
-                        break;
+                        return;
                 }
+                if(v.isChecked){
+                    changeCheckedState(false,v);
+                }else{
+                    changeCheckedState(true,v);
+                }
+
 
 
         }
@@ -224,7 +270,7 @@ public class filter extends AppCompatActivity {
                             return;
                         }else{
                             dateTo.date=null;
-                            dateFrom.setText(getResources().getText(R.string.dateTo));
+                            dateTo.setText(getResources().getText(R.string.dateTo));
                             return;
                         }
                     }
