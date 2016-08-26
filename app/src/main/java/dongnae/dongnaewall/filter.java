@@ -83,9 +83,9 @@ public class filter extends AppCompatActivity {
     static filterContentView day_thu;
     static filterContentView day_fri;
     static filterContentView day_sat;
-    
-    
-    @Override 
+
+
+    @Override
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.filter);
@@ -144,7 +144,7 @@ public class filter extends AppCompatActivity {
                     dayOfWeek.add(FCV);
             }
         }
-        
+
         return FCV;
     }
 
@@ -189,7 +189,7 @@ public class filter extends AppCompatActivity {
         day_fri=findFilterContentViewById(R.id.filterview_day_fri,day_fri,false,CATEGORY_NONE);
         day_sat=findFilterContentViewById(R.id.filterview_day_sat,day_sat,false,CATEGORY_NONE);
     }
-    
+
     public void filterContentClicked(View view){
         filterContentView v=(filterContentView)view;
             if(v.category!=CATEGORY_NONE){
@@ -256,7 +256,16 @@ public class filter extends AppCompatActivity {
     }
 
     public void startCalendarDialog(final boolean clickedStartDate){
-        calendar_dialog=new Calendar_dialog(this);
+        int year;int month;int date;
+        if(clickedStartDate&&dateFrom.date!=null){
+            year=dateFrom.date[0];month=dateFrom.date[1];date=dateFrom.date[2];
+            calendar_dialog=new Calendar_dialog(this,year,month,date);
+        }else if(!clickedStartDate&&dateTo.date!=null){
+            year=dateTo.date[0];month=dateTo.date[1];date=dateTo.date[2];
+            calendar_dialog=new Calendar_dialog(this,year,month,date);
+        }else{
+            calendar_dialog=new Calendar_dialog(this);
+        }
         calendar_dialog.show();
         calendar_dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override

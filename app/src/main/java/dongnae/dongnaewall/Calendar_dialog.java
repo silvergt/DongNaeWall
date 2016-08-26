@@ -62,6 +62,18 @@ public class Calendar_dialog extends Dialog implements View.OnClickListener{
         onCreate();
     }
 
+    public Calendar_dialog(Context context,int year,int month,int date) {
+        super(context);
+        this.context=context;
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        if(year!=0&&month!=0&&date!=0){
+            selectedYear=year;
+            selectedMonth=month;
+            selectedDay=date;
+        }
+        onCreate();
+    }
+
     private void onCreate(){
         setContentView(R.layout.calendar);
 
@@ -83,7 +95,8 @@ public class Calendar_dialog extends Dialog implements View.OnClickListener{
         apply=(TextView)findViewById(R.id.calendar_apply);
 
         today=Calendar.getInstance();
-        calendar=new GregorianCalendar(today.get(Calendar.YEAR),today.get(Calendar.MONTH),1);
+        calendar = new GregorianCalendar(today.get(Calendar.YEAR), today.get(Calendar.MONTH), 1);
+
         leftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,7 +140,11 @@ public class Calendar_dialog extends Dialog implements View.OnClickListener{
             }
         });
 
-        createCalendar(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH));
+        if(selectedYear>0&&selectedMonth>0) {
+            createCalendar(selectedYear, selectedMonth-1);
+        }else{
+            createCalendar(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH));
+        }
 
     }
 
@@ -163,7 +180,7 @@ public class Calendar_dialog extends Dialog implements View.OnClickListener{
         calendar_day=new calendarCell[numberOfWeeks][7];
 
 
-        LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,1);
+        LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0);
         params.weight=1;
         dayOfWeek=calendar.get(Calendar.DAY_OF_WEEK);
         int i=1;
@@ -186,9 +203,14 @@ public class Calendar_dialog extends Dialog implements View.OnClickListener{
                             calendar_day[j][k].setBackgroundColor(Color.CYAN);
                             todayCell=new int[]{j,k};
                         }
-                        calendar_day[j][k].setText(Integer.toString(i++));
+                        calendar_day[j][k].setText(Integer.toString(i));
                         calendar_day[j][k].setCellNumber(j,k);
                         calendar_day[j][k].setOnClickListener(this);
+                        if(year==selectedYear&&month+1==selectedMonth&&i==selectedDay){
+                            //calendar_day[j][k].setBackgroundColor(Color.MAGENTA);
+                            selectCell(j,k);
+                        }
+                        i++;
                     }
                 }
                 dayOfWeek = 1;
@@ -206,6 +228,11 @@ public class Calendar_dialog extends Dialog implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
+        calendarCell cell=(calendarCell)v;
+        selectCell(cell.cellNumber[0],cell.cellNumber[1]);
+    }
+
+    public void selectCell(int column,int row){
         try{
             calendar_day[selectedCell[0]][selectedCell[1]].setBackgroundColor(Color.WHITE);
             if(calendar.get(Calendar.YEAR)==today.get(Calendar.YEAR)&&calendar.get(Calendar.MONTH)==today.get(Calendar.MONTH)){
@@ -213,13 +240,12 @@ public class Calendar_dialog extends Dialog implements View.OnClickListener{
             }
         }catch (Exception e){
             e.printStackTrace();
-            Log.v("Log","calendar cell color change failed!");
+            Log.v("Log","selected cell color failed to be changed!");
         }
-        calendarCell cell=(calendarCell)v;
         selectedYear=calendar.get(Calendar.YEAR);
         selectedMonth=calendar.get(Calendar.MONTH)+1;
-        selectedDay= Integer.parseInt(cell.getText().toString());
-        selectedCell=cell.cellNumber;
-        v.setBackgroundColor(Color.MAGENTA);
+        selectedDay= Integer.parseInt(calendar_day[column][row].getText().toString());
+        selectedCell=calendar_day[column][row].cellNumber;
+        calendar_day[column][row].setBackgroundColor(Color.MAGENTA);
     }
 }
