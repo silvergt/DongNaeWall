@@ -104,7 +104,6 @@ public class main extends AppCompatActivity {
         list.setAdapter(adapter);
         OverScrollDecoratorHelper.setUpOverScroll(list);
 
-
         list.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {

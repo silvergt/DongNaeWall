@@ -1,1 +1,1 @@
-include ':app', ':picasso-2.5.2', 'ptr', 'overscrollLib'
+include ':app', ':picasso-2.5.2', 'overscrollLib'
