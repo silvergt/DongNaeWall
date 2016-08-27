@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/Users/junyeoulyang/AndroidStudioProjects/DongNaeWall/ptr/src/main/assets"/><source path="/Users/junyeoulyang/AndroidStudioProjects/DongNaeWall/ptr/build/generated/assets/shaders/release"/></dataSet><dataSet config="release"><source path="/Users/junyeoulyang/AndroidStudioProjects/DongNaeWall/ptr/src/release/assets"/></dataSet></merger>

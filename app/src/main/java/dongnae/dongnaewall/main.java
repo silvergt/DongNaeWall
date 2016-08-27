@@ -23,8 +23,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
-
 import java.util.ArrayList;
 
 
@@ -34,7 +32,7 @@ public class main extends AppCompatActivity {
     static int displayHeight=0;
     static int displayWidth=0;
 
-    PullToRefreshListView list;
+    ListView list;
     ListView headerFooter;
     static contentAdapter adapter;
     static TextView listFooter;
@@ -92,25 +90,17 @@ public class main extends AppCompatActivity {
         up=(TextView)findViewById(R.id.main_bottom_up);
         logo=(ImageView)findViewById(R.id.main_logo);
         search=(TextView)findViewById(R.id.main_top_search);
-        list=(PullToRefreshListView)findViewById(R.id.main_listview);
+        list=(ListView)findViewById(R.id.main_listview);
         TextView alarm=(TextView)findViewById(R.id.main_top_alarm);
 
         TempData.changeStatus(TempData.STATUS_RECOMMENDATION);
-/*
-        list.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
-            @Override
-            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-            }
-        });
-        */
-        headerFooter=list.getRefreshableView();
+
         if(adapter==null || TempData.getStatus()==TempData.STATUS_RECOMMENDATION) {
             Log.v("Log","first setup for header & footer");
             setHeaderFooterViewToList();
         }
         adapter=new contentAdapter(this);
         list.setAdapter(adapter);
-
 
         list.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -186,7 +176,7 @@ public class main extends AppCompatActivity {
                     }
                 }
                 //Log.v("Log scroll to",Integer.toString(scrollNumber));
-                //list.smoothScrollToPosition(scrollNumber--);
+                list.smoothScrollToPosition(scrollNumber--);
                 scrollIsDownward = false;
 
                 if (scrollNumber < 0) {
@@ -210,7 +200,7 @@ public class main extends AppCompatActivity {
                 }
 
                 //Log.v("Log scroll to",Integer.toString(scrollNumber));
-                //list.smoothScrollToPosition(scrollNumber++);
+                list.smoothScrollToPosition(scrollNumber++);
                 if (scrollNumber > adapter.getCount() + 2) {
                     scrollNumber = adapter.getCount() + 2;
                 }

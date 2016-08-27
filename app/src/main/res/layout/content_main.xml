@@ -92,7 +92,7 @@
             android:layout_height="@dimen/topbar_size"/>
 
         <!-- 리스트 뷰 -->
-        <com.handmark.pulltorefresh.library.PullToRefreshListView
+        <ListView
             android:id="@+id/main_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
