@@ -25,6 +25,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
+
 
 public class main extends AppCompatActivity {
     static int scrollNumber=0;
@@ -100,6 +102,8 @@ public class main extends AppCompatActivity {
         }
         adapter=new contentAdapter(this);
         list.setAdapter(adapter);
+        OverScrollDecoratorHelper.setUpOverScroll(list);
+
 
         list.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
