@@ -9,9 +9,12 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 class filterContentView extends Button{
     boolean isChecked=false;
@@ -89,6 +92,8 @@ public class filter extends AppCompatActivity {
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.filter);
+        ScrollView scrollView=(ScrollView)findViewById(R.id.filterview_scrollview);
+        OverScrollDecoratorHelper.setUpOverScroll(scrollView);
         initialize();
 
     }
