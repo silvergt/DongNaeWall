@@ -11,74 +11,6 @@
         android:layout_height="match_parent"
         />
 
-    <RelativeLayout
-        android:id="@+id/main_topbar"
-        android:layout_width="match_parent"
-        android:layout_gravity="top"
-        android:layout_height="@dimen/topbar_size"
-        android:orientation="horizontal"
-        android:background="@color/basicStatusBarColor">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            >
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="5"
-                />
-            <ImageView
-                android:id="@+id/main_logo"
-                android:layout_weight="2"
-                android:layout_height="match_parent"
-                android:layout_width="0dp"
-                android:src="@drawable/dongnaewall"
-                android:padding="3dp"
-                />
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="5"
-                />
-        </LinearLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-
-
-            <TextView
-                android:id="@+id/main_top_profile"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:layout_margin="2dp"
-                android:background="@mipmap/ic_launcher">
-
-            </TextView>
-
-
-
-
-            <TextView
-                android:id="@+id/main_top_search"
-                android:layout_height="match_parent"
-                android:layout_width="50dp"
-                android:layout_alignParentRight="true"
-                android:background="#505050"
-                android:layout_margin="2dp"
-                android:text="search"/>
-            <TextView
-                android:id="@+id/main_top_alarm"
-                android:layout_height="match_parent"
-                android:layout_width="50dp"
-                android:layout_toLeftOf="@id/main_top_search"
-                android:background="#505050"
-                android:layout_margin="2dp"
-                android:text="alarm"/>
-        </RelativeLayout>
-
-    </RelativeLayout>
 
     <!-- 전체 세로 정렬 -->
     <LinearLayout
@@ -156,4 +88,73 @@
             android:text="up"
             />
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/main_topbar"
+        android:layout_width="match_parent"
+        android:layout_gravity="top"
+        android:layout_height="@dimen/topbar_size"
+        android:layout_alignParentTop="true"
+        android:background="@color/basicStatusBarColor">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            >
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                />
+            <ImageView
+                android:id="@+id/main_logo"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:src="@drawable/dongnaewall"
+                android:padding="3dp"
+                />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                />
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+
+            <TextView
+                android:id="@+id/main_top_profile"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_margin="2dp"
+                android:background="@mipmap/ic_launcher">
+
+            </TextView>
+
+
+
+
+            <TextView
+                android:id="@+id/main_top_search"
+                android:layout_height="match_parent"
+                android:layout_width="50dp"
+                android:layout_alignParentRight="true"
+                android:background="#505050"
+                android:layout_margin="2dp"
+                android:text="search"/>
+            <TextView
+                android:id="@+id/main_top_alarm"
+                android:layout_height="match_parent"
+                android:layout_width="50dp"
+                android:layout_toLeftOf="@id/main_top_search"
+                android:background="#505050"
+                android:layout_margin="2dp"
+                android:text="alarm"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
 </RelativeLayout>
