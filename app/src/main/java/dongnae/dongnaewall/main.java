@@ -36,9 +36,10 @@ public class main extends AppCompatActivity {
 
     ListView list;
     static contentAdapter adapter;
+    static View whiteFooterView;
     static TextView listFooter;
     static LinearLayout listHeader;
-    static LinearLayout blankView;
+    static View blankView;
     RelativeLayout profileLayout;
     RelativeLayout mainProfileLayout;
 
@@ -237,7 +238,7 @@ public class main extends AppCompatActivity {
                 1,main.displayHeight*3/5);
         ListView.LayoutParams listHeaderParams=new ListView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,main.displayHeight*3/10);
-        blankView=new LinearLayout(this);
+        blankView=new View(this);
         blankView.setLayoutParams(blankViewParams);
         listHeader.setLayoutParams(listHeaderParams);
         TextView headerText1=(TextView)listHeader.findViewById(R.id.recommendation_headerview_text1);
@@ -254,11 +255,16 @@ public class main extends AppCompatActivity {
         main.scrollNumber=1;
 
         listFooter=new TextView(this);
+        whiteFooterView=new View(this);
         ListView.LayoutParams listFooterParams=new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,100);
+        ListView.LayoutParams whiteFooterParams=new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,(int)getResources().getDimension(R.dimen.listview_item));
+        whiteFooterView.setLayoutParams(whiteFooterParams);
+        whiteFooterView.setBackgroundColor(Color.WHITE);
         listFooter.setLayoutParams(listFooterParams);
         listFooter.setText("LOADING...");
         listFooter.setTextColor(Color.BLUE);
         listFooter.setBackgroundColor(Color.WHITE);
+        list.addFooterView(whiteFooterView);
         list.addFooterView(listFooter);
 
         Log.v("Log","header & footer view adapted");

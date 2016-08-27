@@ -95,7 +95,7 @@
     <RelativeLayout
         android:id="@+id/listview_second_layout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="@dimen/listview_item"
         android:layout_below="@+id/listview_first_layout"
         >
         <TextView
