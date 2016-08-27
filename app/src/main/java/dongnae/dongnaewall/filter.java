@@ -147,6 +147,13 @@ public class filter extends AppCompatActivity {
                 case R.id.filterview_day_sun:case R.id.filterview_day_mon:case R.id.filterview_day_tue:case R.id.filterview_day_wed:
                 case R.id.filterview_day_thu:case R.id.filterview_day_fri:case R.id.filterview_day_sat:
                     dayOfWeek.add(FCV);
+                    break;
+                case R.id.filterview_second_primary_category_minimum_date:case R.id.filterview_second_primary_category_maximum_date:
+                    if(tempdate!=null) {
+                        String str = Integer.toString(tempdate[0])+"." + Integer.toString(tempdate[1]) + "."
+                                + Integer.toString(tempdate[2]);
+                        FCV.setText(str);
+                    }
             }
         }
 

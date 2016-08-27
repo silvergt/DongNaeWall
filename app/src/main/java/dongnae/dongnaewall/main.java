@@ -29,23 +29,25 @@ import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 
 public class main extends AppCompatActivity {
+    static Context context;
+
     static int scrollNumber=0;
     static boolean scrollIsDownward=true;
     static int displayHeight=0;
     static int displayWidth=0;
 
-    ListView list;
+    static ListView list;
     static contentAdapter adapter;
     static View whiteFooterView;
     static TextView listFooter;
     static LinearLayout listHeader;
     static View blankView;
-    RelativeLayout profileLayout;
-    RelativeLayout mainProfileLayout;
+    static RelativeLayout profileLayout;
+    static RelativeLayout mainProfileLayout;
 
     static boolean searchBarIsVisible=false;
     LinearLayout searchBar;
-    RelativeLayout mainLayout;
+    static RelativeLayout mainLayout;
     InputMethodManager IMM;
 
     TextView filter;
@@ -54,12 +56,12 @@ public class main extends AppCompatActivity {
     ImageView logo;
     TextView search;
 
-    LayoutInflater MainInflater;
+    static LayoutInflater MainInflater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        context=this;
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP) {
             Window window =getWindow();
             window.setStatusBarColor(ContextCompat.getColor(this, R.color.basicStatusBarColor));
@@ -147,11 +149,14 @@ public class main extends AppCompatActivity {
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                createMainView();
+                /*
                 adapter.reloadPosterFromStart(TempData.STATUS_RECOMMENDATION);
                 adapter.notifyDataSetChanged();
                 if(searchBarIsVisible) {
                     setSearchBarStatus(false);
                 }
+                 */
             }
         });
 
@@ -220,12 +225,17 @@ public class main extends AppCompatActivity {
             setSearchBarStatus(false);
             return;
         }
+        if(TempData.getStatus()==TempData.STATUS_POSTER_ABBREVIATED){
+            adapter.reloadPosterFromStart(TempData.STATUS_RECOMMENDATION);
+            adapter.notifyDataSetChanged();
+            return;
+        }
         super.onBackPressed();
 
 
     }
 
-    private void setHeaderFooterViewToList(){
+    public static void setHeaderFooterViewToList(){
         try{
             mainProfileLayout.removeAllViews();
         }catch (Exception e){
@@ -238,7 +248,7 @@ public class main extends AppCompatActivity {
                 1,main.displayHeight*3/5);
         ListView.LayoutParams listHeaderParams=new ListView.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,main.displayHeight*3/10);
-        blankView=new View(this);
+        blankView=new View(context);
         blankView.setLayoutParams(blankViewParams);
         listHeader.setLayoutParams(listHeaderParams);
         TextView headerText1=(TextView)listHeader.findViewById(R.id.recommendation_headerview_text1);
@@ -254,10 +264,10 @@ public class main extends AppCompatActivity {
 
         main.scrollNumber=1;
 
-        listFooter=new TextView(this);
-        whiteFooterView=new View(this);
+        listFooter=new TextView(context);
+        whiteFooterView=new View(context);
         ListView.LayoutParams listFooterParams=new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,100);
-        ListView.LayoutParams whiteFooterParams=new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,(int)getResources().getDimension(R.dimen.listview_item));
+        ListView.LayoutParams whiteFooterParams=new ListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,(int)context.getResources().getDimension(R.dimen.listview_item));
         whiteFooterView.setLayoutParams(whiteFooterParams);
         whiteFooterView.setBackgroundColor(Color.WHITE);
         listFooter.setLayoutParams(listFooterParams);
@@ -387,7 +397,11 @@ class contentAdapter extends BaseAdapter {
             }
         };
         posterThread.execute(0);
-
+        if(main.list.getHeaderViewsCount()==0&&main.list.getFooterViewsCount()==0){
+            Log.v("Log","refreshing header and footer view and re-adapting...");
+            main.setHeaderFooterViewToList();
+            main.setHeaderFooterViewVisibility();
+        }
         return false;
 
     }
