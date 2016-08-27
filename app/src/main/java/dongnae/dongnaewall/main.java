@@ -33,7 +33,6 @@ public class main extends AppCompatActivity {
     static int displayWidth=0;
 
     ListView list;
-    ListView headerFooter;
     static contentAdapter adapter;
     static TextView listFooter;
     static LinearLayout listHeader;
@@ -95,7 +94,7 @@ public class main extends AppCompatActivity {
 
         TempData.changeStatus(TempData.STATUS_RECOMMENDATION);
 
-        if(adapter==null || TempData.getStatus()==TempData.STATUS_RECOMMENDATION) {
+        if(adapter==null) {
             Log.v("Log","first setup for header & footer");
             setHeaderFooterViewToList();
         }
@@ -243,8 +242,8 @@ public class main extends AppCompatActivity {
         headerText1.setPadding(main.displayWidth/10,main.displayHeight/20,0,0);
         headerText2.setPadding(main.displayWidth/10,5,0,0);
 
-        headerFooter.addHeaderView(blankView);
-        headerFooter.addHeaderView(listHeader);
+        list.addHeaderView(blankView);
+        list.addHeaderView(listHeader);
 
         profileLayout=(RelativeLayout)MainInflater.inflate(R.layout.profile_layout, null);
         mainProfileLayout.addView(profileLayout);
@@ -257,7 +256,7 @@ public class main extends AppCompatActivity {
         listFooter.setText("LOADING...");
         listFooter.setTextColor(Color.BLUE);
         listFooter.setBackgroundColor(Color.WHITE);
-        headerFooter.addFooterView(listFooter);
+        list.addFooterView(listFooter);
 
         Log.v("Log","header & footer view adapted");
 
