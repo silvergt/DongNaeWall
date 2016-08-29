@@ -1,5 +1,13 @@
 package dongnae.dongnaewall;
 
+import android.content.Context;
+import android.util.Log;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 public class TempData {
     /*
 
@@ -31,9 +39,68 @@ public class TempData {
     private static String search;
     private static int startNum;
 
+    private static String savedID="NULL";
+    private static String savedPassword="NULL";
 
 
-    public void changeAllEntity(int status,int order,String search,int startNum){
+    public static void saveLoginInfo(String ID,String password){
+        savedID=ID; savedPassword=password;
+        try {
+            FileOutputStream FOS = main.context.openFileOutput("ID", Context.MODE_PRIVATE);
+            ObjectOutputStream OOS =new ObjectOutputStream(FOS);
+            OOS.writeObject(ID);
+            OOS.close();
+            FOS.close();
+        }catch (Exception e){
+            Log.e("Log","ID writing failed!!");
+        }
+        try{
+            FileOutputStream FOS2=main.context.openFileOutput("PASSWORD",Context.MODE_PRIVATE);
+            ObjectOutputStream OOS2 =new ObjectOutputStream(FOS2);
+            OOS2.writeObject(password);
+            OOS2.close();
+            FOS2.close();
+        }catch (Exception e){
+            Log.e("Log","PASSWORD writing failed!!");
+        }
+    }
+
+    public static String getSavedID(){
+        if(!savedID.equals("NULL")){
+            return savedID;
+        }else{
+            try {
+                FileInputStream FIS = main.context.openFileInput("ID");
+                ObjectInputStream OIS=new ObjectInputStream(FIS);
+                OIS.close();
+                FIS.close();
+                savedID=OIS.readObject().toString();
+            }catch (Exception e){
+                Log.e("Log","retrieving ID information failed!");
+            }
+        }
+        return savedID;
+    }
+
+    public static String getSavedPassword(){
+        if(!savedPassword.equals("NULL")){
+            return savedPassword;
+        }else{
+            try {
+                FileInputStream FIS = main.context.openFileInput("PASSWORD");
+                ObjectInputStream OIS=new ObjectInputStream(FIS);
+                savedPassword=OIS.readObject().toString();
+                OIS.close();
+                FIS.close();
+            }catch (Exception e){
+                Log.e("Log","retrieving PASSWORD information failed!");
+            }
+        }
+        return savedPassword;
+    }
+
+
+    public static void changeAllEntity(int status,int order,String search,int startNum){
         TempData.status=status;
         TempData.order=order;
         TempData.search=search;
