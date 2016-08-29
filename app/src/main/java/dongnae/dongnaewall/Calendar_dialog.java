@@ -17,7 +17,8 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-class calendarCell extends Button{
+
+class calendarCell extends Button {
     int cellNumber[];
     public calendarCell(Context context, AttributeSet attrs) {
         super(context, attrs);

@@ -7,10 +7,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.florescu.android.rangeseekbar.RangeSeekBar;
 
 import java.util.ArrayList;
 
@@ -87,6 +91,11 @@ public class filter extends AppCompatActivity {
     static filterContentView day_fri;
     static filterContentView day_sat;
 
+    static TextView minimumPrice;   static int minimumPriceValue=0;
+    static TextView maximumPrice;   static int maximumPriceValue=20;
+    static RangeSeekBar priceSeekBar;
+
+
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -94,7 +103,19 @@ public class filter extends AppCompatActivity {
         setContentView(R.layout.filter);
         ScrollView scrollView=(ScrollView)findViewById(R.id.filterview_scrollview);
         OverScrollDecoratorHelper.setUpOverScroll(scrollView);
+
         initialize();
+
+        priceSeekBar.setSelectedMinValue(minimumPriceValue);
+        priceSeekBar.setSelectedMaxValue(maximumPriceValue);
+        setPriceTextView();
+        priceSeekBar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                setPriceTextView();
+                return false;
+            }
+        });
 
     }
 
@@ -200,6 +221,11 @@ public class filter extends AppCompatActivity {
         day_thu=findFilterContentViewById(R.id.filterview_day_thu,day_thu,false,CATEGORY_NONE);
         day_fri=findFilterContentViewById(R.id.filterview_day_fri,day_fri,false,CATEGORY_NONE);
         day_sat=findFilterContentViewById(R.id.filterview_day_sat,day_sat,false,CATEGORY_NONE);
+
+        minimumPrice=(TextView)findViewById(R.id.filterview_minimumprice);
+        maximumPrice=(TextView)findViewById(R.id.filterview_maximumprice);
+        priceSeekBar=(RangeSeekBar)findViewById(R.id.filterview_seekbar);
+
     }
 
     public void filterContentClicked(View view){
@@ -370,5 +396,142 @@ public class filter extends AppCompatActivity {
         super.onBackPressed();
         Log.v("Log","filterView closed");
         finish();
+    }
+    
+    public void setPriceTextView(){
+        switch (priceSeekBar.getSelectedMinValue().intValue()){
+            case 0:
+                minimumPrice.setText("무료");
+                break;
+            case 1:
+                minimumPrice.setText("1000￦");
+                break;
+            case 2:
+                minimumPrice.setText("2000￦");
+                break;
+            case 3:
+                minimumPrice.setText("3000￦");
+                break;
+            case 4:
+                minimumPrice.setText("4000￦");
+                break;
+            case 5:
+                minimumPrice.setText("5000￦");
+                break;
+            case 6:
+                minimumPrice.setText("6000￦");
+                break;
+            case 7:
+                minimumPrice.setText("7000￦");
+                break;
+            case 8:
+                minimumPrice.setText("8000￦");
+                break;
+            case 9:
+                minimumPrice.setText("9000￦");
+                break;
+            case 10:
+                minimumPrice.setText("10000￦");
+                break;
+            case 11:
+                minimumPrice.setText("12000￦");
+                break;
+            case 12:
+                minimumPrice.setText("15000￦");
+                break;
+            case 13:
+                minimumPrice.setText("20000￦");
+                break;
+            case 14:
+                minimumPrice.setText("25000￦");
+                break;
+            case 15:
+                minimumPrice.setText("30000￦");
+                break;
+            case 16:
+                minimumPrice.setText("35000￦");
+                break;
+            case 17:
+                minimumPrice.setText("50000￦");
+                break;
+            case 18:
+                minimumPrice.setText("75000￦");
+                break;
+            case 19:
+                minimumPrice.setText("100000￦");
+                break;
+            case 20:
+                minimumPrice.setText("100000￦ 이상");
+                break;
+        }
+        
+        switch (priceSeekBar.getSelectedMaxValue().intValue()){
+            case 0:
+                maximumPrice.setText("무료");
+                break;
+            case 1:
+                maximumPrice.setText("1000￦");
+                break;
+            case 2:
+                maximumPrice.setText("2000￦");
+                break;
+            case 3:
+                maximumPrice.setText("3000￦");
+                break;
+            case 4:
+                maximumPrice.setText("4000￦");
+                break;
+            case 5:
+                maximumPrice.setText("5000￦");
+                break;
+            case 6:
+                maximumPrice.setText("6000￦");
+                break;
+            case 7:
+                maximumPrice.setText("7000￦");
+                break;
+            case 8:
+                maximumPrice.setText("8000￦");
+                break;
+            case 9:
+                maximumPrice.setText("9000￦");
+                break;
+            case 10:
+                maximumPrice.setText("10000￦");
+                break;
+            case 11:
+                maximumPrice.setText("12000￦");
+                break;
+            case 12:
+                maximumPrice.setText("15000￦");
+                break;
+            case 13:
+                maximumPrice.setText("20000￦");
+                break;
+            case 14:
+                maximumPrice.setText("25000￦");
+                break;
+            case 15:
+                maximumPrice.setText("30000￦");
+                break;
+            case 16:
+                maximumPrice.setText("35000￦");
+                break;
+            case 17:
+                maximumPrice.setText("50000￦");
+                break;
+            case 18:
+                maximumPrice.setText("75000￦");
+                break;
+            case 19:
+                maximumPrice.setText("100000￦");
+                break;
+            case 20:
+                maximumPrice.setText("100000￦ 이상");
+                break;
+                
+        }
+        minimumPriceValue=priceSeekBar.getSelectedMinValue().intValue();
+        maximumPriceValue=priceSeekBar.getSelectedMaxValue().intValue();
     }
 }
