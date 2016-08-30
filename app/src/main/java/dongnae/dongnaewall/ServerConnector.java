@@ -35,12 +35,43 @@ public class ServerConnector {
     Socket socket;
     ArrayList<Poster> returningPosters=null;
 
-    int id;
+    int posterID;
 
     OutputStream OS=null;
     ObjectOutputStream OOS=null;
     InputStream IS=null;
     ObjectInputStream OIS=null;
+
+    public boolean sendNumberIncreaseRequest(int posterID){
+        try{
+            socket=new Socket(ServerConnector.server_ip,ServerConnector.server_port);
+
+            ArrayList<Object> pack=new ArrayList<>();
+            pack.add(TempData.CLIENT_CLICKED_LIKEBUTTON);
+            pack.add(posterID);
+
+            OS = socket.getOutputStream();
+            OOS=new ObjectOutputStream(OS);
+            OOS.writeObject(pack);
+
+            IS=socket.getInputStream();
+            OIS=new ObjectInputStream(IS);
+            boolean sendingIsCompleted = (Boolean) OIS.readObject();
+
+
+            OOS.close();
+            OS.close();
+            OIS.close();
+            IS.close();
+            socket.close();
+
+            return sendingIsCompleted;
+        }catch (Exception e){
+            Log.e("Log","Number Increase Request failed!");
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     public ArrayList<Poster> getPoster(){
 
@@ -69,7 +100,7 @@ public class ServerConnector {
     private void sendCurrentStatus(){
         /** pack
          *  1. Tempdata.status                  -int
-         *  2. Tempdata.order                   -int
+         *  2. Tempdata.order  or PosterID      -int
          *  3. TempData.search                  -String
          *  4. TempData.startNum                -int
          *  5. filter.getFilterCheckedData()    -boolean[]
@@ -125,9 +156,8 @@ public class ServerConnector {
         return returningPosterArray;
     }
 
-
-    public ArrayList<HashMap<String,Object>> getAdditionalPosterInfo(int id){
-        this.id=id;
+    public ArrayList<HashMap<String,Object>> getAdditionalPosterInfo(int posterID){
+        this.posterID=posterID;
         ArrayList<HashMap<String,Object>> additionalInfo=null;
         try{
             socket=new Socket(ServerConnector.server_ip,ServerConnector.server_port);
@@ -149,7 +179,8 @@ public class ServerConnector {
         OutputStream OS=null;
         ObjectOutputStream OOS=null;
         ArrayList<Object> pack=new ArrayList<>();
-        pack.add(id);
+        pack.add(TempData.getStatus());
+        pack.add(posterID);
         try {
             OS = socket.getOutputStream();
             OOS=new ObjectOutputStream(OS);

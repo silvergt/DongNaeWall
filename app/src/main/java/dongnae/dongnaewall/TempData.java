@@ -30,6 +30,9 @@ public class TempData {
     final static int STATUS_POSTER_FULL = -200;
     final static int STATUS_POSTER_ABBREVIATED = -300;
 
+    final static int CLIENT_CLICKED_LIKEBUTTON=-400;
+
+
     final static int ORDER_DATE=110;
     final static int ORDER_LIKE=120;
     final static int ORDER_VISIT=130;
@@ -109,8 +112,11 @@ public class TempData {
 
     public static void changeStatus(int status){
         TempData.status=status;
-        if(status!=TempData.STATUS_POSTER_FULL) {
-            main.setHeaderFooterViewVisibility();
+        switch (status){
+            case TempData.STATUS_POSTER_ABBREVIATED:
+            case TempData.STATUS_RECOMMENDATION:
+                main.setHeaderFooterViewVisibility();
+                break;
         }
     }
 

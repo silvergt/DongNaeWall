@@ -62,6 +62,8 @@ public class main extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context=this;
+
+        TempData.changeOrder(TempData.ORDER_DATE);
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP) {
             Window window =getWindow();
             window.setStatusBarColor(ContextCompat.getColor(this, R.color.basicStatusBarColor));
