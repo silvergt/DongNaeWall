@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!--========================= 세로 기준 12등분 =========================-->
+
+        <!--========================= top 메세지 : 회원가입 (weight : 1)=========================-->
+        <LinearLayout
+            android:id="@+id/SignInMostTop"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/log_and_sign_in"/>
+        </LinearLayout>
+
+
+        <!--========================= 상단 메세지 (weight : 1)=========================-->
+        <LinearLayout
+            android:id="@+id/SignInTopMessage"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/signin_top_message"/>
+        </LinearLayout>
+
+        <!--========================= 입력박스 6개 ====================================-->
+        <!--========================= 이름 입력 (weight : 1)=========================-->
+        <LinearLayout
+            android:id="@+id/SignInInputName"
+            style="@style/SignInBoxes"
+            android:background="@drawable/signin_boxes_border">
+            <EditText
+                style="@style/SignInBoxesTexts"
+                android:hint="@string/signin_name"/>
+        </LinearLayout>
+
+        <!--========================= 닉네임 입력 (weight : 1)=========================-->
+        <LinearLayout
+            android:id="@+id/SignInInputNickname"
+            style="@style/SignInBoxes"
+            android:background="@drawable/signin_boxes_border">
+            <EditText
+                style="@style/SignInBoxesTexts"
+                android:hint="@string/signin_nickname"/>
+        </LinearLayout>
+
+
+        <!--========================= 이메일 입력 (weight : 1)=========================-->
+        <LinearLayout
+            android:id="@+id/SignInInputEmail"
+            style="@style/SignInBoxes"
+            android:background="@drawable/signin_boxes_border">
+            <EditText
+                style="@style/SignInBoxesTexts"
+                android:hint="@string/signin_email"/>
+        </LinearLayout>
+
+
+        <!--========================= 비밀번호 입력 (weight : 1)=========================-->
+        <LinearLayout
+            android:id="@+id/SignInInputPassword"
+            style="@style/SignInBoxes"
+            android:background="@drawable/signin_boxes_border">
+            <EditText
+                style="@style/SignInBoxesTexts"
+                android:hint="@string/signin_password"/>
+        </LinearLayout>
+
+
+        <!--========================= 비밀번호 입력 확인 (weight : 1)=========================-->
+        <LinearLayout
+            android:id="@+id/SignInInputPasswordAgain"
+            style="@style/SignInBoxes"
+            android:background="@drawable/signin_boxes_border">
+            <EditText
+                style="@style/SignInBoxesTexts"
+                android:hint="@string/signin_password_confirm"/>
+        </LinearLayout>
+
+        <!--========================= 가입하기 버튼 (weight : 1)=========================-->
+        <LinearLayout
+            android:id="@+id/SignInApplyButton"
+            style="@style/SignInApplyButton"
+            android:background="@drawable/signin_boxes_border">
+            <TextView
+                style="@style/SignInApplyButtonText"
+                android:text="@string/signin_apply"/>
+        </LinearLayout>
+
+
+        <!--========================= 공백 (weight : 1) / =========================-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="-50dp">
+        </LinearLayout>
+
+
+        <!--========================= 페이스북으로 로그인 (weight : 1)=========================-->
+        <LinearLayout
+            android:id="@+id/SignInFacebookLogin"
+            style="@style/SignInFacebook"
+            android:background="@drawable/signin_boxes_border">
+            <TextView
+                style="@style/SignInFacebookText"
+                android:text="@string/signin_apply_facebook"/>
+        </LinearLayout>
+
+        <!--========================= bottom 메세지 (weight : 1)=========================-->
+        <LinearLayout
+            android:id="@+id/SignInBottomMessage"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/signin_bottom_message"/>
+        </LinearLayout>
+
+
+        <!--========================= 공백 (weight : 1) / =========================-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+        </LinearLayout>
+
+
+        <!--========================= 첫차 이용약관 / 개취 및 운영원칙 (weight : 1) =========================-->
+        <LinearLayout
+            android:id="@+id/SignInBottomTermsRules"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <LinearLayout
+                style="@style/SignInBottomBox_left">
+                <TextView
+                    android:id="@+id/SignInBottomTerms"
+                    style="@style/SignAndLogInBoxesTexts"
+                    android:text="@string/signin_bottom_box_terms"/>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/SignInBottomBox_right">
+                <TextView
+                    android:id="@+id/SignInBottomRules"
+                    style="@style/SignAndLogInBoxesTexts"
+                    android:text="@string/signin_bottom_box_rules"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</ScrollView>
