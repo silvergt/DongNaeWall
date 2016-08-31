@@ -92,6 +92,7 @@
         <br>당연한 이야기지만, 무선 해킹은 기본적으로 수신범위 내에 해커가 있어야 한다. 단독주택에 살거나, 옆집에 환갑이 넘은 노부부만 계시다면 MAC 인증방식으로도 충분하다. </br>
     </string>
 
+
     <string name="information_view_4th_location_view">장소보기</string>
     <string name="information_view_4th_dates_view">날짜보기</string>
 
