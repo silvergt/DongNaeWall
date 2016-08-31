@@ -153,8 +153,8 @@
         <item name="android:layout_gravity">center</item>
     </style>
 
-
-    <!--========================= 회원가입화면 브릿지 =========================-->
+    <!--===================================================================================-->
+    <!--=============================== 회원가입화면 브릿지 ====================================-->
     <style name="LogInBoxes" parent="@android:style/TextAppearance">
         <item name="android:layout_height">0dp</item>
         <item name="android:layout_weight">1</item>
@@ -191,7 +191,8 @@
     </style>
 
 
-    <!--========================= 회원가입화면 =========================-->
+    <!--===================================================================================-->
+    <!--=============================== 회원가입화면 ==========================================-->
     <style name="SignInBoxes" parent="@android:style/TextAppearance">
         <item name="android:layout_height">0dp</item>
         <item name="android:layout_weight">1</item>
@@ -254,7 +255,278 @@
         <item name="android:background">#ffffff</item>
     </style>
 
+    <!--===================================================================================-->
+    <!--=============================== information 화면 ====================================-->
 
+    <!--===============1. 상단 스티키 바 =========================-->
+    <style name="information_top_sticky_bar">
+        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:background">#999999</item>
+    </style>
+
+    <style name="information_top_sticky_bar_poster_title">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">4</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:background">#f87260</item>
+    </style>
+    <style name="information_top_sticky_bar_poster_title_typo">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textSize">30dp</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:gravity">left</item>
+    </style>
+
+    <style name="information_top_sticky_bar_poster_share">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
+        <item name="android:layout_marginRight">2dp</item>
+        <item name="android:background">#f87260</item>
+    </style>
+    <style name="information_top_sticky_bar_poster_like">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
+        <item name="android:layout_marginRight">2dp</item>
+        <item name="android:background">#f87260</item>
+    </style>
+    <style name="information_top_sticky_bar_poster_zzim">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
+        <item name="android:layout_marginRight">2dp</item>
+        <item name="android:background">#f87260</item>
+    </style>
+
+    <!--===============2. 포스터 이미지 =========================-->
+    <style name="information_2nd">
+        <item name="android:layout_height">400dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:background">#929292</item>
+    </style>
+    <!--=============== 3. 포스터 제목 / 가격, 조회수, 좋아요 =========================-->
+    <style name="information_3rd">
+        <item name="android:layout_height">150dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">#99CCFF</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+    <!--==1행==-->
+    <style name="information_3rd_1st_row">
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">6</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="information_3rd_1st_row_titleview">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">7</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:maxHeight">80dp</item>
+        <item name="android:background">#999999</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:paddingLeft">3dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">30dp</item>
+    </style>
+    <style name="information_3rd_1st_row_contactview">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">3</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">#999999</item>
+        <item name="android:layout_margin">2dp</item>
+    </style>
+
+    <!--==2행==-->
+    <style name="information_3rd_2nd_row">
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">4</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="information_3rd_2nd_row_price">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">8</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">left</item>
+        <item name="android:background">#999999</item>
+        <item name="android:layout_margin">2dp</item>
+    </style>
+    <style name="information_3rd_2nd_row_price_text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:paddingLeft">4dp</item>
+    </style>
+
+    <style name="information_3rd_2nd_row_view_icon">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">3</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:background">#999999</item>
+    </style>
+    <style name="information_3rd_2nd_row_vew_number">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">3</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">#999999</item>
+        <item name="android:layout_margin">2dp</item>
+
+    </style>
+    <style name="information_3rd_2nd_row_like_icon">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">3</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:background">#999999</item>
+    </style>
+    <style name="information_3rd_2nd_row_like_number">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">3</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">#999999</item>
+        <item name="android:layout_margin">2dp</item>
+    </style>
+
+    <!--=============== 4. 장소 및 날짜 (style : 4th row)=========================-->
+    <!--==1행==-->
+
+    <!--=============== 5. 주최자  (style : 5th row  )=========================-->
+    <style name="information_5th">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">#99CCFF</item>
+    </style>
+    <!--==1행==-->
+    <style name="information_5th_1st_row">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_margin">2dp</item>
+    </style>
+    <style name="information_5th_1st_row_host_picture">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:background">#999999</item>
+    </style>
+    <style name="information_5th_1st_row_host_name">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">8</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:background">#999999</item>
+    </style>
+    <style name="information_5th_1st_row_host_112">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:background">#999999</item>
+    </style>
+
+    <!--==2행==-->
+    <style name="information_5th_2nd_row">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">4dp</item>
+        <item name="android:layout_marginRight">4dp</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:background">#999999</item>
+    </style>
+    <style name="information_5th_2nd_row_content">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:textSize">15dp</item>
+    </style>
+
+    <!--=============== 6. 행사 카테고리  (style : 6th row  )=========================-->
+    <style name="information_6th">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">#99CCFF</item>
+    </style>
+
+    <style name="information_6th_1st_row">
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_weight">3</item>
+        <item name="android:background">#999999</item>
+        <item name="android:layout_marginLeft">4dp</item>
+        <item name="android:layout_marginRight">4dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+    </style>
+    <style name="information_6th_1st_row_textview">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="information_6th_2nd_row">
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_weight">7</item>
+        <item name="android:background">#999999</item>
+        <item name="android:layout_marginLeft">4dp</item>
+        <item name="android:layout_marginRight">4dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="information_6th_2nd_row_leftrightmargin">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+    <style name="information_6th_2nd_row_icons">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:background">#882299</item>
+        <item name="android:layout_marginLeft">3dp</item>
+        <item name="android:layout_marginRight">3dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+    </style>
 
 
 </resources>
