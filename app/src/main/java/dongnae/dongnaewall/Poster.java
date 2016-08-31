@@ -1,9 +1,6 @@
 package dongnae.dongnaewall;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
@@ -31,12 +28,6 @@ public class Poster implements Serializable{
     String homepage;
     int phone;
     String full_information;
-
-
-
-    float height=0;
-    RelativeLayout.LayoutParams params;
-    static Bitmap bitmap;
 
     //**ABBREVIATED
     public Poster(int id, String title, int[] startDate, int[] endDate, int price,
@@ -75,27 +66,6 @@ public class Poster implements Serializable{
         if(TempData.getStatus()==TempData.STATUS_RECOMMENDATION){
             //main_picture_loaded.placeholder(R.drawable.logo);
         }
-    }
-
-    private void setHeightAndParams(){
-        if(this.height==0) {
-            try {
-                /*
-                if(bitmap!=null){
-                    bitmap.recycle();
-                }
-                */
-                bitmap = main_picture_loaded.get();
-                float Temp1 = bitmap.getHeight();
-                float Temp2 = bitmap.getWidth();
-                float WHratio = Temp1 / Temp2;
-                height = WHratio * main.displayWidth;
-                params=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (int)height);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
     }
 
     //**FULL

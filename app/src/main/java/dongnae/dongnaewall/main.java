@@ -152,13 +152,6 @@ public class main extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 createMainView();
-                /*
-                adapter.reloadPosterFromStart(TempData.STATUS_RECOMMENDATION);
-                adapter.notifyDataSetChanged();
-                if(searchBarIsVisible) {
-                    setSearchBarStatus(false);
-                }
-                 */
             }
         });
 

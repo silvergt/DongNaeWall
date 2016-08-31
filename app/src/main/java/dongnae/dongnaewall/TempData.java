@@ -102,14 +102,6 @@ public class TempData {
         return savedPassword;
     }
 
-
-    public static void changeAllEntity(int status,int order,String search,int startNum){
-        TempData.status=status;
-        TempData.order=order;
-        TempData.search=search;
-        TempData.startNum=startNum;
-    }
-
     public static void changeStatus(int status){
         TempData.status=status;
         switch (status){
@@ -147,4 +139,65 @@ public class TempData {
     public static int getStartNum() {
         return startNum;
     }
+
+
+    private static boolean isBetweenDate(int[] selected, int[] start, int[] end){
+        if(selected[0]<start[0]||selected[0]>end[0]){
+            return false;
+        }else if(selected[0]>=start[0]&&selected[0]<=end[0]){   //year bound
+            if(selected[0]==start[0]&&selected[0]<end[0]){      //same with start year
+                if(selected[1]>start[1]){
+                    return true;
+                }else if(selected[1]==start[1]){    //same month
+                    if(selected[2]>=start[2]){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }else if(selected[1]<start[1]){
+                    return false;
+                }
+            }else if(selected[0]>start[0]&&selected[0]<end[0]){ //between start & end year
+                return true;
+            }else if(selected[0]==end[0]&&selected[0]>start[0]){  //same with end year
+                if(selected[1]<end[1]){
+                    return true;
+                }else if(selected[1]>end[1]) {
+                    return false;
+                }else if(selected[1]==end[1]){
+                    if(selected[2]<=end[2]){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }
+            }else if(selected[0]==end[0]&&selected[0]==start[0]){
+                if(selected[1]==start[1]&&selected[1]<end[1]){
+                    if(selected[2]>=start[2]){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }else if(selected[1]>start[1]&&selected[1]==end[1]){
+                    if(selected[2]<=end[2]){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }else if(selected[1]==start[1]&&selected[1]==end[1]){
+                    if(selected[2]>=start[2]&&selected[2]<=end[2]){
+                        return true;
+                    }else
+                        return false;
+                }
+            }
+
+
+
+        }
+
+
+        return true;
+    }
+
 }
