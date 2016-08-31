@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!--========================================================================================-->
+        <!--========================= 1. top sticky bar (고정 height : 60dp)=========================-->
+        <!--Relative인지 Linear인지 확인 필요-->
+
+        <RelativeLayout
+            android:id="@+id/information_view_top_stick_bar"
+            style="@style/information_top_sticky_bar"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <!--======= 1-1. 포스터 제목  ===-->
+                <LinearLayout
+                    android:id="@+id/information_view_top_stick_bar_title"
+                    style="@style/information_top_sticky_bar_poster_title"
+                    >
+                    <TextView
+                        style="@style/information_top_sticky_bar_poster_title_typo"
+                        android:text="포스터 제목"/>
+                </LinearLayout>
+                <!--======= 1-2. 공유 버튼  ===-->
+                <LinearLayout
+                    android:id="@+id/information_view_top_stick_bar_share_button"
+                    style="@style/information_top_sticky_bar_poster_share"
+                    android:src="@drawable/profile_50"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="공유버튼"/>
+                </LinearLayout>
+                <!--======= 1-3. like 버튼  ===-->
+                <LinearLayout
+                    android:id="@+id/information_view_top_stick_bar_like_button"
+                    style="@style/information_top_sticky_bar_poster_like"
+                    android:src="@drawable/profile_50"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="좋아요버튼"/>
+                </LinearLayout>
+                <!--======= 1-4. 찜 버튼  ===-->
+                <LinearLayout
+                    android:id="@+id/information_view_top_stick_bar_zzim_button"
+                    style="@style/information_top_sticky_bar_poster_zzim"
+                    android:src="@drawable/profile_50"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="찜버튼"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!--=================================================================================================-->
+        <!--============================== 2. 포스터 뷰 영역 (2nd row) =========================================-->
+        <RelativeLayout
+            android:id="@+id/information_view_2nd_poster"
+            style="@style/information_2nd">
+
+
+        </RelativeLayout>
+
+
+        <!--=========================================================================================================-->
+        <!--============================== 3. 포스터 제목 / 가격, 조회수, 좋아요 (style : 3rd row) =====================================-->
+        <LinearLayout
+            style="@style/information_3rd">
+            <!--======= 3-1. 1열 : 제목 문의하기  ===-->
+            <LinearLayout
+                style="@style/information_3rd_1st_row">
+                <TextView
+                    android:id="@+id/information_view_3rd_poster_title"
+                    style="@style/information_3rd_1st_row_titleview"
+                    android:text="포크레인 정기공연"/>
+                <TextView
+                    android:id="@+id/information_view_3rd_contact_button"
+                    style="@style/information_3rd_1st_row_contactview"
+                    android:text="문의버튼"/>
+            </LinearLayout>
+            <!--======= 3-2. 2열 : 가격 & 뷰, like 수  ===-->
+            <LinearLayout
+                style="@style/information_3rd_2nd_row">
+                <LinearLayout
+                    style="@style/information_3rd_2nd_row_price">
+                    <TextView
+                        android:id="@+id/information_view_3rd_price"
+                        style="@style/information_3rd_2nd_row_price_text"
+                        android:text="만원부터"/>
+                </LinearLayout>
+                <!--=== 조회수 아이콘 및 숫자 ===-->
+                <LinearLayout
+                    style="@style/information_3rd_2nd_row_view_icon">
+                    <TextView
+                        android:id="@+id/information_view_3rd_view_icon"
+                        style="@style/information_3rd_2nd_row_vew_number"
+                        android:text="아이콘"/>
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/information_3rd_2nd_row_vew_number"
+                    >
+                    <TextView
+                        android:id="@+id/information_view_3rd_view_number"
+                        style="@style/information_3rd_2nd_row_vew_number"
+                        android:text="조회2만"/>
+                </LinearLayout>
+                <!--=== 좋아요 아이콘 및 숫자 ===-->
+                <LinearLayout
+                    android:id="@+id/information_view_3rd_like_icon"
+                    style="@style/information_3rd_2nd_row_like_icon">
+                    <TextView
+                        style="@style/information_3rd_2nd_row_vew_number"
+                        android:text="아이콘"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/information_3rd_2nd_row_like_number">
+                    <TextView
+                        android:id="@+id/information_view_3rd_like_number"
+                        style="@style/information_3rd_2nd_row_like_number"
+                        android:text="좋아2만"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+
+        <!--=========================================================================================================-->
+        <!--============================== 4. 장소 및 날짜 (style : 4th row) ==========================================-->
+
+        <LinearLayout
+            style="@style/information_4th"
+            >
+            <LinearLayout
+                style="@style/information_4th_1st_row"
+                >
+                <!--==== 4-1. 1열 : 장소보기버튼  ===-->
+                <Button
+                    android:id="@+id/information_view_4th_location_button"
+                    style="@style/information_4th_location_button"
+                    android:text="장소보기">
+                    <!--android:text="@string/information_view_4th_location_view">-->
+                </Button>
+                <!--==== 4-2. 2열 : 날짜보기버튼  ===-->
+                <Button
+                    android:id="@+id/information_view_4th_dates_button"
+                    style="@style/information_4th_dates_button"
+                    android:text="날짜보기">
+                    <!--android:text="@string/information_view_4th_dates_view">-->
+                </Button>
+            </LinearLayout>
+
+            <!--======= 프레임 레이아웃을 통한 지도, 달력 뷰  ======-->
+            <FrameLayout
+                style="@style/information_4th_2nd_row_framelayout"
+                >
+                <!--=============== 지도 뷰 (default) ============-->
+                <LinearLayout
+                    style="@style/information_4th_2nd_row_framelayout_maplayout"
+                    >
+                    <LinearLayout
+                        android:id="@+id/information_view_4th_map_view_address_wrap"
+                        style="@style/information_4th_2nd_row_framelayout_map_address"
+                        >
+                        <TextView
+                            android:id="@+id/information_view_4th_map_view_address"
+                            style="@style/information_4th_2nd_row_framelayout_map_address_textview"
+                            android:text="연세대학교 3공학관 428"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/information_view_4th_map_view_map_wrap"
+                        style="@style/information_4th_2nd_row_framelayout_map_wrap"
+                        >
+                        <ImageView
+                            android:id="@+id/information_view_4th_map_view_map"
+                            style="@style/information_4th_2nd_row_framelayout_map"
+                            android:src="@drawable/map_example"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+                <!--=============== 달력 뷰 (not-default) ============-->
+                <LinearLayout
+                    style="@style/information_4th_2nd_row_framelayout_calendarlayout"
+                    >
+                    <!--====== 1행 : 시작, 끝 날짜 ====-->
+                    <LinearLayout
+                        style="@style/information_4th_2nd_row_framelayout_calendarlayout_datelayout"
+                        >
+                        <!--1행 1열 : 시작 날짜-->
+                        <LinearLayout
+                            android:id="@+id/information_view_4th_calendar_view_datelayout_startdate_wrap"
+                            style="@style/information_4th_2nd_row_framelayout_calendarlayout_datelayout_startdate"
+                            >
+                            <TextView
+                                android:id="@+id/information_view_4th_calendar_view_datelayout_startdate"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:text="9월 1일"/>
+                        </LinearLayout>
+                        <!--1행 2열 : 끝 날짜-->
+                        <LinearLayout
+                            android:id="@+id/information_view_4th_calendar_view_datelayout_enddate_wrap"
+                            style="@style/information_4th_2nd_row_framelayout_calendarlayout_datelayout_enddate"
+                            >
+                            <TextView
+                                android:id="@+id/information_view_4th_calendar_view_datelayout_enddate"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:text="9월 2일"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <!--====== 2행 : 달력 뷰 ======-->
+                    <LinearLayout
+                        android:id="@+id/information_view_4th_calendar_view_calendar"
+                        style="@style/information_4th_2nd_row_framelayout_calendarlayout_calendar_wrap"
+                        >
+                        <ImageView
+                            style="@style/information_4th_2nd_row_framelayout_calendarlayout_calendar"
+                            android:src="@drawable/calendar_example"
+                            />
+                    </LinearLayout>
+                    <!--====== 3행 : 디데이 / 시간 뷰 ======-->
+                    <LinearLayout
+                        style="@style/information_4th_2nd_row_framelayout_calendarlayout_bottomlayout"
+                        >
+                        <!--1행 1열 : 디데이 -->
+                        <LinearLayout
+                            android:id="@+id/information_view_4th_calendar_view_bottomlayout_Dday_wrap"
+                            style="@style/information_4th_2nd_row_framelayout_calendarlayout_bottom_Dday"
+                            >
+                            <TextView
+                                android:id="@+id/information_view_4th_calendar_view_bottomlayout_Dday"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:text="D-0"/>
+                        </LinearLayout>
+                        <!--1행 2열 : 행사시간-->
+                        <LinearLayout
+                            android:id="@+id/information_view_4th_calendar_view_bottomlayout_event_time_wrap"
+                            style="@style/information_4th_2nd_row_framelayout_calendarlayout_bottom_event_time"
+                            >
+                            <TextView
+                                android:id="@+id/information_view_4th_calendar_view_bottomlayout_event_time"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:text="10am-6pm/"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+
+
+
+        <!--=========================================================================================================-->
+        <!--============================== 5. 주최자 및 본문 (style : 5th row) ==========================================-->
+        <LinearLayout
+            style="@style/information_5th">
+            <!--======= 5-1. 1열 : 주최자 정보  ===-->
+            <LinearLayout
+                style="@style/information_5th_1st_row">
+                <LinearLayout
+                    style="@style/information_5th_1st_row_host_picture"
+                    >
+                    <TextView
+                        android:id="@+id/information_view_5th_host_picture"
+                        style="@style/information_3rd_2nd_row_vew_number"
+                        android:text="사진"/>
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/information_5th_1st_row_host_name"
+                    >
+                    <TextView
+                        android:id="@+id/information_view_5th_host_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:textSize="20dp"
+                        android:text="등짝을보자"/>
+                </LinearLayout>
+                <LinearLayout
+                    style="@style/information_5th_1st_row_host_112"
+                    >
+                    <TextView
+                        android:id="@+id/information_view_5th_host_112"
+                        style="@style/information_3rd_2nd_row_vew_number"
+                        android:text="신고"/>
+                </LinearLayout>
+
+            </LinearLayout>
+            <!--======= 5-2. 2열 : 내용  ===-->
+            <LinearLayout
+                style="@style/information_5th_2nd_row">
+                <TextView
+                    android:id="@+id/information_view_5th_content"
+                    style="@style/information_5th_2nd_row_content"
+                    android:text="@string/information_view_content_example"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <!--=====================================================================================================-->
+        <!--============================== 6. 카테고리 아이콘 (style : 6th row) ==========================================-->
+        <LinearLayout
+            style="@style/information_6th">
+            <!--======= 6-1. 1열 : 카테고리 타이틀  ===-->
+            <LinearLayout
+                style="@style/information_6th_1st_row">
+                <TextView
+                    style="@style/information_6th_1st_row_textview"
+                    android:text="카테고리"
+                    />
+            </LinearLayout>
+
+            <!--======= 6-2. 2열 : 카테고리 아이콘  ===-->
+            <LinearLayout
+                style="@style/information_6th_2nd_row">
+                <LinearLayout
+                    style="@style/information_6th_2nd_row_leftrightmargin"
+                    >
+                </LinearLayout>
+
+                <!--아이콘 배열 : 상황에 따라 1~4개-->
+                <LinearLayout
+                    android:id="@+id/information_view_6th_icon_1"
+                    style="@style/information_6th_2nd_row_icons"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="아이콘"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/information_view_6th_icon_2"
+                    style="@style/information_6th_2nd_row_icons"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="아이콘"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/information_view_6th_icon_3"
+                    style="@style/information_6th_2nd_row_icons"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="아이콘"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/information_view_6th_icon_4"
+                    style="@style/information_6th_2nd_row_icons"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="아이콘"
+                        />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    style="@style/information_6th_2nd_row_leftrightmargin"
+                    >
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+        <!---->
+    </LinearLayout>
+</ScrollView>
+
