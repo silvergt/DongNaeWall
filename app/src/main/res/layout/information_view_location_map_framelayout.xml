@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/information_4th_2nd_row_framelayout_maplayout"
+    >
+    <LinearLayout
+        android:id="@+id/information_view_4th_map_view_address_wrap"
+        style="@style/information_4th_2nd_row_framelayout_map_address"
+        >
+        <TextView
+            android:id="@+id/information_view_4th_map_view_address"
+            style="@style/information_4th_2nd_row_framelayout_map_address_textview"
+            android:text="연세대학교 3공학관 428"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/information_view_4th_map_view_map_wrap"
+        style="@style/information_4th_2nd_row_framelayout_map_wrap"
+        >
+        <ImageView
+            android:id="@+id/information_view_4th_map_view_map"
+            style="@style/information_4th_2nd_row_framelayout_map"
+            android:src="@drawable/map_example"
+            />
+    </LinearLayout>
+</LinearLayout>

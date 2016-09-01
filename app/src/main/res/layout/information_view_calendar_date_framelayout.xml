@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/information_4th_2nd_row_framelayout_calendarlayout"
+    >
+<!--====== 1행 : 시작, 끝 날짜 ====-->
+<LinearLayout
+    style="@style/information_4th_2nd_row_framelayout_calendarlayout_datelayout"
+    >
+    <!--1행 1열 : 시작 날짜-->
+    <LinearLayout
+        android:id="@+id/information_view_4th_calendar_view_datelayout_startdate_wrap"
+        style="@style/information_4th_2nd_row_framelayout_calendarlayout_datelayout_startdate"
+        >
+        <TextView
+            android:id="@+id/information_view_4th_calendar_view_datelayout_startdate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="9월 1일"/>
+    </LinearLayout>
+    <!--1행 2열 : 끝 날짜-->
+    <LinearLayout
+        android:id="@+id/information_view_4th_calendar_view_datelayout_enddate_wrap"
+        style="@style/information_4th_2nd_row_framelayout_calendarlayout_datelayout_enddate"
+        >
+        <TextView
+            android:id="@+id/information_view_4th_calendar_view_datelayout_enddate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="9월 2일"/>
+    </LinearLayout>
+</LinearLayout>
+<!--====== 2행 : 달력 뷰 ======-->
+<LinearLayout
+    android:id="@+id/information_view_4th_calendar_view_calendar"
+    style="@style/information_4th_2nd_row_framelayout_calendarlayout_calendar_wrap"
+    >
+    <ImageView
+        style="@style/information_4th_2nd_row_framelayout_calendarlayout_calendar"
+        android:src="@drawable/calendar_example"
+        />
+</LinearLayout>
+<!--====== 3행 : 디데이 / 시간 뷰 ======-->
+<LinearLayout
+    style="@style/information_4th_2nd_row_framelayout_calendarlayout_bottomlayout"
+    >
+    <!--1행 1열 : 디데이 -->
+    <LinearLayout
+        android:id="@+id/information_view_4th_calendar_view_bottomlayout_Dday_wrap"
+        style="@style/information_4th_2nd_row_framelayout_calendarlayout_bottom_Dday"
+        >
+        <TextView
+            android:id="@+id/information_view_4th_calendar_view_bottomlayout_Dday"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="D-0"/>
+    </LinearLayout>
+    <!--1행 2열 : 행사시간-->
+    <LinearLayout
+        android:id="@+id/information_view_4th_calendar_view_bottomlayout_event_time_wrap"
+        style="@style/information_4th_2nd_row_framelayout_calendarlayout_bottom_event_time"
+        >
+        <TextView
+            android:id="@+id/information_view_4th_calendar_view_bottomlayout_event_time"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="10am-6pm/"/>
+    </LinearLayout>
+</LinearLayout>
+
+
+</LinearLayout>
