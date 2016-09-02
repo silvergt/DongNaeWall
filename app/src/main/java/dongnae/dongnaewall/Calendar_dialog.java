@@ -76,7 +76,7 @@ public class Calendar_dialog extends Dialog implements View.OnClickListener{
     }
 
     private void onCreate(){
-        setContentView(R.layout.calendar);
+        setContentView(R.layout.calendar_dialog);
 
         Log.v("Log","calendar size candidate 1 : "+Integer.toString(main.displayWidth*4/5)+","+Integer.toString(main.displayHeight*13/20));
         WindowManager.LayoutParams par=getWindow().getAttributes();

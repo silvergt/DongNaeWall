@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -17,7 +16,6 @@ import java.util.GregorianCalendar;
 
 public class CalendarCustomView extends RelativeLayout implements View.OnClickListener {
     Context context;
-    LayoutInflater inflater;
     int selectedYear;
     int selectedMonth;
     int selectedDay;
@@ -28,7 +26,7 @@ public class CalendarCustomView extends RelativeLayout implements View.OnClickLi
     int selectedCell[];
     int todayCell[];
 
-    RelativeLayout calendar_main;
+    LinearLayout calendar_main;
 
     TextView leftButton;
     TextView yearAndMonth;
@@ -71,18 +69,15 @@ public class CalendarCustomView extends RelativeLayout implements View.OnClickLi
 
 
     private void onCreate(){
-        inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        calendar_main=(LinearLayout)main.MainInflater.inflate(R.layout.calendar_base,null);
+        LinearLayout.LayoutParams mainParams=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        addView(calendar_main,mainParams);
 
-        calendar_main=(RelativeLayout)inflater.inflate(R.layout.content_main,null);
-        addView(calendar_main);
-
-        calendar_calendar=(LinearLayout)findViewById(R.id.calendar_calendar);
-        leftButton=(TextView)findViewById(R.id.calendar_left);
-        yearAndMonth=(TextView)findViewById(R.id.calendar_yymm);
-        rightButton=(TextView)findViewById(R.id.calendar_right);
-        initialize=(TextView)findViewById(R.id.calendar_initialize);
-        cancel=(TextView)findViewById(R.id.calendar_cancel);
-        apply=(TextView)findViewById(R.id.calendar_apply);
+        calendar_calendar=(LinearLayout)calendar_main.findViewById(R.id.basecalendar_calendar);
+        leftButton=(TextView)calendar_main.findViewById(R.id.basecalendar_left);
+        yearAndMonth=(TextView)calendar_main.findViewById(R.id.basecalendar_yymm);
+        rightButton=(TextView)calendar_main.findViewById(R.id.basecalendar_right);
 
         today=Calendar.getInstance();
         calendar = new GregorianCalendar(today.get(Calendar.YEAR), today.get(Calendar.MONTH), 1);
@@ -105,7 +100,7 @@ public class CalendarCustomView extends RelativeLayout implements View.OnClickLi
         if(selectedYear>0&&selectedMonth>0) {
             createCalendar(selectedYear, selectedMonth-1);
         }else{
-            if(startDate.length==3&&endDate.length==3){
+            if(startDate!=null&&endDate!=null){
 
             }else {
                 createCalendar(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH));
@@ -152,7 +147,7 @@ public class CalendarCustomView extends RelativeLayout implements View.OnClickLi
         int i=1;
         for(int j=0;j<numberOfWeeks;j++){
             if(i<=totalDays) {
-                calendar_week[j] = (LinearLayout) inflater.inflate(R.layout.calendar_line, null);
+                calendar_week[j] = (LinearLayout) main.MainInflater.inflate(R.layout.calendar_line, null);
                 calendar_day[j][0] = (calendarCell) calendar_week[j].findViewById(R.id.calendar_line1);
                 calendar_day[j][1] = (calendarCell) calendar_week[j].findViewById(R.id.calendar_line2);
                 calendar_day[j][2] = (calendarCell) calendar_week[j].findViewById(R.id.calendar_line3);
@@ -226,7 +221,7 @@ public class CalendarCustomView extends RelativeLayout implements View.OnClickLi
         int i=1;
         for(int j=0;j<numberOfWeeks;j++){
             if(i<=totalDays) {
-                calendar_week[j] = (LinearLayout) inflater.inflate(R.layout.calendar_line, null);
+                calendar_week[j] = (LinearLayout) main.MainInflater.inflate(R.layout.calendar_line, null);
                 calendar_day[j][0] = (calendarCell) calendar_week[j].findViewById(R.id.calendar_line1);
                 calendar_day[j][1] = (calendarCell) calendar_week[j].findViewById(R.id.calendar_line2);
                 calendar_day[j][2] = (calendarCell) calendar_week[j].findViewById(R.id.calendar_line3);

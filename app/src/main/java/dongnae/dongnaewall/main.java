@@ -53,8 +53,10 @@ public class main extends AppCompatActivity {
     TextView filter;
     TextView down;
     TextView up;
+    TextView profile;
     ImageView logo;
     TextView search;
+    TextView alarm;
 
     static LayoutInflater MainInflater;
 
@@ -97,7 +99,8 @@ public class main extends AppCompatActivity {
         logo=(ImageView)findViewById(R.id.main_logo);
         search=(TextView)findViewById(R.id.main_top_search);
         list=(ListView)findViewById(R.id.main_listview);
-        TextView alarm=(TextView)findViewById(R.id.main_top_alarm);
+        profile=(TextView)findViewById(R.id.main_top_profile);
+        alarm=(TextView)findViewById(R.id.main_top_alarm);
 
         TempData.changeStatus(TempData.STATUS_RECOMMENDATION);
 
@@ -140,6 +143,14 @@ public class main extends AppCompatActivity {
                 adapter.reloadPosterFromStart(TempData.STATUS_POSTER_ABBREVIATED);
                 adapter.notifyDataSetChanged();
                 setSearchBarStatus(false);
+            }
+        });
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(main.this,test.class);
+                startActivity(intent);
             }
         });
 
