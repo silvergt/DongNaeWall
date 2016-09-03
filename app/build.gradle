@@ -26,4 +26,5 @@ dependencies {
     compile project(':picasso-2.5.2')
     compile 'me.everything:overscroll-decor-android:1.0.3'
     compile 'org.florescu.android.rangeseekbar:rangeseekbar-library:0.3.0'
+    compile 'com.github.danylovolokh:hashtag-helper:1.1.0'
 }
