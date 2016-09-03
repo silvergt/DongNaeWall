@@ -141,7 +141,7 @@ public class TempData {
     }
 
 
-    private static boolean isBetweenDate(int[] selected, int[] start, int[] end){
+    public static boolean isBetweenDate(int[] selected, int[] start, int[] end){
         if(selected[0]<start[0]||selected[0]>end[0]){
             return false;
         }else if(selected[0]>=start[0]&&selected[0]<=end[0]){   //year bound
@@ -189,6 +189,10 @@ public class TempData {
                         return true;
                     }else
                         return false;
+                }else if(selected[1]>start[1]&&selected[1]<end[1]){
+                    return true;
+                }else if(selected[1]<start[1]||selected[1]>end[1]){
+                    return false;
                 }
             }
 
@@ -196,8 +200,8 @@ public class TempData {
 
         }
 
-
-        return true;
+        Log.e("Log","missing part");
+        return false;
     }
 
 }

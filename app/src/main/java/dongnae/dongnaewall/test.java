@@ -16,5 +16,6 @@ public class test extends AppCompatActivity {
         CalendarCustomView CCV=new CalendarCustomView(this);
         RelativeLayout.LayoutParams params=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         basic.addView(CCV,params);
+        CCV.initializeCalendar(null,null);
     }
 }

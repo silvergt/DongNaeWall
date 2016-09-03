@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -15,37 +16,36 @@ import java.util.GregorianCalendar;
 
 
 public class CalendarCustomView extends RelativeLayout implements View.OnClickListener {
-    Context context;
-    int selectedYear;
-    int selectedMonth;
-    int selectedDay;
+    private Context context;
+    private int selectedYear;
+    private int selectedMonth;
+    private int selectedDay;
 
-    int[] startDate;
-    int[] endDate;
+    boolean isRangedCalendar=false;
 
-    int selectedCell[];
-    int todayCell[];
+    private int[] startDate;
+    private int[] endDate;
 
-    LinearLayout calendar_main;
+    private int selectedCell[];
+    private int todayCell[];
 
-    TextView leftButton;
-    TextView yearAndMonth;
-    TextView rightButton;
-    TextView initialize;
-    TextView cancel;
-    TextView apply;
+    private LinearLayout calendar_main;
 
-    LinearLayout[] calendar_week;
-    calendarCell[][] calendar_day;
+    private TextView leftButton;
+    private TextView yearAndMonth;
+    private TextView rightButton;
 
-    LinearLayout calendar_calendar;
-    GregorianCalendar calendar;
-    Calendar today;
+    private LinearLayout[] calendar_week;
+    private calendarCell[][] calendar_day;
 
+    private LinearLayout calendar_calendar;
+    private GregorianCalendar calendar;
+    private Calendar today;
+
+    private LayoutInflater inflater;
 
     public CalendarCustomView(Context context) {
         super(context);
-        onCreate();
         this.context=context;
     }
 
@@ -54,23 +54,25 @@ public class CalendarCustomView extends RelativeLayout implements View.OnClickLi
         this.context=context;
     }
 
-    public void createCalendar(int selectedYear,int selectedMonth,int selectedDay){
+    public void initializeCalendar(int selectedYear,int selectedMonth,int selectedDay){
         this.selectedYear=selectedYear;
         this.selectedMonth=selectedMonth;
         this.selectedDay=selectedDay;
+        isRangedCalendar=false;
         onCreate();
     }
 
-    public void createCalendar(int[] startDate,int[] endDate){
+    public void initializeCalendar(int[] startDate,int[] endDate){
         this.startDate=startDate;
         this.endDate=endDate;
+        isRangedCalendar=true;
         onCreate();
     }
 
 
     private void onCreate(){
-        //inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        calendar_main=(LinearLayout)main.MainInflater.inflate(R.layout.calendar_base,null);
+        inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        calendar_main=(LinearLayout)inflater.inflate(R.layout.calendar_base,null);
         LinearLayout.LayoutParams mainParams=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         addView(calendar_main,mainParams);
 
@@ -85,41 +87,38 @@ public class CalendarCustomView extends RelativeLayout implements View.OnClickLi
         leftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createCalendar(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH)-1);
+                createCalendar(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) - 1,startDate,endDate);
             }
         });
 
         rightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createCalendar(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH)+1);
+                createCalendar(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1,startDate,endDate);
             }
         });
 
-
-        if(selectedYear>0&&selectedMonth>0) {
-            createCalendar(selectedYear, selectedMonth-1);
-        }else{
-            if(startDate!=null&&endDate!=null){
-
-            }else {
-                createCalendar(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH));
-            }
+        if (selectedYear > 0 && selectedMonth > 0) {
+            createCalendar(selectedYear, selectedMonth - 1,startDate,endDate);
+        } else {
+            createCalendar(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),startDate,endDate);
         }
 
     }
 
     private Calendar createCalendar(int year, int month, int[] startDate,int[] endDate){
+        Log.v("Log","creating new calendar");
         if(month>=12){year++;month=0;}
         if(month<0){year--;month=11;}
 
         calendar.set(year,month,1);
-
+        String YYMM;
         if(month+1<10) {
-            yearAndMonth.setText(Integer.toString(year) + ".0" + Integer.toString(month+1));
+            YYMM=Integer.toString(year) + ".0" + Integer.toString(month+1);
         }else{
-            yearAndMonth.setText(Integer.toString(year) + "." + Integer.toString(month+1));
+            YYMM=Integer.toString(year) + "." + Integer.toString(month+1);
         }
+        yearAndMonth.setText(YYMM);
         //Log.v("Log",Integer.toString(year)+"-"+Integer.toString(month+1)+"-"+Integer.toString(1));
         //Log.v("Log",calendar.getTime().toString());
 
@@ -147,7 +146,7 @@ public class CalendarCustomView extends RelativeLayout implements View.OnClickLi
         int i=1;
         for(int j=0;j<numberOfWeeks;j++){
             if(i<=totalDays) {
-                calendar_week[j] = (LinearLayout) main.MainInflater.inflate(R.layout.calendar_line, null);
+                calendar_week[j] = (LinearLayout) inflater.inflate(R.layout.calendar_line, null);
                 calendar_day[j][0] = (calendarCell) calendar_week[j].findViewById(R.id.calendar_line1);
                 calendar_day[j][1] = (calendarCell) calendar_week[j].findViewById(R.id.calendar_line2);
                 calendar_day[j][2] = (calendarCell) calendar_week[j].findViewById(R.id.calendar_line3);
@@ -167,83 +166,21 @@ public class CalendarCustomView extends RelativeLayout implements View.OnClickLi
                         calendar_day[j][k].setText(Integer.toString(i));
                         calendar_day[j][k].setCellNumber(j,k);
                         calendar_day[j][k].setOnClickListener(this);
-                        if(year==selectedYear&&month+1==selectedMonth&&i==selectedDay){
-                            //calendar_day[j][k].setBackgroundColor(Color.MAGENTA);
-                            selectCell(j,k);
-                        }
-                        i++;
-                    }
-                }
-                dayOfWeek = 1;
-            }else{
-                break;
-            }
-        }
-
-        return calendar;
-    }
-
-    private Calendar createCalendar(int year, int month){
-        if(month>=12){year++;month=0;}
-        if(month<0){year--;month=11;}
-
-        calendar.set(year,month,1);
-
-        if(month+1<10) {
-            yearAndMonth.setText(Integer.toString(year) + ".0" + Integer.toString(month+1));
-        }else{
-            yearAndMonth.setText(Integer.toString(year) + "." + Integer.toString(month+1));
-        }
-        //Log.v("Log",Integer.toString(year)+"-"+Integer.toString(month+1)+"-"+Integer.toString(1));
-        //Log.v("Log",calendar.getTime().toString());
-
-        calendar_calendar.removeAllViews();
-        int dayOfWeek=calendar.get(Calendar.DAY_OF_WEEK);    //해당 월의 1일의 요일 - 1:일 2:월 3:화....
-        int numberOfWeeks=0;                            //해당 월의 주 숫자
-        int totalDays=calendar.getActualMaximum(Calendar.DATE);
-        for(int i=0;i<totalDays;){
-            numberOfWeeks++;
-            for(int j=dayOfWeek;j<=7;j++){
-                i++;
-            }
-            dayOfWeek=1;
-        }
-        //Log.v("Log","number of weeks : "+Integer.toString(numberOfWeeks));
-        //Log.v("Log","total day : "+Integer.toString(totalDays));
-
-        calendar_week=new LinearLayout[numberOfWeeks];
-        calendar_day=new calendarCell[numberOfWeeks][7];
-
-
-        LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0);
-        params.weight=1;
-        dayOfWeek=calendar.get(Calendar.DAY_OF_WEEK);
-        int i=1;
-        for(int j=0;j<numberOfWeeks;j++){
-            if(i<=totalDays) {
-                calendar_week[j] = (LinearLayout) main.MainInflater.inflate(R.layout.calendar_line, null);
-                calendar_day[j][0] = (calendarCell) calendar_week[j].findViewById(R.id.calendar_line1);
-                calendar_day[j][1] = (calendarCell) calendar_week[j].findViewById(R.id.calendar_line2);
-                calendar_day[j][2] = (calendarCell) calendar_week[j].findViewById(R.id.calendar_line3);
-                calendar_day[j][3] = (calendarCell) calendar_week[j].findViewById(R.id.calendar_line4);
-                calendar_day[j][4] = (calendarCell) calendar_week[j].findViewById(R.id.calendar_line5);
-                calendar_day[j][5] = (calendarCell) calendar_week[j].findViewById(R.id.calendar_line6);
-                calendar_day[j][6] = (calendarCell) calendar_week[j].findViewById(R.id.calendar_line7);
-
-                calendar_calendar.addView(calendar_week[j], params);
-
-                for (int k = dayOfWeek-1; k < 7; k++) {
-                    if (i <= totalDays) {
-                        if(i==today.get(Calendar.DATE)&&month==today.get(Calendar.MONTH)&&year==today.get(Calendar.YEAR)){
-                            calendar_day[j][k].setBackgroundColor(Color.CYAN);
-                            todayCell=new int[]{j,k};
-                        }
-                        calendar_day[j][k].setText(Integer.toString(i));
-                        calendar_day[j][k].setCellNumber(j,k);
-                        calendar_day[j][k].setOnClickListener(this);
-                        if(year==selectedYear&&month+1==selectedMonth&&i==selectedDay){
-                            //calendar_day[j][k].setBackgroundColor(Color.MAGENTA);
-                            selectCell(j,k);
+                        if(!isRangedCalendar) {
+                            if (year == selectedYear && month + 1 == selectedMonth && i == selectedDay) {
+                                //calendar_day[j][k].setBackgroundColor(Color.MAGENTA);
+                                selectCell(j, k);
+                            }
+                        }else if(isRangedCalendar&&startDate!=null){
+                            if(endDate!=null) {
+                                if (TempData.isBetweenDate(new int[]{year, month+1, i}, startDate, endDate)) {
+                                    //Log.v("Log","is between!!");
+                                    selectCell(j, k);
+                                }
+                            }else if(endDate==null&&year==startDate[0]&&month+1==startDate[1]&&i==startDate[2]){
+                                //Log.v("Log","is NOT between!!");
+                                selectCell(j, k);
+                            }
                         }
                         i++;
                     }
@@ -263,30 +200,64 @@ public class CalendarCustomView extends RelativeLayout implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        calendarCell cell=(calendarCell)v;
-        selectCell(cell.cellNumber[0],cell.cellNumber[1]);
+        calendarCell cell = (calendarCell) v;
+        if(isRangedCalendar) {
+            if(startDate==null||endDate!=null){
+                selectCellOfSchedule(cell.cellNumber[0], cell.cellNumber[1],true);
+            }else{
+                selectCellOfSchedule(cell.cellNumber[0], cell.cellNumber[1],false);
+            }
+        }else{
+            selectCell(cell.cellNumber[0], cell.cellNumber[1]);
+        }
     }
 
-    public void selectCellOfSchedule(int column,int row){
+    public void selectCellOfSchedule(int column,int row,boolean clickedStartDate){
         /**MODIFY HERE
          * call this method if date is between startDate[] and endDate[]
          * **/
+        if(clickedStartDate) {
+            startDate=new int[3];
+            endDate=null;
+            startDate[0] = calendar.get(Calendar.YEAR);
+            startDate[1] = calendar.get(Calendar.MONTH) + 1;
+            startDate[2] = Integer.parseInt(calendar_day[column][row].getText().toString());
+            createCalendar(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), startDate, endDate);
+        }else{
+            endDate=new int[3];
+            endDate[0] = calendar.get(Calendar.YEAR);
+            endDate[1] = calendar.get(Calendar.MONTH) + 1;
+            endDate[2] = Integer.parseInt(calendar_day[column][row].getText().toString());
+            if(TempData.isBetweenDate(endDate,new int[]{0,0,0},startDate)) {
+                int[] temp=endDate;
+                endDate=startDate;
+                startDate=temp;
+                createCalendar(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), startDate, endDate);
+            }else{
+                createCalendar(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), startDate, endDate);
+            }
+        }
     }
 
     public void selectCell(int column,int row){
-        try{
-            calendar_day[selectedCell[0]][selectedCell[1]].setBackgroundColor(Color.WHITE);
-            if(calendar.get(Calendar.YEAR)==today.get(Calendar.YEAR)&&calendar.get(Calendar.MONTH)==today.get(Calendar.MONTH)){
-                calendar_day[todayCell[0]][todayCell[1]].setBackgroundColor(Color.CYAN);        //TODAY CELL
+        if(isRangedCalendar) {
+            //Log.v("Log","coloring...");
+            calendar_day[column][row].setBackgroundColor(Color.MAGENTA);
+        }else{
+            try{
+                calendar_day[selectedCell[0]][selectedCell[1]].setBackgroundColor(Color.WHITE);
+                if(calendar.get(Calendar.YEAR)==today.get(Calendar.YEAR)&&calendar.get(Calendar.MONTH)==today.get(Calendar.MONTH)){
+                    calendar_day[todayCell[0]][todayCell[1]].setBackgroundColor(Color.CYAN);        //TODAY CELL
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+                Log.v("Log","selected cell color failed to be changed!");
             }
-        }catch (Exception e){
-            e.printStackTrace();
-            Log.v("Log","selected cell color failed to be changed!");
+            selectedYear = calendar.get(Calendar.YEAR);
+            selectedMonth = calendar.get(Calendar.MONTH) + 1;
+            selectedDay = Integer.parseInt(calendar_day[column][row].getText().toString());
+            selectedCell = calendar_day[column][row].cellNumber;
+            calendar_day[column][row].setBackgroundColor(Color.MAGENTA);                            //CLICKED CELL
         }
-        selectedYear=calendar.get(Calendar.YEAR);
-        selectedMonth=calendar.get(Calendar.MONTH)+1;
-        selectedDay= Integer.parseInt(calendar_day[column][row].getText().toString());
-        selectedCell=calendar_day[column][row].cellNumber;
-        calendar_day[column][row].setBackgroundColor(Color.MAGENTA);                            //CLICKED CELL
     }
 }
